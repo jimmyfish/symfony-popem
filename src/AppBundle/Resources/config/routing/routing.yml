@@ -1,0 +1,3 @@
+popem_client:
+  resource: "@AppBundle/Resources/config/routing/client/routing.yml"
+  prefix: /

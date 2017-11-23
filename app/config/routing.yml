@@ -3,5 +3,5 @@
 #    type: annotation
 
 app:
-    resource: "@AppBundel/Resources/routing/routing.yml"
+    resource: "@AppBundle/Resources/config/routing/routing.yml"
     prefix: /
