@@ -1,0 +1,14 @@
+popem_admin_home:
+    path: /home
+    defaults:
+      _controller:  AppBundle:Admin:home
+
+popem_admin_new_post:
+    path: /new-post
+    defaults:
+      _controller:  AppBundle:Admin:post
+
+popem_admin_list_post:
+    path: /list-post
+    defaults:
+      _controller:  AppBundle:Admin:listPost

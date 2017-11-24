@@ -1,0 +1,22 @@
+.rd{
+	text-align: center;
+}
+
+.center{
+	text-align:center;
+}
+
+.hidden-row {
+	padding:0 !important;
+	/*background: #3C8DBC;*/
+}
+
+.hide-when {
+	display:block;
+}
+
+@media (max-width: 768px) {
+	.hide-when {
+		display: none;
+	}
+}
