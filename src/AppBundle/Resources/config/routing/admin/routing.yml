@@ -12,3 +12,13 @@ popem_admin_list_post:
     path: /list-post
     defaults:
       _controller:  AppBundle:Admin:listPost
+
+popem_admin_new_category:
+    path: /category
+    defaults:
+      _controller:  AppBundle:Admin:newCategory
+
+popem_admin_list_category:
+    path: /list-category
+    defaults:
+      _controller:  AppBundle:Admin:listCategory

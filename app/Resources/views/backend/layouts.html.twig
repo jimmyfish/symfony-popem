@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets_backend') }}/plugins/datatables/dataTables.bootstrap.css">
     <link rel="stylesheet" href="{{ asset('assets_backend') }}/dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="{{ asset('assets_backend') }}/dist/css/skins/_all-skins.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets_backend') }}/dist/css/global.css">
     {% block customCSS %}
     {% endblock %}
@@ -36,7 +37,7 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li class="user">
-                        <a href="{{ ('/logout') }}"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
+                        <a href="{{ path('popem_logout') }}"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
                     </li>
                 </ul>
             </div>
@@ -63,22 +64,46 @@
             <ul class="sidebar-menu">
                 <li class="header">DAFTAR MENU</li>
                 <li>
-                    <a href="{{ ('/home') }}">
+                    <a href="{{ path('popem_admin_home') }}">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ ('/article') }}">
+                    <a href="#">
                         <i class="fa fa-globe"></i>
-                        <span>Post</span>
+                        <span>Post</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="{{ path('popem_admin_new_post') }}">
+                                <i class="fa fa-circle-o"></i>New Post
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('popem_admin_list_post') }}">
+                                <i class="fa fa-circle-o"></i>List Post
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="{{ ('/tag') }}">
+                    <a href="">
                         <i class="fa fa-circle"></i>
-                        <span>Tag</span>
+                        <span>Tag</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="{{ path('popem_admin_new_category') }}">
+                                <i class="fa fa-circle-o"></i>New Category
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('popem_admin_list_category') }}">
+                                <i class="fa fa-circle-o"></i>List Category
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 {#{% if ((app.session.get('role')['value']) == 0) %}#}
                 {#<li>#}
@@ -295,7 +320,8 @@
 
 <script src="{{ asset('assets_backend') }}/dist/js/tinymce/js/tinymce/tinymce.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>#}
 <!-- AdminLTE App -->
 <script src="{{ asset('assets_backend') }}/dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->

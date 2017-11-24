@@ -1,0 +1,34 @@
+AppBundle\Entity\Page:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\PageRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        slug:
+            type: text
+        image:
+            type: string
+            length: 255
+        body:
+            type: text
+        category:
+            type: integer
+        tag:
+            type: text
+        metaKeyword:
+            type: string
+            length: 255
+            column: meta_keyword
+        metaDescription:
+            type: string
+            length: 255
+            column: meta_description
+    lifecycleCallbacks: {  }

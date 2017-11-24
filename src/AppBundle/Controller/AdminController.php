@@ -9,6 +9,8 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Category;
+use AppBundle\Entity\Page;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\User;
 use Cocur\Slugify\Slugify;
@@ -40,6 +42,10 @@ class AdminController extends Controller
     public function loginAction(Request $request)
     {
         $session = $request->getSession();
+
+        if($session->has('uname')) {
+            return $this->redirect($this->generateUrl('popem_admin_home'));
+        }
         $em = $this->getDoctrine()->getManager();
 
         if($request->getMethod() == 'POST') {
@@ -78,7 +84,7 @@ class AdminController extends Controller
 
         $session->clear();
 
-        return $this->redirect($this->generateUrl(''));
+        return $this->redirect($this->generateUrl('popem_login'));
     }
 
     public function postAction(Request $request)
@@ -90,9 +96,28 @@ class AdminController extends Controller
 
         if($request->getMethod() == 'POST') {
             $data = new Post();
-            $data->setTitle($request->get('title'));
-            $data->setSlug($slugify->slugify($data->setTitle($request->get('title'))));
-            $data->setBody($request->get('body'));
+            if(!empty($request->get('title'))) {
+                $data->setTitle($request->get('title'));
+            }else {
+                $this->get('session')->getFlashBag()->add(
+                    'message_error',
+                    'title belum dimasukkan'
+                );
+
+                return $this->redirect($this->generateUrl('popem_admin_new_post'));
+            }
+            $data->setSlug($slugify->slugify('test'));
+
+            if(!empty($request->get('body'))) {
+                $data->setBody($request->get('body'));
+            }else {
+                $this->get('session')->getFlashBag()->add(
+                    'message_error',
+                    'tulisan di text editor belum dimasukkan'
+                );
+
+                return $this->redirect($this->generateUrl('popem_admin_new_post'));
+            }
 
             if(!empty($request->files->get('image'))) {
                 $file = $request->files->get('image');
@@ -104,12 +129,29 @@ class AdminController extends Controller
                         if(!$file->getClientSize() > (1024 * 1024 * 1)) {
                             $data->setImage($name1);
                         }else {
-                            return 'data tidak boleh lebih dari 1 mb';
+                            $this->get('session')->getFlashBag()->add(
+                                'message_error',
+                                'ukuran file tidak boleh lebih dari 1 mb'
+                            );
+
+                            return $this->redirect($this->generateUrl('popem_admin_new_post'));
                         }
                     }
                 }else{
-                    return 'extension harus .jpg, .png, .jpeg, .svg';
+                    $this->get('session')->getFlashBag()->add(
+                        'message_error',
+                        'extension file harus .jpg, .png , .svg , .jpeg'
+                    );
+
+                    return $this->redirect($this->generateUrl('popem_admin_new_post'));
                 }
+            }else {
+                $this->get('session')->getFlashBag()->add(
+                    'message_error',
+                    'file gambar belum dimasukkan'
+                );
+
+                return $this->redirect($this->generateUrl('popem_admin_new_post'));
             }
 
             $arrNewTag = [];
@@ -118,14 +160,47 @@ class AdminController extends Controller
                 array_push($arrNewTag, $item);
             }
 
-            $data->setTag(serialize($arrNewTag));
-            $data->setMetaKeyword($request->get('meta-keyword'));
-            $data->setMetaDescription($request->get('meta-description'));
+            if(!empty($request->get('tag'))) {
+                $data->setTag(serialize($arrNewTag));
+            }else {
+                $this->get('session')->getFlashBag()->add(
+                    'message_error',
+                    'tag lupa belum diisi'
+                );
+
+                return $this->redirect($this->generateUrl('popem_admin_new_post'));
+            }
+
+            if(!empty($request->get('meta-keyword'))) {
+                $data->setMetaKeyword($request->get('meta-keyword'));
+            }else {
+                $this->get('session')->getFlashBag()->add(
+                    'message_error',
+                    'meta keyword lupa untuk diisi'
+                );
+
+                return $this->redirect($this->generateUrl('popem_admin_new_post'));
+            }
+            if(!empty($request->get('meta-description'))) {
+                $data->setMetaDescription($request->get('meta-description'));
+            }else {
+                $this->get('session')->getFlashBag()->add(
+                    'message_error',
+                    'meta description lupa untuk diisi'
+                );
+
+                return $this->redirect($this->generateUrl('popem_admin_new_post'));
+            }
 
             $em->persist($data);
             $em->flush();
 
-            return 'data berhasil disimpan';
+            $this->get('session')->getFlashBag()->add(
+                'message_success',
+                'data berhasil disimpan'
+            );
+
+            return $this->redirect($this->generateUrl('popem_admin_list_post'));
         }
 
         return $this->render('AppBundle:backend:post/new-post.html.twig');
@@ -135,7 +210,7 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $data = $em->getRepository(User::class)->findAll();
+        $data = $em->getRepository(Post::class)->findAll();
 
         return $this->render('AppBundle:backend:post/list-post.html.twig',['data'=>$data]);
     }
@@ -143,6 +218,68 @@ class AdminController extends Controller
     public function homeAction()
     {
         return $this->render('AppBundle:backend:home/home.html.twig');
+    }
+
+    public function newCategoryAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if($request->getMethod() == 'POST') {
+            $data = new Category();
+            $data->setNameCategory($request->get('category'));
+
+            $em->persist($data);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl(''));
+        }
+
+        return $this->render('AppBundle:backend:category/new-category.html.twig');
+    }
+
+    public function listCategoryAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $data = $em->getRepository(Category::class)->findAll();
+
+        return $this->render('AppBundle:backend:category/list-category.html.twig',[
+            'data' => $data
+        ]);
+    }
+
+    public function newPageAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $slugify = new Slugify();
+
+        if($request->getMethod() == 'POST') {
+            $data = new Page();
+            $data->setTitle($request->get('title'));
+            $data->setSlug($slugify->slugify('test'));
+            $data->setBody($request->get('body'));
+            if(!empty($request->files->get('image'))) {
+                $file = $request->files->get('image');
+                $nama1 = md5(uniqid()) . '.' . $file->guessExtension();
+                $exAllowed = array('jpg');
+                $ex = pathinfo($nama1,PATHINFO_EXTENSION);
+
+                if(in_array($ex,$exAllowed)) {
+                    if($file instanceof UploadedFile) {
+                        if(!$file->getClientSize() > (1024 * 1024 * 1)) {
+                            $data->setImage($nama1);
+                        }else {
+                            $this->get('session')->getFlashBag()->add(
+                                'message_error',
+                                'ukuran file tidak boleh lebih dari 1 mb'
+                            );
+
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }
