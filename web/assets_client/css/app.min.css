@@ -72,8 +72,8 @@ body {
 }
 
 #main-content.toggle.up {
-    max-width: 70%;
-    width: 70%;
+    max-width: 70.1%;
+    width: 70.1%;
 }
 
 #main-content #first-section {
@@ -1089,7 +1089,7 @@ hr {
 }
 
 #sidebar #sidebar-content.open {
-    right: 6%;
+    right: 5.9%;
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
 }

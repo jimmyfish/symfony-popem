@@ -1,0 +1,152 @@
+{% extends 'Client/layout.html.twig' %}
+
+{% block content %}
+    <section id="main-content">
+        <div class="container-fluid">
+            <div class="row flex-row">
+                <div class="col-md-3 content-wrapper no-padding dark-background">
+                    <div id="account-summary" class="grey-background ptb-25 plr-30">
+                        <div class="text-center">
+                            <img src="{{ asset('assets_client') }}/img/profile.jpg" alt="" class="img-dashboard" height="100">
+                            <p class="text-sunflower fz-19 mt-20">Jimmy Fish</p>
+                            <p class="text-clouds">$ 54,000</p>
+                        </div>
+                    </div>
+                    <div class="latest-news dark-background ptb-25 plr-30">
+                        <p class="text-sunflower fz-19">Latest News</p>
+                        <div class="row">
+                            <div class="item">
+                                <div class="col-xs-12">
+                                    <a href="#">
+                                        <p class="news-title text-base iq-fw-700">Usai diperiksa, Novanto cerita soal kecelakaan hingga ngaku luka berat</p>
+                                    </a>
+                                    <p class="news-desc text-clouds">Ketua DPR Setya Novanto menjelaskan mengenai kecelakaan lalu lintas yang dialami sehingga membuat dirinya harus masuk rumah sakit.</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="col-xs-12">
+                                    <a href="#">
+                                        <p class="news-title text-base iq-fw-700">Panglima TNI beberkan ciri-ciri ulama palsu yang tak perlu diikuti</p>
+                                    </a>
+                                    <p class="news-desc text-clouds">Di samping itu, ulama di Indonesia selalu memberikan tausiyah kepada umatnya untuk menjadi seorang muslim yang cinta bangsa dan Negara</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="col-xs-12">
+                                    <a href="#">
+                                        <p class="news-title text-base iq-fw-700">Upaya Setnov lolos dari jeratan KPK hingga akhirnya dijebloskan ke penjara</p>
+                                    </a>
+                                    <p class="news-desc text-clouds">Penahanan itu melalui proses panjang hingga perlawanan hukum dari ketua DPR tersebut. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 content-wrapper">
+                    <div class="container">
+                        <h2>Detail Akun<span class="pull-right"><a href="#" class="fz-16">Edit Profil</a></span></h2>
+                        <div class="row mt-20">
+                            <div class="col-md-3 col-xs-3">
+                                <img src="{{ asset('assets_client') }}/img/profile.jpg" alt="" class="img-responsive">
+                            </div>
+                            <div class="col-md-9 col-xs-9">
+                                <div class="detail-wrapper">
+                                    <p class="mb-0 text-concrete">Nama :</p>
+                                    <h4>Jimmy Fish</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-details mt-50">
+                            <table class="table">
+                                <tr>
+                                    <th>Alamat E-Mail</th>
+                                    <td>killcoder212@gmail.com <i class="fa fa-check-circle text-river"></i></td>
+                                </tr>
+
+                                <tr>
+                                    <th>Nomor Telefon</th>
+                                    <td>(+62) 8990314474 <i class="fa fa-check-circle text-river"></i></td>
+                                </tr>
+
+                                <tr>
+                                    <th>Alamat Bitcoin</th>
+                                    <td>172hkk9wr1ruJiX1DuAF7RsBq3FCLtYqvi <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-clone"></i>&nbsp; Copy</a></td>
+                                </tr>
+
+                                <tr>
+                                    <th>Alamat Ethereum</th>
+                                    <td>0x123f681646d4a755815f9cb19e1acc8565a0c2ac <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-clone"></i>&nbsp; Copy</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="profile-balance" class="mt-20">
+                            <p class="text-base fz-19">Balance</p>
+                            <table class="table table-bordered table-responsive">
+                                <thead>
+                                <tr>
+                                    <th>Tradeable Balance</th>
+                                    <th>Current Balance</th>
+                                    <th>Lost Balance</th>
+                                    <th>Win %</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>$ 52,000</td>
+                                    <td>$ 53,000</td>
+                                    <td class="text-base">- ($ 25,000)</td>
+                                    <td>52 %</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="profile-history" class="mt-20">
+                            <p class="text-base fz-19">History</p>
+                            <table class="table table-bordered table-responsive" id="history-table">
+                                <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Tipe Transaksi</th>
+                                    <th>Jumlah</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>27 November 2017</td>
+                                    <td>Deposit</td>
+                                    <td class="text-nephritis">$ 5,000</td>
+                                </tr>
+                                <tr>
+                                    <td>28 November 2017</td>
+                                    <td>Withdrawal</td>
+                                    <td class="text-base">$ 2,500</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block vendorJS %}
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.material.min.js"></script>
+{% endblock %}
+
+{% block customJS %}
+    <script>
+        $(function() {
+            $('#history-table').DataTable({
+                columnDefs: [
+                    {
+                        targets: [ 0, 1, 2 ],
+                        className: 'mdl-data-table__cell--non-numeric'
+                    }
+                ]
+            });
+        });
+    </script>
+{% endblock %}
