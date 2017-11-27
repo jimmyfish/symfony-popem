@@ -96,28 +96,9 @@ class AdminController extends Controller
 
         if($request->getMethod() == 'POST') {
             $data = new Post();
-            if(!empty($request->get('title'))) {
-                $data->setTitle($request->get('title'));
-            }else {
-                $this->get('session')->getFlashBag()->add(
-                    'message_error',
-                    'title belum dimasukkan'
-                );
-
-                return $this->redirect($this->generateUrl('popem_admin_new_post'));
-            }
-            $data->setSlug($slugify->slugify('test'));
-
-            if(!empty($request->get('body'))) {
-                $data->setBody($request->get('body'));
-            }else {
-                $this->get('session')->getFlashBag()->add(
-                    'message_error',
-                    'tulisan di text editor belum dimasukkan'
-                );
-
-                return $this->redirect($this->generateUrl('popem_admin_new_post'));
-            }
+            $data->setTitle($request->get('title'));
+            $data->setSlug($slugify->slugify($request->get('slugify')));
+            $data->setBody($request->get('body'));
 
             if(!empty($request->files->get('image'))) {
                 $file = $request->files->get('image');
@@ -160,37 +141,10 @@ class AdminController extends Controller
                 array_push($arrNewTag, $item);
             }
 
-            if(!empty($request->get('tag'))) {
-                $data->setTag(serialize($arrNewTag));
-            }else {
-                $this->get('session')->getFlashBag()->add(
-                    'message_error',
-                    'tag lupa belum diisi'
-                );
-
-                return $this->redirect($this->generateUrl('popem_admin_new_post'));
-            }
-
-            if(!empty($request->get('meta-keyword'))) {
-                $data->setMetaKeyword($request->get('meta-keyword'));
-            }else {
-                $this->get('session')->getFlashBag()->add(
-                    'message_error',
-                    'meta keyword lupa untuk diisi'
-                );
-
-                return $this->redirect($this->generateUrl('popem_admin_new_post'));
-            }
-            if(!empty($request->get('meta-description'))) {
-                $data->setMetaDescription($request->get('meta-description'));
-            }else {
-                $this->get('session')->getFlashBag()->add(
-                    'message_error',
-                    'meta description lupa untuk diisi'
-                );
-
-                return $this->redirect($this->generateUrl('popem_admin_new_post'));
-            }
+            $data->setTag(serialize($arrNewTag));
+            $data->setMetaKeyword($request->get('meta-keyword'));
+            $data->setMetaDescription($request->get('meta-description'));
+            
 
             $em->persist($data);
             $em->flush();
@@ -257,7 +211,7 @@ class AdminController extends Controller
         if($request->getMethod() == 'POST') {
             $data = new Page();
             $data->setTitle($request->get('title'));
-            $data->setSlug($slugify->slugify('test'));
+            $data->setSlug($slugify->slugify($request->get('slug')));
             $data->setBody($request->get('body'));
             if(!empty($request->files->get('image'))) {
                 $file = $request->files->get('image');
@@ -279,6 +233,7 @@ class AdminController extends Controller
                     }
                 }
             }
+            
         }
     }
 

@@ -22,3 +22,8 @@ popem_admin_list_category:
     path: /list-category
     defaults:
       _controller:  AppBundle:Admin:listCategory
+
+popem_admin_new_page:
+    path: /new-page
+    defaults:
+      _controller:  AppBundle:Admin:newPage

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "970db90df42b477a743a8c1f8ba0ec6d",
+    "content-hash": "e4cada9809d9b34ac90c3996981c2fcd",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -897,6 +897,51 @@
                 "orm"
             ],
             "time": "2017-10-23T18:21:04+00:00"
+        },
+        {
+            "name": "eschmar/slugify-bundle",
+            "version": "v1.0.0",
+            "target-dir": "Eschmar/SlugifyBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eschmar/slugify-bundle.git",
+                "reference": "cb78706a1e3bedd23fc84bf508c157a184601df7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eschmar/slugify-bundle/zipball/cb78706a1e3bedd23fc84bf508c157a184601df7",
+                "reference": "cb78706a1e3bedd23fc84bf508c157a184601df7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/symfony": ">2.7"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Eschmar\\SlugifyBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Eschmann",
+                    "homepage": "https://github.com/eschmar",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Provides static method to convert strings to slugs and twig filter.",
+            "homepage": "https://github.com/eschmar/slugify-bundle",
+            "keywords": [
+                "slug",
+                "slugify",
+                "symfony"
+            ],
+            "time": "2016-04-24T15:23:20+00:00"
         },
         {
             "name": "fig/link-util",
