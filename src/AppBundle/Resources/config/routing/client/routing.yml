@@ -12,6 +12,7 @@ popem_client_article:
   path: /article
   defaults:
     _controller: AppBundle:Client:article
+  methods: [GET, POST]
 
 popem_client_dashboard:
   path: /dashboard

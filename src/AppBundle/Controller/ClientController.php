@@ -25,7 +25,7 @@ class ClientController extends Controller
         return new Response('BLOG VIEW');
     }
 
-    public function articleAction()
+    public function articleAction(Request $request)
     {
         return $this->render('AppBundle:Client:articles/article.html.twig');
     }
