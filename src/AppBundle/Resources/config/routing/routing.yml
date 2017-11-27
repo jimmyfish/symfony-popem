@@ -6,17 +6,3 @@ popem_admin:
   resource: "@AppBundle/Resources/config/routing/admin/routing.yml"
   prefix: /admin
 
-popem_login:
-  path: /login
-  defaults:
-    _controller: AppBundle:Admin:login
-
-popem_register:
-  path: /register
-  defaults:
-    _controller:  AppBundle:Admin:register
-
-popem_logout:
-  path: /logout
-  defaults:
-    _controller:  AppBundle:Admin:logout

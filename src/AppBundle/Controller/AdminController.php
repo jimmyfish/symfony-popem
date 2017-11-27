@@ -63,14 +63,14 @@ class AdminController extends Controller
                         'message_error',
                         'username/password salah'
                     );
-                    return $this->redirect($this->generateUrl('popem_login'));
+                    return $this->redirect($this->generateUrl('popem_admin_login'));
                 }
             }else {
                 $this->get('session')->getFlashBag()->add(
                     'message_error',
                     'data tidak ditemukan'
                 );
-                return $this->redirect($this->generateUrl('popem_login'));
+                return $this->redirect($this->generateUrl('popem_admin_login'));
             }
             return $this->redirect($this->generateUrl('popem_admin_home'));
         }
@@ -84,7 +84,7 @@ class AdminController extends Controller
 
         $session->clear();
 
-        return $this->redirect($this->generateUrl('popem_login'));
+        return $this->redirect($this->generateUrl('popem_admin_login'));
     }
 
     public function postAction(Request $request)

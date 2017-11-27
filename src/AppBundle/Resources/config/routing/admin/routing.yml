@@ -1,3 +1,18 @@
+popem_admin_login:
+  path: /login
+  defaults:
+    _controller: AppBundle:Admin:login
+
+popem_admin_register:
+  path: /register
+  defaults:
+    _controller:  AppBundle:Admin:register
+
+popem_admin_logout:
+  path: /logout
+  defaults:
+    _controller:  AppBundle:Admin:logout
+
 popem_admin_home:
     path: /home
     defaults:
