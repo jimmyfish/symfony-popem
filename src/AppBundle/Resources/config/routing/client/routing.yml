@@ -1,4 +1,4 @@
 popem_client_index:
   path: /
   defaults:
-    _controller: AppBundle:ClientController:home
+    _controller: AppBundle:Client:home

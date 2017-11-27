@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="50" height="50" viewBox="0 0 50 50">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        stroke: #333;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+        fill-opacity: 0;
+      }
+    </style>
+  </defs>
+  <g>
+    <circle cx="25" cy="25" r="24" class="cls-1"/>
+    <image xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAYCAMAAABDT2Q4AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABEVBMVEUAAAAzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMAAAApLiCUAAAAWXRSTlMAKfrz97Zuwu5x/rr0oPEMievaCRtmXTMSRaq7koGc5MuPHogPBmjgP+3wA3UatHYo+VdDSPzV3KKo74dvwft7/dDALVIkXuMssX9Nl8ONv/WOT2O8Na1+2dJiiHEAAAABYktHRACIBR1IAAAACXBIWXMAAC4jAAAuIwF4pT92AAABGklEQVQoz62S2VqDMBBGR4Nax1paW5pa1FZFqVoXVNyqNHVr3fcl7/8iJoCWAB9XnhsY5mR+8iUwMkqy0MZgnE9kkSMwiZDFVP7/jGmeRkEfGsVSGjPlSErFEFSBGiE18WFW+Y+6nIrU/A2Ym+dck42FRmg082IhLi6FI3DZMup+Y6UCq9y27VZzTVSN9Y1gA22+CXLplmhtw44jxu/6xh6auhT23QPwjUORdxRu2zfgGE861dMzT6sFRpTAgK6Hmst6UkgY7PxCPvXLTvtKvpSLpZjB0bmO1FafYTxlkPOsYX2Dt/GUAr3j9/QP9kAfVeOJEYKR28afieYqRivler0oxitLHr6pGG8ph/+uGB+fSb4Uo+sk+Q5aP9beP+GnXaWZAAAAAElFTkSuQmCC" x="9" y="14" width="33" height="24"/>
+  </g>
+</svg>

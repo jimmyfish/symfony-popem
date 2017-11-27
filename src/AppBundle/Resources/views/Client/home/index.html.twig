@@ -1,0 +1,867 @@
+{% extends 'Client/layout.html.twig' %}
+
+{% block content %}
+    <section id="sidebar">
+        <div class="yellow-background content">
+            <div class="icon-bar">
+                <!-- MENU ITEM -->
+                <a class="item" href="#" id="item-1">
+                    <p>
+                        <i class="icon icon-man-people-streamline-user fa-2x"></i>
+                    </p>
+                    <p class="item-caption">Register</p>
+                </a>
+                <div class="hide" id="sidebar-content-1">
+                    <p>Register</p>
+                    <div class="content-form">
+                        <form action="" style="padding-right: 12px;">
+                            <div class="form-group">
+                                <label for="">Username :</label>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Email :</label>
+                                <input class="form-control" type="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Kata sandi :</label>
+                                <input class="form-control" type="password">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Ulangi kata sandi :</label>
+                                <input class="form-control" type="password">
+                            </div>
+                            <div class="checkbox">
+                                <input id="" name="" type="checkbox">
+                                <span>
+                                    Saya menerima
+                                    <a href="#">Peraturan dan Kebijakan</a>
+                                    yang telah ditetapkan
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-submit btn-block" type="text" value="Proses">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <a class="item" href="#" id="item-2">
+                    <p>
+                        <i class="icon icon-book-dowload-streamline fa-2x"></i>
+                    </p>
+                    <p class="item-caption">Deposit</p>
+                </a>
+                <div class="hide" id="sidebar-content-2">
+                    <p>Deposit</p>
+                    <div class="content-form">
+                        <form>
+                            <div class="form-group">
+                                <label for="deposit__broker">Broker :</label>
+                                <select class="form-control" id="deposit__broker" name="deposit__broker"
+                                        placeholder="Pilih Broker">
+                                    <option value="0">Item 1</option>
+                                    <option value="0">Item 2</option>
+                                    <option value="0">Item 3</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Login :</label>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Email :</label>
+                                <input class="form-control" id="" name="" type="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Phone :</label>
+                                <input class="form-control" id="" name="" type="number">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Nama Bank :</label>
+                                <input class="form-control" id="" name="" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Akun Bank :</label>
+                                <input class="form-control has-error" type="text">
+                                <p class="text-error">This is error message.</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Bank Beneficiary Name :</label>
+                                <input class="form-control" required="" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Bank Tujuan :</label>
+                                <select class="form-control" id="" name="">
+                                    <option value="">Item</option>
+                                    <option value="">Item</option>
+                                    <option value="">Item</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Jumlah (USD) :</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="ammount">$</span>
+                                    <input aria-describedby="ammount" class="form-control" placeholder="Amount"
+                                           type="number">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">File :</label>
+                                <label class="type-input">
+                                    <p>
+                                        <i class="fa fa-image"></i>
+                                    </p>
+                                    Browse
+                                    <input id="" name="" type="file">
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-submit btn-block" type="submit" value="Proses">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <a class="item" href="#" id="item-3">
+                    <p>
+                        <i class="icon icon-streamline-suitcase-travel fa-2x"></i>
+                    </p>
+                    <p class="item-caption">Withdraw</p>
+                </a>
+                <div class="hide" id="sidebar-content-3">
+                    <p>Withdraw</p>
+                    <div class="content-form">
+                        <form action="">
+                            <div class="form-group">
+                                <label for="">Broker :</label>
+                                <select class="form-control" id="" name="">
+                                    <option value="">Item</option>
+                                    <option value="">Item</option>
+                                    <option value="">Item</option>
+                                    <option value="">Item</option>
+                                    <option value="">Item</option>
+                                    <option value="">Item</option>
+                                    <option value="">Item</option>
+                                    <option value="">Item</option>
+                                    <option value="">Item</option>
+                                    <option value="">Item</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Login :</label>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Phone Password :</label>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Email :</label>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Phone :</label>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Nama Bank :</label>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Akun Bank :</label>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Bank Beneficiary Name :</label>
+                                <input class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Jumlah (USD) :</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="withdrawal-ammount">$</span>
+                                    <input aria-describedby="withdrawal-ammount" class="form-control"
+                                           placeholder="Amount" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-submit btn-block" type="submit" value="Proses">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <a class="item" href="#" id="item-4">
+                    <p>
+                        <i class="icon icon-receipt-shopping-streamline fa-2x"></i>
+                    </p>
+                    <p class="item-caption">Report</p>
+                </a>
+                <div class="hide" id="sidebar-content-4">
+                    <p>Report</p>
+                    <div class="content-form">
+                        <form action="" method="post" style="padding-right: 12px;">
+                            <div class="form-group">
+                                <label for="">Broker :</label>
+                                <select class="form-control" id="" name="">
+                                    <option value="">Item</option>
+                                    <option value="">Item</option>
+                                    <option value="">Item</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Login :</label>
+                                <input class="form-control" id="" name="" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Phone Password :</label>
+                                <input class="form-control" id="" name="" type="text">
+                            </div>
+                            <p for="">Tipe :</p>
+                            <div class="form-group">
+                                <label class="radio-inline" for="">
+                                    <input id="" name="opt1" type="radio">
+                                    Finance
+                                </label>
+                                <label class="radio-inline" for="">
+                                    <input id="" name="opt1" type="radio">
+                                    Rebate
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for=""></label>
+                                <input class="btn btn-submit btn-block" type="submit" value="Proses">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <a class="item" href="#" id="item-5">
+                    <p>
+                        <i class="icon icon-remote-control-streamline fa-2x"></i>
+                    </p>
+                    <p class="item-caption">Contact us</p>
+                </a>
+                <div class="hide" id="sidebar-content-5">
+                    <p>Contact us</p>
+                    <div class="content-form">
+                        <div class="contact-wrapper">
+                            <h2>Online Support</h2>
+                            <p></p>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <i class="icon icon-headset-sound-streamline fa-3x"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <p class="contact-title">
+                                        Operational Hours
+                                    </p>
+                                    <p>Monday - Friday, 09.00 - 21.00 WIB</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <i class="icon icon-iphone-streamline fa-3x"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <p class="contact-title">
+                                        Phone Services
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <p class="contact-subtitle">Call / SMS</p>
+                                            <p>081327788991</p>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <p class="contact-subtitle">Finance</p>
+                                            <p>(0343) 327122</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <p class="contact-subtitle">SMS / WA</p>
+                                            <p>081327744466</p>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <p class="contact-subtitle">BBM</p>
+                                            <p>123ABCDE</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <i class="icon icon-map-pin-streamline fa-3x"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <p class="contact-title">
+                                        Address
+                                    </p>
+                                    <p class="contact-subtitle">Head Office</p>
+                                    <p>Perum. Bukit Cemara Tidar 14, 23E Dieng</p>
+                                    <p>Malang - ID</p>
+                                    <p></p>
+                                    <p class="contact-subtitle">Marketting</p>
+                                    <p>Jalan Bunga Desember 23</p>
+                                    <p>Malang - ID</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="item" href="#">
+                    <p>
+                        <i class="icon icon-speech-streamline-talk-user fa-2x"></i>
+                    </p>
+                    <p class="item-caption">Live chat</p>
+                </a>
+                <div class="hide" id="sidebar-content-6">
+                    <p>Deposit</p>
+                    <div class="content-form"></div>
+                </div>
+            </div>
+        </div>
+        <div class="closed" id="sidebar-content">
+            <p class="content-head">Register</p>
+            <div class="content-main">
+                <!-- # CONTENT GOES HERE -->
+            </div>
+        </div>
+    </section>
+    <section class="toggle in" id="main-content">
+        <section id="first-section">
+            <div class="container-fluid">
+                <div class="row flex-row">
+                    <div class="col-md-4 dark-background content-wrapper">
+                        <div class="information">
+                            <p class="title">INFORMATION</p>
+                            <p class="content">Pengumuman, bahwa sesungguhnya kemerdekaan ialah hak segala bangsa, dan
+                                oleh sebab itu, maka penjajahan diatas dunia harus dihapuskan karena tidak sesuai dengan
+                                perikemanusiaan dan perikeadilan.</p>
+                        </div>
+                        <div class="promo">
+                            <img alt="" class="img-responsive" src="{{ asset('assets_client') }}/vendor/640x480">
+                        </div>
+                        <div class="kurs-wrapper">
+                            <span class="iq-fw-700 iq-fz-15 kurs-title">Kurs</span>
+                            <span class="right">Transaksi wajib menggunakan berita transfer</span>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>E-Currency</th>
+                                    <th>Stock</th>
+                                    <th>Deposit</th>
+                                    <th>Withdrawal</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <img alt="" src="{{ asset('assets_client') }}/img/img-1.png"> Firewood
+                                    </td>
+                                    <td>Rp 13,000</td>
+                                    <td>Rp 14,000</td>
+                                    <td>Rp 15,000</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img alt="" src="{{ asset('assets_client') }}/img/img-1.png"> Firewood
+                                    </td>
+                                    <td>Rp 13,000</td>
+                                    <td>Rp 14,000</td>
+                                    <td>Rp 15,000</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-8 red-background content-wrapper slider-content h500">
+                        <p class="content-title">
+                            Greatest Rebate Information 10.5 Pips and Additional Bonus IB Instaforex Indonesia
+                        </p>
+                        <p class="content-subtitle">
+                            (Informasi Lengkap Bonus dapat menghubungi CS)
+                        </p>
+                        <div class="slider-wrapper">
+                            <div class="container-fluid">
+                                <div class="slider-inner">
+                                    <div class="item">
+                                        <a class="img-popup" href="{{ asset('assets_client') }}/vendor/640x480">
+                                            <img alt="" class="img-responsive" src="{{ asset('assets_client') }}/vendor/640x480">
+                                        </a>
+                                    </div>
+                                    <div class="item">
+                                        <a class="img-popup" href="http://placehold.it/1280x720">
+                                            <img alt="" class="img-responsive" src="http://placehold.it/1280x720">
+                                        </a>
+                                    </div>
+                                    <div class="item">
+                                        <a class="img-popup" href="http://placehold.it/480x320">
+                                            <img alt="" class="img-responsive" src="http://placehold.it/480x320">
+                                        </a>
+                                    </div>
+                                    <div class="item">
+                                        <a class="img-popup" href="{{ asset('assets_client') }}/vendor/640x480">
+                                            <img alt="" class="img-responsive" src="{{ asset('assets_client') }}/vendor/640x480">
+                                        </a>
+                                    </div>
+                                    <div class="item">
+                                        <a class="img-popup" href="{{ asset('assets_client') }}/vendor/640x480">
+                                            <img alt="" class="img-responsive" src="{{ asset('assets_client') }}/vendor/640x480">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p>
+                                Proinsta.com adalah IB Instaforex Indonesia dan perwakilan resmi Instaforex, yang
+                                didirikan dengan tujuan untuk membantu dan menjembatani setiap client yang bergabung
+                                dengan Instaforex. Dengan dukungan dari ZionChanger yang telah berbadan hukum resmi
+                                sejak tahun 2010, pertama dan satu satunya yang memiliki ijin resmi Bank Indonesia. Kami
+                                melayani jual beli balance Instaforex, deposit Instaforex dan withdrawal Instaforex
+                                dengan spread rendah. Buka Akun Instaforex secara resmi dan pada
+                                broker yang tepat dan terbaik.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="dark-background-alt" id="news-flash">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="title">
+                        <i class="fa fa-newspaper-o fa-fw"></i>
+                        <span>FLASH NEWS</span>
+                    </div>
+                    <!-- ANIMATION NOT INITIATE -->
+                    <div class="item-wrapper">
+                        <div class="item">
+                            <a href="#item1">Something for cold day.</a>
+                        </div>
+                        <div class="item">
+                            <a href="#item2">The feature is new, check it out now.</a>
+                        </div>
+                        <div class="item">
+                            <a href="#item3">Miami is begin to start the darkness, why don't we start to help them.</a>
+                        </div>
+                        <div class="item">
+                            <a href="#item4">Malang is create a new startup development within globalization.</a>
+                        </div>
+                        <div class="item">
+                            <a href="#item5">The journey is begin, join now with the ark of war.</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="broker-list">
+            <div class="container">
+                <div class="header center">
+                    <h1>Broker List</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores quas sit quasi laboriosam
+                        voluptates consequuntur. Voluptate sed nihil, tempora nostrum assumenda accusamus ut dicta
+                        cumque, veritatis asperiores dolorem laudantium architecto?
+                    </p>
+                </div>
+                <hr>
+                <div class="outer-wrapper">
+                    <div class="row">
+                        <div class="col-md-3 item-wrapper">
+                            <img alt="Avatar" class="image" src="http://placehold.it/640x480">
+                            <div class="overlay">
+                                <div class="text">
+                                    <h4>UBUNTU 16.04</h4>
+                                    <p>Lorem ipsum dolor sit amet consectetur adispiscing elit</p>
+                                    <a class="btn btn-block" href="#">Check it out</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 item-wrapper">
+                            <img alt="Avatar" class="image" src="http://placehold.it/640x480">
+                            <div class="overlay">
+                                <div class="text">
+                                    <h4>LINUX MINT</h4>
+                                    <p>Lorem ipsum dolor sit amet consectetur adispiscing elit</p>
+                                    <a class="btn btn-block" href="#">Check it out</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 item-wrapper">
+                            <img alt="Avatar" class="image" src="http://placehold.it/640x480">
+                            <div class="overlay">
+                                <div class="text">
+                                    <h4>DEBIAN</h4>
+                                    <p>Lorem ipsum dolor sit amet consectetur adispiscing elit</p>
+                                    <a class="btn btn-block" href="#">Check it out</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 item-wrapper">
+                            <img alt="Avatar" class="image" src="http://placehold.it/640x480">
+                            <div class="overlay">
+                                <div class="text">
+                                    <h4>FEDORA</h4>
+                                    <p>Lorem ipsum dolor sit amet consectetur adispiscing elit</p>
+                                    <a class="btn btn-block" href="#">Check it out</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 item-wrapper">
+                            <img alt="Avatar" class="image" src="http://placehold.it/640x480">
+                            <div class="overlay">
+                                <div class="text">
+                                    <h4>ELEMENTARY OS</h4>
+                                    <p>Lorem ipsum dolor sit amet consectetur adispiscing elit</p>
+                                    <a class="btn btn-block" href="#">Check it out</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 item-wrapper">
+                            <img alt="Avatar" class="image" src="http://placehold.it/640x480">
+                            <div class="overlay">
+                                <div class="text">
+                                    <h4>ELEMENTARY OS</h4>
+                                    <p>Lorem ipsum dolor sit amet consectetur adispiscing elit</p>
+                                    <a class="btn btn-block" href="#">Check it out</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 item-wrapper">
+                            <img alt="Avatar" class="image" src="http://placehold.it/640x480">
+                            <div class="overlay">
+                                <div class="text">
+                                    <h4>ELEMENTARY OS</h4>
+                                    <p>Lorem ipsum dolor sit amet consectetur adispiscing elit</p>
+                                    <a class="btn btn-block" href="#">Check it out</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 item-wrapper">
+                            <img alt="Avatar" class="image" src="http://placehold.it/640x480">
+                            <div class="overlay">
+                                <div class="text">
+                                    <h4>ELEMENTARY OS</h4>
+                                    <p>Lorem ipsum dolor sit amet consectetur adispiscing elit</p>
+                                    <a class="btn btn-block" href="#">Check it out</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 item-wrapper">
+                            <img alt="Avatar" class="image" src="http://placehold.it/640x480">
+                            <div class="overlay">
+                                <div class="text">
+                                    <h4>ELEMENTARY OS</h4>
+                                    <p>Lorem ipsum dolor sit amet consectetur adispiscing elit</p>
+                                    <a class="btn btn-block" href="#">Check it out</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer center">
+                        <a class="btn" href="#">Show Full List</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="pricing-table">
+            <div class="container">
+                <div class="header center">
+                    <h1>Make your plan now !</h1>
+                    <p>Please choose whatever package and plan you need, it just take around 5 minutes to complete.</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-1 pricing-item small red-item">
+                        <div class="content-top">
+                            <p class="title">
+                                Basic Plan
+                            </p>
+                            <hr>
+                            <p class="given-price">
+                                $
+                                <span>0.99</span>
+                            </p>
+                            <p class="given-period">Per Month</p>
+                        </div>
+                        <span class="garnish">
+<i class="fa fa-arrow-down custom-icon"></i>
+</span>
+                        <div class="content-bottom">
+                            <div class="feature">
+                                <p>
+                  <span>
+<i class="fa fa-check-square-o"></i>
+</span> Email Previews
+                                </p>
+                                <p>
+                  <span>
+<i class="fa fa-check-square-o"></i>
+</span> Fast-forward email
+                                </p>
+                            </div>
+                            <a class="btn subscribe" href="#">Subscribe Now</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 pricing-item turqoise-item">
+                        <div class="content-top">
+                            <p class="title">
+                                Premium Plan
+                            </p>
+                            <hr>
+                            <p class="given-price">
+                                $
+                                <span>0.99</span>
+                            </p>
+                            <p class="given-period">Per Month</p>
+                        </div>
+                        <!-- <span class="icon-wrapper"><i class="fa fa-dollar custom-icon"><span class="fix-editor">&nbsp;</span></i></div> -->
+                        <span class="garnish">
+<i class="fa fa-diamond custom-icon"></i>
+</span>
+                        <div class="content-bottom">
+                            <p>
+                <span>
+<i class="fa fa-check-square-o"></i>
+</span> Email Previews
+                            </p>
+                            <p>
+                <span>
+<i class="fa fa-check-square-o"></i>
+</span> Fast-forward email
+                            </p>
+                            <p>
+                <span>
+<i class="fa fa-check-square-o"></i>
+</span> 24 Hours Support
+                            </p>
+                            <p>
+                <span>
+<i class="fa fa-check-square-o"></i>
+</span> No Cache
+                            </p>
+                            <a class="btn subscribe" href="#">Subscribe Now</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3 pricing-item small belize-item">
+                        <div class="content-top">
+                            <p class="title">
+                                Standard Plan
+                            </p>
+                            <hr>
+                            <p class="given-price">
+                                $
+                                <span>0.99</span>
+                            </p>
+                            <p class="given-period">Per Month</p>
+                        </div>
+                        <span class="garnish">
+<i class="fa fa-dollar custom-icon"></i>
+</span>
+                        <div class="content-bottom">
+                            <div class="feature">
+                                <p>
+                  <span>
+<i class="fa fa-check-square-o"></i>
+</span> Email Previews
+                                </p>
+                                <p>
+                  <span>
+<i class="fa fa-check-square-o"></i>
+</span> Fast-forward email
+                                </p>
+                                <p>
+                  <span>
+<i class="fa fa-check-square-o"></i>
+</span> 24 Hours Support
+                                </p>
+                                <p>
+                  <span>
+<i class="fa fa-check-square-o"></i>
+</span> No Cache
+                                </p>
+                            </div>
+                            <a class="btn subscribe" href="#">Subscribe Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="step">
+            <div class="container">
+                <div class="header center">
+                    <h1>How to join us ?</h1>
+                    <p>Just a few step to join our big community</p>
+                </div>
+            </div>
+        </section>
+        <section id="instrument">
+            <div class="container">
+                <div class="header center">
+                    <h1>Trading Instrument</h1>
+                    <p>The best instrument for successful online trading at Forex</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 item">
+                        <img alt="" src="{{ asset('assets_client') }}/img/instruments/trade_account.svg">
+                        <p>Open a Trade Account</p>
+                    </div>
+                    <div class="col-md-3 item">
+                        <img alt="" src="{{ asset('assets_client') }}/img/instruments/bonus.svg">
+                        <p>Free 160% Bonus</p>
+                    </div>
+                    <div class="col-md-3 item">
+                        <img alt="" src="{{ asset('assets_client') }}/img/instruments/deposite_reward.svg">
+                        <p>Deposite Rewards</p>
+                    </div>
+                    <div class="col-md-3 item">
+                        <img alt="" src="{{ asset('assets_client') }}/img/instruments/download.svg">
+                        <p>Download MT4</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 item">
+                        <img alt="" src="{{ asset('assets_client') }}/img/instruments/free_ea.svg">
+                        <p>Free EA</p>
+                    </div>
+                    <div class="col-md-3 item">
+                        <img alt="" src="{{ asset('assets_client') }}/img/instruments/weekly_prize.svg">
+                        <p>Weekly Prize</p>
+                    </div>
+                    <div class="col-md-3 item">
+                        <img alt="" src="{{ asset('assets_client') }}/img/instruments/trade_calculator.svg">
+                        <p>Trade Calculator</p>
+                    </div>
+                    <div class="col-md-3 item">
+                        <img alt="" src="{{ asset('assets_client') }}/img/instruments/gadget_app.svg">
+                        <p>Gadget Apps</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="last-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="header">
+                            <h1>Latest News</h1>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-3">
+                                <img alt="" class="img-responsive" src="{{ asset('assets_client') }}/vendor/240x240">
+                            </div>
+                            <div class="col-xs-9">
+                                <p class="news-date">
+                                    <i class="fa fa-clock-o"></i> Saturday, April 21<sup>th</sup>, 2017
+                                </p>
+                                <a class="news-title" href="#">Spain’s Leader Moves to Take Direct Control Over
+                                    Catalonia</a>
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-3">
+                                <img alt="" class="img-responsive" src="{{ asset('assets_client') }}/vendor/240x240">
+                            </div>
+                            <div class="col-xs-9">
+                                <p class="news-date">
+                                    <i class="fa fa-clock-o"></i> Saturday, April 21<sup>th</sup>, 2017
+                                </p>
+                                <a class="news-title" href="#">10 Minutes. 12 Gunfire Bursts. 30 Videos. Mapping the Las
+                                    Vegas Massacre.</a>
+                            </div>
+                        </div>
+                        <div class="row item">
+                            <div class="col-xs-3">
+                                <img alt="" class="img-responsive" src="{{ asset('assets_client') }}/vendor/240x240">
+                            </div>
+                            <div class="col-xs-9">
+                                <p class="news-date">
+                                    <i class="fa fa-clock-o"></i> Saturday, April 21<sup>th</sup>, 2017
+                                </p>
+                                <a class="news-title" href="#">My Parents’ Country, in the Grip of the Shabab</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="header">
+                            <h1>Testimonials</h1>
+                        </div>
+                        <div class="testimonial-wrapper">
+                            <span>
+                                <i class="fa fa-quote-right fa-3x"></i>
+                            </span>
+                            <span class="pull-right">
+                                <a class="left" data-slide="prev" href="#testimonial">
+                                <i class="fa fa-angle-left fa-3x"></i>
+                                </a>
+                                <a class="right" data-slide="next" href="#testimonial">
+                                <i class="fa fa-angle-right fa-3x"></i>
+                                </a>
+                            </span>
+                            <div class="carousel slide" data-ride="carousel" id="testimonial">
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <div class="carousel-content">
+                                            <div>
+                                                <p>
+                                                    Sapiente, ducimus, voluptas, mollitia voluptatibus nemo explicabo
+                                                    sit blanditiis laborum dolore illum fuga veniam quae expedita libero
+                                                    accusamus quas harum ex numquam necessitatibus provident deleniti
+                                                    tenetur iusto officiis recusandae corporis culpa quaerat?
+                                                </p>
+                                                <div class="identity hide">
+                                                    <div class="name">Dzaki Afif</div>
+                                                    <img alt="" src="{{ asset('assets_client') }}/vendor/240x240">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="carousel-content">
+                                            <div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi,
+                                                    sint fuga temporibus nam saepe delectus expedita vitae magnam
+                                                    necessitatibus dolores tempore consequatur dicta cumque repellendus
+                                                    eligendi ducimus placeat!
+                                                </p>
+                                                <div class="identity hide">
+                                                    <div class="name">Dito YP</div>
+                                                    <img alt="" src="{{ asset('assets_client') }}/vendor/240x240">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="carousel-content">
+                                            <div>
+                                                <p>
+                                                    Sapiente, ducimus, voluptas, mollitia voluptatibus nemo explicabo
+                                                    sit blanditiis laborum dolore illum fuga veniam quae expedita libero
+                                                    accusamus quas harum ex numquam necessitatibus provident deleniti
+                                                    tenetur iusto officiis recusandae corporis culpa quaerat?
+                                                </p>
+                                                <div class="identity hide">
+                                                    <div class="name">Fikar Albaba</div>
+                                                    <img alt="" src="{{ asset('assets_client') }}/vendor/640x480">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- DO NOT EDIT OR LOOP CODE BELOW THIS -->
+                        <div class="testimonial-identity">
+                            <div class="col-xs-3 img-cont">
+                                <img alt="" src="{{ asset('assets_client') }}/vendor/240x240">
+                            </div>
+                            <div class="col-xs-5 name-cont">
+                                <p></p>
+                                <p></p>
+                                <p class="name">Loading Name ...</p>
+                            </div>
+                        </div>
+                        <!-- END OF WARNING -->
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}
