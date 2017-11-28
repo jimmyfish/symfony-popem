@@ -33,11 +33,6 @@ class Page
     private $body;
 
     /**
-     * @var int
-     */
-    private $category;
-
-    /**
      * @var string
      */
     private $tag;
@@ -157,30 +152,6 @@ class Page
     public function getBody()
     {
         return $this->body;
-    }
-
-    /**
-     * Set category
-     *
-     * @param integer $category
-     *
-     * @return Page
-     */
-    public function setCategory($category)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return int
-     */
-    public function getCategory()
-    {
-        return $this->category;
     }
 
     /**

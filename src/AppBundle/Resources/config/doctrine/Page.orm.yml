@@ -19,16 +19,12 @@ AppBundle\Entity\Page:
             length: 255
         body:
             type: text
-        category:
-            type: integer
         tag:
             type: text
         metaKeyword:
-            type: string
-            length: 255
+            type: text
             column: meta_keyword
         metaDescription:
-            type: string
-            length: 255
+            type: text
             column: meta_description
     lifecycleCallbacks: {  }

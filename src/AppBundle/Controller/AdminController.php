@@ -12,6 +12,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\Post;
+use AppBundle\Entity\Tag;
 use AppBundle\Entity\User;
 use Cocur\Slugify\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -51,8 +52,7 @@ class AdminController extends Controller
         if($request->getMethod() == 'POST') {
             $username = $request->get('username');
             $password = md5($request->get('password'));
-            
-            
+
             $data = $em->getRepository(User::class)->findOneBy(['username'=>$username]);
 
             if($data != null) {
@@ -87,17 +87,19 @@ class AdminController extends Controller
         return $this->redirect($this->generateUrl('popem_admin_login'));
     }
 
-    public function postAction(Request $request)
+    public function newPageAction(Request $request)
     {
 
         $em = $this->getDoctrine()->getManager();
 
+        $tag = $em->getRepository(Tag::class)->findAll();
+
         $slugify = new Slugify();
 
         if($request->getMethod() == 'POST') {
-            $data = new Post();
+            $data = new Page();
             $data->setTitle($request->get('title'));
-            $data->setSlug($slugify->slugify($request->get('slugify')));
+            $data->setSlug($slugify->slugify($request->get('title')));
             $data->setBody($request->get('body'));
 
             if(!empty($request->files->get('image'))) {
@@ -107,7 +109,7 @@ class AdminController extends Controller
                 $ex = pathinfo($name1, PATHINFO_EXTENSION);
                 if(in_array($ex,$exAllowed)) {
                     if($file instanceof UploadedFile) {
-                        if(!$file->getClientSize() > (1024 * 1024 * 1)) {
+                        if(!($file->getClientSize() > (1024 * 1024 * 1))) {
                             $data->setImage($name1);
                         }else {
                             $this->get('session')->getFlashBag()->add(
@@ -115,7 +117,7 @@ class AdminController extends Controller
                                 'ukuran file tidak boleh lebih dari 1 mb'
                             );
 
-                            return $this->redirect($this->generateUrl('popem_admin_new_post'));
+                            return $this->redirect($this->generateUrl('popem_admin_new_page'));
                         }
                     }
                 }else{
@@ -124,7 +126,7 @@ class AdminController extends Controller
                         'extension file harus .jpg, .png , .svg , .jpeg'
                     );
 
-                    return $this->redirect($this->generateUrl('popem_admin_new_post'));
+                    return $this->redirect($this->generateUrl('popem_admin_new_page'));
                 }
             }else {
                 $this->get('session')->getFlashBag()->add(
@@ -132,7 +134,7 @@ class AdminController extends Controller
                     'file gambar belum dimasukkan'
                 );
 
-                return $this->redirect($this->generateUrl('popem_admin_new_post'));
+                return $this->redirect($this->generateUrl('popem_admin_new_page'));
             }
 
             $arrNewTag = [];
@@ -154,19 +156,26 @@ class AdminController extends Controller
                 'data berhasil disimpan'
             );
 
-            return $this->redirect($this->generateUrl('popem_admin_list_post'));
+            return $this->redirect($this->generateUrl('popem_admin_list_page'));
         }
 
-        return $this->render('AppBundle:backend:post/new-post.html.twig');
+        return $this->render('AppBundle:backend:page/new-page.html.twig' , [
+            'tag' =>$tag
+        ]);
     }
 
-    public function listPostAction()
+    public function updatePageAction()
+    {
+
+    }
+
+    public function listPageAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $data = $em->getRepository(Post::class)->findAll();
+        $data = $em->getRepository(Page::class)->findAll();
 
-        return $this->render('AppBundle:backend:post/list-post.html.twig',['data'=>$data]);
+        return $this->render('AppBundle:backend:page/list-page.html.twig',['data'=>$data]);
     }
 
     public function homeAction()
@@ -185,7 +194,7 @@ class AdminController extends Controller
             $em->persist($data);
             $em->flush();
 
-            return $this->redirect($this->generateUrl(''));
+            return $this->redirect($this->generateUrl('popem_admin_list_category'));
         }
 
         return $this->render('AppBundle:backend:category/new-category.html.twig');
@@ -202,26 +211,58 @@ class AdminController extends Controller
         ]);
     }
 
-    public function newPageAction(Request $request)
+    public function newTagAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        if($request->getMethod() == 'POST') {
+            $data = new Tag();
+            $data->setNameTag($request->get('name-tag'));
+
+            $em->persist($data);
+            $em->flush();
+
+           return $this->redirect($this->generateUrl('popem_admin_list_tag'));
+        }
+
+        return $this->render('AppBundle:backend:tag/new-tag.html.twig');
+    }
+
+    public function listTagAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $data = $em->getRepository(Tag::class)->findAll();
+
+        return $this->render('AppBundle:backend:tag/list-tag.html.twig',[
+            'data' => $data
+        ]);
+    }
+
+    public function newPostAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $tag = $em->getRepository(Tag::class)->findAll();
+
+        $category = $em->getRepository(Category::class)->findAll();
 
         $slugify = new Slugify();
 
         if($request->getMethod() == 'POST') {
-            $data = new Page();
+            $data = new Post();
             $data->setTitle($request->get('title'));
-            $data->setSlug($slugify->slugify($request->get('slug')));
+            $data->setSlug($slugify->slugify($request->get('title')));
             $data->setBody($request->get('body'));
             if(!empty($request->files->get('image'))) {
                 $file = $request->files->get('image');
                 $nama1 = md5(uniqid()) . '.' . $file->guessExtension();
-                $exAllowed = array('jpg');
+                $exAllowed = array('jpg','png','jpeg','svg');
                 $ex = pathinfo($nama1,PATHINFO_EXTENSION);
 
                 if(in_array($ex,$exAllowed)) {
                     if($file instanceof UploadedFile) {
-                        if(!$file->getClientSize() > (1024 * 1024 * 1)) {
+                        if(!($file->getClientSize() > (1024 * 1024 * 1))) {
                             $data->setImage($nama1);
                         }else {
                             $this->get('session')->getFlashBag()->add(
@@ -229,12 +270,63 @@ class AdminController extends Controller
                                 'ukuran file tidak boleh lebih dari 1 mb'
                             );
 
+                            return $this->redirect($this->generateUrl('popem_admin_new_post'));
                         }
                     }
+                }else {
+                    $this->get('session')->getFlashBag()->add(
+                        'message_error',
+                        'file harus berextensi .jpg, .jpeg, .png, .svg'
+                    );
+
+                    return $this->redirect($this->generateUrl('popem_admin_list_post'));
                 }
             }
+
+            $arrNewCategory = [];
+
+            foreach ($request->get('category') as $item) {
+                array_push($arrNewCategory, $item);
+            }
+
+            $data->setCategory(serialize($arrNewCategory));
+
+            $arrNewTag = [];
+
+            foreach ($request->get('tag') as $item) {
+                array_push($arrNewTag, $item);
+            }
+
+            $data->setTag(serialize($arrNewTag));
             
+            $data->setMetaKeyword($request->get('meta-keyword'));
+            $data->setMetaDescription($request->get('meta-description'));
+            
+            $em->persist($data);
+            $em->flush();
+            
+            $this->get('session')->getFlashBag()->add(
+                'message_success',
+                'data berhasil disimpan'
+            );
+            
+            return $this->redirect($this->generateUrl('popem_admin_list_post'));
         }
+        
+        return $this->render('AppBundle:backend:post/new-post.html.twig',[
+            'tag' => $tag,
+            'category' => $category
+        ]);
     }
 
+    public function listPostAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $data = $em->getRepository(Post::class)->findAll();
+
+        return $this->render('AppBundle:backend:post/list-post.html.twig',[
+            'data' => $data
+        ]);
+    }
 }

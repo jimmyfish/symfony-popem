@@ -2,11 +2,13 @@ popem_admin_login:
   path: /login
   defaults:
     _controller: AppBundle:Admin:login
+  methods:  [GET,POST]
 
 popem_admin_register:
   path: /register
   defaults:
     _controller:  AppBundle:Admin:register
+  methods: [GET,POST]
 
 popem_admin_logout:
   path: /logout
@@ -18,27 +20,46 @@ popem_admin_home:
     defaults:
       _controller:  AppBundle:Admin:home
 
-popem_admin_new_post:
-    path: /new-post
+popem_admin_new_page:
+    path: /new-page
     defaults:
-      _controller:  AppBundle:Admin:post
+      _controller:  AppBundle:Admin:newPage
+    methods:  [GET,POST]
 
-popem_admin_list_post:
-    path: /list-post
+popem_admin_list_page:
+    path: /list-page
     defaults:
-      _controller:  AppBundle:Admin:listPost
+      _controller:  AppBundle:Admin:listPage
 
 popem_admin_new_category:
     path: /category
     defaults:
       _controller:  AppBundle:Admin:newCategory
+    methods:  [GET,POST]
 
 popem_admin_list_category:
     path: /list-category
     defaults:
       _controller:  AppBundle:Admin:listCategory
 
-popem_admin_new_page:
-    path: /new-page
+popem_admin_new_post:
+    path: /new-post
     defaults:
-      _controller:  AppBundle:Admin:newPage
+      _controller:  AppBundle:Admin:newPost
+    methods:  [GET,POST]
+
+popem_admin_list_post:
+    path: /list-post
+    defaults:
+      _controller:  AppBundle:Admin:listPost
+
+popem_admin_new_tag:
+    path: /new-tag
+    defaults:
+      _controller:  AppBundle:Admin:newTag
+    methods:  [GET,POST]
+
+popem_admin_list_tag:
+    path: /list-tag
+    defaults:
+      _controller:  AppBundle:Admin:listTag

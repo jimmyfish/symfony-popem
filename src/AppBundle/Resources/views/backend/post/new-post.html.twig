@@ -1,81 +1,76 @@
 {% extends 'backend/layouts.html.twig' %}
 
 {% block content %}
-<section class="table-layout animated fadeIn">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3">
-                &nbsp;
-            </div>
-            <div class="col-md-6">
-                <div class="panel" style="border:6px solid rgba(204, 204, 204,0.5)">
-                    <div class="panel-heading">
-                        {% for message in app.session.getFlashBag.get('message_error') %}
-                            <div class="alert alert-danger alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-times"></i></button>
-                                <span style="color:#444">{{ message}}</span>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <div class="panel-body">
-                        <form method="post" class="form-horizontal" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label for="title">Title</label>
-                                    <input type="text" name="title" id="title" class="form-control" required="required">
+    <section class="table-layout animated fadeIn">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    &nbsp;
+                </div>
+                <div class="col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading">
+
+                        </div>
+                        <div class="panel-body">
+                            <form method="post" class="form-horizontal" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="title">Title</label>
+                                        <input type="text" name="title" id="title" class="form-control">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label for="slug">Slug</label>
-                                    <input type="text" name="slug" id="slug" class="form-control" required="required">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="body">Body</label>
+                                        <textarea name="body" id="content" cols="30" rows="10"></textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <textarea name="body" id="content" required="required"></textarea>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="category">Category</label>
+                                        <select name="category[]" class="form-control select2" id="category" multiple="multiple">
+                                            <option value="0">olahraga</option>
+                                            <option value="1">bidan</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label for="image">Image</label>
-                                    <input type="file" name="image" id="image" class="form-control" required="required">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="tag">Tag</label>
+                                        <select name="tag[]" class="form-control select2" id="tag"  multiple="multiple">
+                                            <option value="0">alumni</option>
+                                            <option value="1">alumnus</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label for=""></label>
-                                    <select name="tag[]" id="select2" class="form-control" required="required">
-                                        <option value="test">test</option>
-                                        <option value="testing">testing</option>
-                                    </select>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="meta-keyword">Meta Keyword</label>
+                                        <input type="text" name="meta-keyword" id="meta-keyword" class="form-control">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label for="meta-keyword">Meta Keyword</label>
-                                    <input type="text" name="meta-keyword" id="meta-keyword" class="form-control" required="required">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="meta-description">Meta Description</label>
+                                        <input type="text" name="meta-description" id="meta-description" class="form-control">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label for="meta-description">Meta Description</label>
-                                    <input type="text" name="meta-description" id="meta-description" class="form-control" required="required">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="submit" value="submit" class="btn btn-primary btn-flat pull-right">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="submit" class="btn btn-primary btn-flat pull-right">
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                &nbsp;
+                <div class="col-md-3">
+                    &nbsp;
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 {% endblock %}
 {% block customJS %}
     <script>
@@ -89,8 +84,8 @@
             inline_styles: false
         });
 
-        $('#select2').select2({
-            multiple : true
+        $('.select2').select2({
+           multiple: true
         });
     </script>
 {% endblock %}

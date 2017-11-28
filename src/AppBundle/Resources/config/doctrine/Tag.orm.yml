@@ -1,0 +1,16 @@
+AppBundle\Entity\Tag:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\TagRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        nameTag:
+            type: string
+            length: 255
+            column: name_tag
+    lifecycleCallbacks: {  }

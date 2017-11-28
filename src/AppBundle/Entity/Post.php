@@ -35,6 +35,11 @@ class Post
     /**
      * @var string
      */
+    private $category;
+
+    /**
+     * @var string
+     */
     private $tag;
 
     /**
@@ -155,22 +160,22 @@ class Post
     }
 
     /**
-     * Set tag
-     *
-     * @param string $tag
-     *
-     * @return Post
+     * @return string
      */
-    public function setTag($tag)
+    public function getCategory()
     {
-        $this->tag = $tag;
-
-        return $this;
+        return $this->category;
     }
 
     /**
-     * Get tag
-     *
+     * @param $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
+
+    /**
      * @return string
      */
     public function getTag()
@@ -179,22 +184,14 @@ class Post
     }
 
     /**
-     * Set metaKeyword
-     *
-     * @param string $metaKeyword
-     *
-     * @return Post
+     * @param $tag
      */
-    public function setMetaKeyword($metaKeyword)
+    public function setTag($tag)
     {
-        $this->metaKeyword = $metaKeyword;
-
-        return $this;
+        $this->tag = $tag;
     }
 
     /**
-     * Get metaKeyword
-     *
      * @return string
      */
     public function getMetaKeyword()
@@ -203,27 +200,29 @@ class Post
     }
 
     /**
-     * Set metaDescription
-     *
-     * @param string $metaDescription
-     *
-     * @return Post
+     * @param $metaKeyword
      */
-    public function setMetaDescription($metaDescription)
+    public function setMetaKeyword($metaKeyword)
     {
-        $this->metaDescription = $metaDescription;
-
-        return $this;
+        $this->metaKeyword = $metaKeyword;
     }
 
     /**
-     * Get metaDescription
-     *
      * @return string
      */
     public function getMetaDescription()
     {
         return $this->metaDescription;
     }
+
+    /**
+     * @param $metaDescription
+     */
+    public function setMetaDescription($metaDescription)
+    {
+        $this->metaDescription = $metaDescription;
+    }
+
+
 }
 

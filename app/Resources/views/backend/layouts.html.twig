@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="{{ asset('assets_backend') }}/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('assets_backend') }}/dist/fonts/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="{{ asset('assets_backend') }}/dist/fonts/icomoon/icomoon.css">
-    <link rel="stylesheet" href="{{ asset('assets_backend') }}/plugins/datatables/dataTables.bootstrap.css">
+    {#<link rel="stylesheet" href="{{ asset('assets_backend') }}/plugins/datatables/dataTables.bootstrap.css">#}
     <link rel="stylesheet" href="{{ asset('assets_backend') }}/dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="{{ asset('assets_backend') }}/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets_backend') }}/dist/css/global.css">
     {% block customCSS %}
@@ -72,17 +73,17 @@
                 <li>
                     <a href="#">
                         <i class="fa fa-globe"></i>
-                        <span>Post</span><i class="fa fa-angle-left pull-right"></i>
+                        <span>Page</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="{{ path('popem_admin_new_post') }}">
-                                <i class="fa fa-circle-o"></i>New Post
+                            <a href="{{ path('popem_admin_new_page') }}">
+                                <i class="fa fa-circle-o"></i>New Page
                             </a>
                         </li>
                         <li>
-                            <a href="{{ path('popem_admin_list_post') }}">
-                                <i class="fa fa-circle-o"></i>List Post
+                            <a href="{{ path('popem_admin_list_page') }}">
+                                <i class="fa fa-circle-o"></i>List Page
                             </a>
                         </li>
                     </ul>
@@ -91,6 +92,24 @@
                     <a href="">
                         <i class="fa fa-circle"></i>
                         <span>Tag</span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="{{ path('popem_admin_new_tag') }}">
+                                <i class="fa fa-circle-o"></i>New Tag
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('popem_admin_list_tag') }}">
+                                <i class="fa fa-circle-o"></i>List Tag
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fa fa-circle"></i>
+                        <span>Category</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
                         <li>
@@ -108,10 +127,19 @@
                 <li>
                     <a href="">
                         <i class="fa fa-circle"></i>
-                        <span>Page</span><i class="fa fa-angle-left pull-right"></i>
+                        <span>Post</span><i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li></li>
+                        <li>
+                            <a href="{{ path('popem_admin_new_post') }}">
+                                <i class="fa fa-circle-o"></i>New Post
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('popem_admin_list_post') }}">
+                                <i class="fa fa-circle-o"></i>List Post
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 {#{% if ((app.session.get('role')['value']) == 0) %}#}
@@ -319,7 +347,7 @@
 <!-- Bootstrap 3.3.5 -->
 <script src="{{ asset('assets_backend') }}/bootstrap/js/bootstrap.min.js"></script>
 <!-- DataTables -->
-<script src="https:////cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 {#<script src="{{ app.request.basepath }}/assets/plugins/datatables/jquery.dataTables.min.js"></script>#}
 {#<script src="{{ app.request.basepath }}/assets/plugins/datatables/dataTables.bootstrap.min.js"></script>#}
 <!-- SlimScroll -->
