@@ -16,3 +16,9 @@ php bin/console cache:clear --no-warmup
 ```
 
 And don't forget to configure the `app/config/parameters.yml` and specify the right credential for Database
+
+After configuration you must update the database structure for necessary project sequence
+
+```
+php bin/console doctrine:schema:update --force
+```
