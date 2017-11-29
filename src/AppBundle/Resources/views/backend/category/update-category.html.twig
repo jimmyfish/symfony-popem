@@ -1,0 +1,36 @@
+{% extends 'backend/layouts.html.twig' %}
+
+{% block content %}
+    <section class="table-layout animated fadeIn">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    &nbsp;
+                </div>
+                <div class="col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading"></div>
+                        <div class="panel-body">
+                            <form method="post" class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="category">Name Category</label>
+                                        <input type="text" name="name-category" id="category" class="form-control" value="{% if data.nameCategory is defined %}{{ data.nameCategory }}{% endif %}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="submit" value="submit" class="btn btn-primary btn-flat pull-right">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

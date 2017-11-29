@@ -22,6 +22,11 @@ class User
      */
     private $password;
 
+    /**
+     * @var string
+     */
+    private $token;
+
 
     /**
      * Get id
@@ -66,7 +71,7 @@ class User
      */
     public function setPassword($password)
     {
-        $this->password = md5($password);
+        $this->password = sha1(md5($password));
 
         return $this;
     }
@@ -79,6 +84,22 @@ class User
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param $token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
     }
 }
 

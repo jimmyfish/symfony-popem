@@ -1,0 +1,87 @@
+{% extends 'backend/layouts.html.twig' %}
+
+{% block content %}
+    <section class="table-layout animated fadeIn">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    &nbsp;
+                </div>
+                <div class="col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading"></div>
+                        <div class="panel-body">
+                            <form method="post" class="form-horizontal" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="title">Title</label>
+                                        <input type="text" name="title" id="title" class="form-control" value="{% if data.title is defined %}{{ data.title }}{% endif %}">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label for="body">Body</label>
+                                            <textarea name="body" id="body" class="content" cols="30" rows="10">{% if data.body is defined %}{{ data.body }}{% endif %}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label for="image">Image</label>
+                                            <input type="file" name="image" id="image" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label for="tag">Tag</label>
+                                            <select name="tag[]" class="form-control select2" id="tag">
+                                                {% for tagg in tag %}
+                                                    <option value="{{ tagg.id }}">{{ tagg.nameTag }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label for="meta-keyword">Meta Keyword</label>
+                                            <input type="text" name="meta-keyword" id="meta-keyword" class="form-control" value="{% if data.metaKeyword is defined %}{{ data.metaKeyword }}{% endif %}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label for="meta-description">Meta Description</label>
+                                            <input type="text" name="meta-description" id="meta-description" class="form-control" value="{% if data.metaDescription is defined %}{{ data.metaDescription }}{% endif %}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <input type="submit" value="submit" class="btn btn-primary btn-flat pull-right">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block customJS %}
+    <script>
+        tinymce.init({
+            selector:'.content',
+            height:300,
+            menubar: 'tools',
+            statusbar:false,
+            plugins: 'code',
+//            plugins: 'image',
+            inline_styles: false
+        });
+
+        $('.select2').select2({
+            multiple: true
+        });
+    </script>
+{% endblock %}

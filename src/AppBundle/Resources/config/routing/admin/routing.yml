@@ -31,6 +31,16 @@ popem_admin_list_page:
     defaults:
       _controller:  AppBundle:Admin:listPage
 
+popem_admin_update_page:
+    path: /update-page/{id}
+    defaults:
+      _controller:  AppBundle:Admin:updatePage
+
+popem_admin_delete_page:
+    path: /delete-page/{id}
+    defaults:
+      _controller:  AppBundle:Admin:deletePage
+
 popem_admin_new_category:
     path: /category
     defaults:
@@ -41,6 +51,11 @@ popem_admin_list_category:
     path: /list-category
     defaults:
       _controller:  AppBundle:Admin:listCategory
+
+popem_admin_delete_category:
+    path: /delete-category/{id}
+    defaults:
+      _controller:  AppBundle:Admin:deleteCategory
 
 popem_admin_new_post:
     path: /new-post
@@ -53,6 +68,16 @@ popem_admin_list_post:
     defaults:
       _controller:  AppBundle:Admin:listPost
 
+popem_admin_update_post:
+    path: /update-post/{id}
+    defaults:
+        _controller:  AppBundle:Admin:updatePost
+
+popem_admin_delete_post:
+     path:  /delete-post/{id}
+     defaults:
+        _controller:  AppBundle:Admin:deletePost
+
 popem_admin_new_tag:
     path: /new-tag
     defaults:
@@ -63,3 +88,8 @@ popem_admin_list_tag:
     path: /list-tag
     defaults:
       _controller:  AppBundle:Admin:listTag
+
+popem_admin_delete_tag:
+    path: /delete-tag/{id}
+    defaults:
+      _controller:  AppBundle:Admin:deleteTag

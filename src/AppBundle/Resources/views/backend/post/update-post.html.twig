@@ -9,51 +9,57 @@
                 </div>
                 <div class="col-md-6">
                     <div class="panel">
-                        <div class="panel-heading">
-                            <span class="panel-title"><i class="imoon imoon-quill"></i> Input Informations</span>
-                        </div>
+                        <div class="panel-heading"></div>
                         <div class="panel-body">
                             <form method="post" class="form-horizontal" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <label for="title">Title</label>
-                                        <input type="text" name="title" id="title" class="form-control">
+                                        <input type="text" name="title" id="title" class="form-control" value="{% if data.title is defined %}{{ data.title }}{% endif %}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <label for="body">Body</label>
-                                        <textarea name="body" id="body" class="content" cols="30" rows="10"></textarea>
+                                        <textarea name="body" id="body" class="content" cols="30" rows="10">{% if data.body is defined %}{{ data.body }}{% endif %}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <label for="category">Category</label>
-                                        <select name="category[]" class="form-control select2" id="category" multiple="multiple">
-                                            <option value="0">olahraga</option>
-                                            <option value="1">bidan</option>
-                                        </select>
+                                        <label for="image">Image</label>
+                                        <input type="file" name="image" id="image" class="form-control" value="{% if data.image is defined %}{{ data.image }}{% endif %}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <label for="tag">Tag</label>
-                                        <select name="tag[]" class="form-control select2" id="tag"  multiple="multiple">
-                                            <option value="0">alumni</option>
-                                            <option value="1">alumnus</option>
+                                        <select name="tag[]" id="tag" class="form-control select2">
+                                            {% for tagg in tag %}
+                                                <option value="{{ tagg.id }}">{{ tagg.nameTag }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="category">Category</label>
+                                        <select name="category[]" id="category" class="form-control select2">
+                                            {% for cat in category %}
+                                                <option value="{{ cat.id }}">{{ cat.nameCategory }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <label for="meta-keyword">Meta Keyword</label>
-                                        <input type="text" name="meta-keyword" id="meta-keyword" class="form-control">
+                                        <input type="text" name="meta-keyword" id="meta-keyword" class="form-control" value="{% if data.metaKeyword is defined %}{{ data.metaKeyword }}{% endif %}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <label for="meta-description">Meta Description</label>
-                                        <input type="text" name="meta-description" id="meta-description" class="form-control">
+                                        <input type="text" name="meta-description" id="meta-description" class="form-control" value="{% if data.metaDescription is defined %}{{ data.metaDescription }}{% endif %}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -84,8 +90,8 @@
             inline_styles: false
         });
 
-        $('.select2').select2({
-           multiple: true
-        });
+       $('.select2').select2({
+          multiple: true
+       });
     </script>
 {% endblock %}

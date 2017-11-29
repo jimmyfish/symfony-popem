@@ -27,7 +27,8 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <textarea name="body" id="content"></textarea>
+                                    <label for="body">Body</label>
+                                    <textarea name="body" id="body" class="content" cols="30" rows="10"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -76,7 +77,7 @@
 {% block customJS %}
     <script>
         tinymce.init({
-            selector:'#content',
+            selector:'.content',
             height:300,
             menubar: 'tools',
             statusbar:false,
