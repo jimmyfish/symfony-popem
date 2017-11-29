@@ -39,11 +39,27 @@
                     Wednesday, 16 Oktober 2017 | 20:53:01
                 </div>
                 <div class="col-md-2">
-                    <a href="#">
+                    <a href="#" class="sign-in">
                         <i class="fa fa-sign-in">
                             Login Account
                         </i>
                     </a>
+                    <div class="content hide">
+                        <p class="text-base fz-19">Login</p>
+                        <form action="{{ path('popem_client_login_auth_legacy') }}">
+                            <div class="form-group">
+                                <label for="_username">Nama Pengguna : </label>
+                                <input type="text" class="form-control" name="_username" id="_username">
+                            </div>
+                            <div class="form-group">
+                                <label for="_password">Kata Sandi : </label>
+                                <input type="password" class="form-control" name="_password" id="_password">
+                            </div>
+                            <div class="form-group text-right">
+                                <input type="submit" value="LOGIN" class="btn red-button plr-30">
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="col-md-2">
                     <a href="#">

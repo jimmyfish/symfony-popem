@@ -110,4 +110,18 @@ $(function() {
             flashnewsFunction();
         }, numlet * 1000);
     })
+
+    var signIn = $('.sign-in');
+
+    signIn.click(function(e) {
+        e.preventDefault();
+    })
+        .popover({
+        html: true,
+        placement: "bottom",
+        content: function () {
+            return $(this).parent().find('.content').html();
+        }
+    });
+
 });

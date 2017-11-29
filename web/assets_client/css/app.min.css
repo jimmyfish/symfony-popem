@@ -1475,12 +1475,27 @@ table.dataTable thead th {
     border-bottom: 0;
 }
 
-/*# sourceMappingURL=maps/app.min.css.map */
-
 .checkbox input[type=checkbox] {
     margin-left: 0;
 }
 
 #sidebar .checkbox span {
     margin-left: 20px;
+}
+
+.popover {
+    font-family: "Barlow", sans-serif;
+    z-index: 10000;
+    color: #333;
+    border-radius: 0;
+    max-width: 350px;
+    width: 350px;
+}
+
+.popover .form-control {
+    border-radius: 0;
+}
+
+.popover .form-group label {
+    font-weight: normal;
 }

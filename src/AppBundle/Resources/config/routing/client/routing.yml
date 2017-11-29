@@ -18,3 +18,15 @@ popem_client_dashboard:
   path: /dashboard
   defaults:
     _controller: AppBundle:Client:dashboardClient
+
+popem_client_login_auth_legacy:
+  path: /loginauth
+  defaults:
+    _controller: AppBundle:Client:loginAuthLegacy
+  methods: [POST]
+
+popem_client_login_auth_form:
+  path: /login
+  defaults:
+    _controller: AppBundle:Client:loginAuth
+  methods: [POST]

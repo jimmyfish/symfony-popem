@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Form\LoginType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,5 +34,10 @@ class ClientController extends Controller
     public function dashboardClientAction()
     {
         return $this->render('AppBundle:Client:defaults/dashboard.html.twig');
+    }
+
+    public function loginAuthLegacyAction(Request $request)
+    {
+
     }
 }
