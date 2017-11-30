@@ -46,7 +46,7 @@
                     </a>
                     <div class="content hide">
                         <p class="text-base fz-19">Login</p>
-                        <form action="{{ path('popem_client_login_auth_legacy') }}">
+                        <form method="post" id="login-form">
                             <div class="form-group">
                                 <label for="_username">Nama Pengguna : </label>
                                 <input type="text" class="form-control" name="_username" id="_username">
@@ -251,6 +251,28 @@
 
 {% block vendorJS %}{% endblock %}
 <script charset="utf-8" src="{{ asset('assets_client') }}/js/app.min.js"></script>
+
+<script>
+    $(function () {
+        $(document).on('submit', '.popover #login-form', function(event) {
+            event.preventDefault();
+            var username = $('#_username').val(),
+                password = $('#_password').val(),
+                sendInfo = {"username": username, "password": password},
+                sourcePath = "{{ path('popem_api_client_login') }}";
+
+            $.ajax({
+                type: 'POST',
+                url: sourcePath,
+                data: sendInfo,
+                success: function(msg) {
+                    var message = $.parseJSON(msg);
+                    console.log(message.body);
+                }
+            });
+        });
+    });
+</script>
 
 {% block customJS %}{% endblock %}
 </body>
