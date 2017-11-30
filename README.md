@@ -22,3 +22,16 @@ After configuration you must update the database structure for necessary project
 ```
 php bin/console doctrine:schema:update --force
 ```
+
+Workflow
+========
+
+Before you go do the following :
+
+``
+git pull --rebase
+``
+
+to make sure your work is up-to-date with main project
+
+if necessary do ` composer update `, and ` composer run-script post-install-cmd `
