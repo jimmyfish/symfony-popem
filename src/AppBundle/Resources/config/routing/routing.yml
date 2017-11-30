@@ -1,8 +1,11 @@
 popem_client:
-  resource: "@AppBundle/Resources/config/routing/client/routing.yml"
-  prefix: /
+    resource: "@AppBundle/Resources/config/routing/client/routing.yml"
+    prefix: /
+
+popem_api:
+    resource: "@AppBundle/Resources/config/routing/api/routing.yml"
+    prefix: /api
 
 popem_admin:
-  resource: "@AppBundle/Resources/config/routing/admin/routing.yml"
-  prefix: /admin
-
+    resource: "@AppBundle/Resources/config/routing/admin/routing.yml"
+    prefix: /admin

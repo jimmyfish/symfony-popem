@@ -40,4 +40,9 @@ class ClientController extends Controller
     {
 
     }
+
+    public function dummyAction(Request $request)
+    {
+        return $this->render('AppBundle:Client:defaults/login.html.twig');
+    }
 }

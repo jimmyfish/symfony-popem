@@ -1,0 +1,5 @@
+popem_api_client_login:
+    path: /login
+    defaults:
+        _controller: AppBundle:Api/User:login
+    methods: [POST]

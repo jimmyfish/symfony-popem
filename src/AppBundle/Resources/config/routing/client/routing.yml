@@ -30,3 +30,8 @@ popem_client_login_auth_form:
   defaults:
     _controller: AppBundle:Client:loginAuth
   methods: [POST]
+
+popem_client_dummy:
+  path: /dummy
+  defaults:
+    _controller: AppBundle:Client:dummy
