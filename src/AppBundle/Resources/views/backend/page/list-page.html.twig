@@ -3,12 +3,13 @@
 {% block content %}
     <section class="table-layout animated fadeIn borderedBackground">
         <div class="container-fluid">
+            &nbsp;
             <div class="row">
                 <div class="col-md-11 center-block">
                     <div class="col-md-12">
                         <div class="f-center">
                             <i class="imoon-3x imoon imoon-bubbles"></i>
-                            <span>Daftar Article</span>
+                            <h1>Daftar Page</h1>
                         </div>
                         {% for message in app.session.getFlashBag.get('message_success') %}
                             <div class="alert alert-success alert-dismissable">
@@ -24,32 +25,34 @@
                         {% endfor %}
                         <div style="padding:30px 10px 10px 10px;background-color: #fff;margin-top: 10px;border:6px solid rgba(204, 204, 204,0.5)">
                             <div class="panel panel-visible" id="spy2">
-                                <table class="table-striped table-bordered table-responsive" id="datatable2" cellspacing="0" width="100%">
-                                    <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Title</th>
-                                        <th>body</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% if data|length > 0 %}
-                                        {% set i = 1 %}
-                                        {% for dat in data %}
-                                            <tr>
-                                                <td>{{ i }}</td>
-                                                <td>{{ dat.title }}</td>
-                                                <td>{{ dat.body }}</td>
-                                            </tr>
-                                            {% set i = i + 1 %}
-                                        {% endfor %}
-                                    {% else %}
+                                <div class="panel-body pn">
+                                    <table class="table-striped table-bordered table-responsive" id="datatable2" cellspacing="0" width="100%">
+                                        <thead>
                                         <tr>
-                                            <td colspan="3" style="text-align: center;">Tidak ada data article</td>
+                                            <th>No.</th>
+                                            <th>Title</th>
+                                            <th>body</th>
                                         </tr>
-                                    {% endif %}
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                        {% if data|length > 0 %}
+                                            {% set i = 1 %}
+                                            {% for dat in data %}
+                                                <tr>
+                                                    <td>{{ i }}</td>
+                                                    <td>{{ dat.title }}</td>
+                                                    <td>{{ dat.body }}</td>
+                                                </tr>
+                                                {% set i = i + 1 %}
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="3" style="text-align: center;">Tidak ada data article</td>
+                                            </tr>
+                                        {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

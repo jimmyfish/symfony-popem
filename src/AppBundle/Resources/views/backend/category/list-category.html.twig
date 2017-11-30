@@ -4,8 +4,72 @@
     <section class="table-layout animated fadeIn borderedBackground">
         <div class="container-fluid">
             <div class="row">
+                <div class="col-md-11 center-block">
+                    <div class="col-md-12">
+                        <div class="f-center">
 
+                        </div>
+                        {% for message in app.session.getFlashBag.get('message_success') %}
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-times"></i></button>
+                                <span style="color:#444">{{ message}}</span>
+                            </div>
+                        {% endfor %}
+                        {% for message in app.session.getFlashBag.get('message_error') %}
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-times"></i></button>
+                                <span style="color:#444">{{ message}}</span>
+                            </div>
+                        {% endfor %}
+                        <div style="padding:30px 10px 10px 10px;background-color: #fff;margin-top: 10px;border:6px solid rgba(204, 204, 204,0.5)">
+                            <div class="panel panel-visible">
+                                <table class="table-striped table-bordered table-responsive" id="datatable2" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Nama Category</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if data|length > 0 %}
+                                    {% set i = 1 %}
+                                        {% for item in data %}
+                                            <tr>
+                                                <td>{{ i }}</td>
+                                                <td>
+                                                    {% if item.nameCategory is defined %}
+                                                        {{ item.nameCategory }}
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    <a title="update category" href="{{ path('popem_admin_update_category',{id: item.id}) }}" class="btn btn-primary btn-xs" onclick="return confirm('Apakah anda yakin?')">
+                                                        UPDATE
+                                                    </a>
+                                                    <a title="delete category" href="{{ path('popem_admin_delete_category',{id: item.id}) }}" class="btn btn-danger btn-xs" onclick="return confirm('Apakah anda yakin?')">
+                                                        DELETE
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            {% set i = i + 1 %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="3" style="text-align: center">Tidak ada data</td>
+                                        </tr>
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+{% endblock %}
+{% block customJS %}
+    <script>
+        $('#datatable2').DataTable({});
+    </script>
 {% endblock %}

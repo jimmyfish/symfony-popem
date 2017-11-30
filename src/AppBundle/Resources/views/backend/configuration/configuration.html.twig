@@ -1,0 +1,29 @@
+{% extends 'backend/layouts.html.twig' %}
+
+{% block content %}
+    <section class="table-layout animated fadeIn">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    &nbsp;
+                </div>
+                <div class="col-md-6">
+                    <form action="">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <textarea name="" id="" cols="30" rows="10">
+                                    {% for file in files %}
+                                        {{ file|join(',') }}
+                                    {% endfor %}
+                                </textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-3">
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

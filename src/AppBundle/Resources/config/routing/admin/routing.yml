@@ -14,11 +14,13 @@ popem_admin_logout:
   path: /logout
   defaults:
     _controller:  AppBundle:Admin:logout
+  methods: [GET]
 
 popem_admin_home:
     path: /home
     defaults:
       _controller:  AppBundle:Admin:home
+    methods:  [GET]
 
 popem_admin_new_page:
     path: /new-page
@@ -30,16 +32,19 @@ popem_admin_list_page:
     path: /list-page
     defaults:
       _controller:  AppBundle:Admin:listPage
+    methods:  [GET]
 
 popem_admin_update_page:
     path: /update-page/{id}
     defaults:
       _controller:  AppBundle:Admin:updatePage
+    methods:  [GET,POST]
 
 popem_admin_delete_page:
     path: /delete-page/{id}
     defaults:
       _controller:  AppBundle:Admin:deletePage
+    methods:  [GET]
 
 popem_admin_new_category:
     path: /category
@@ -51,11 +56,19 @@ popem_admin_list_category:
     path: /list-category
     defaults:
       _controller:  AppBundle:Admin:listCategory
+    methods:  [GET]
+
+popem_admin_update_category:
+    path: /update-category
+    defaults:
+      _controller:  AppBundle:Admin:updateCategory
+    methods:  [GET,POST]
 
 popem_admin_delete_category:
     path: /delete-category/{id}
     defaults:
       _controller:  AppBundle:Admin:deleteCategory
+    methods:  [GET]
 
 popem_admin_new_post:
     path: /new-post
@@ -67,16 +80,19 @@ popem_admin_list_post:
     path: /list-post
     defaults:
       _controller:  AppBundle:Admin:listPost
+    methods:  [GET]
 
 popem_admin_update_post:
     path: /update-post/{id}
     defaults:
         _controller:  AppBundle:Admin:updatePost
+    methods:  [GET,POST]
 
 popem_admin_delete_post:
      path:  /delete-post/{id}
      defaults:
         _controller:  AppBundle:Admin:deletePost
+     methods: [GET]
 
 popem_admin_new_tag:
     path: /new-tag
@@ -88,8 +104,22 @@ popem_admin_list_tag:
     path: /list-tag
     defaults:
       _controller:  AppBundle:Admin:listTag
+    methods:  [GET]
+
+popem_admin_update_tag:
+    path: /update-tag/{id}
+    defaults:
+      _controller:  AppBundle:Admin:updateTag
+    methods:  [GET,POST]
 
 popem_admin_delete_tag:
     path: /delete-tag/{id}
     defaults:
       _controller:  AppBundle:Admin:deleteTag
+    methods:  [GET]
+
+popem_admin_configuration:
+    path: /configuration
+    defaults:
+      _controller:  AppBundle:Admin:configuration
+    methods:  [GET]

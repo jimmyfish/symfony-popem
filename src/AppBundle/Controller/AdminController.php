@@ -18,6 +18,8 @@ use Cocur\Slugify\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Yaml;
 
 class AdminController extends Controller
 {
@@ -261,6 +263,11 @@ class AdminController extends Controller
         $em->remove($data);
         $em->flush();
 
+        $this->get('session')->getFlashBag()->add(
+            'message_success',
+            'data berhasil dihapus'
+        );
+
         return $this->redirect($this->generateUrl('popem_admin_list_page'));
     }
 
@@ -372,6 +379,11 @@ class AdminController extends Controller
         $em->remove($data);
         $em->flush();
 
+        $this->get('session')->getFlashBag()->add(
+            'message_success',
+            'data berhasil dihapus'
+        );
+
         return $this->redirect($this->generateUrl('popem_admin_list_category'));
     }
 
@@ -458,6 +470,11 @@ class AdminController extends Controller
 
         $em->remove($data);
         $em->flush();
+
+        $this->get('session')->getFlashBag()->add(
+            'message_success',
+            'data berhasil dihapus'
+        );
 
         return $this->redirect($this->generateUrl('popem_admin_list_tag'));
     }
@@ -665,6 +682,38 @@ class AdminController extends Controller
         $em->remove($data);
         $em->flush();
 
+        $this->get('session')->getFlashBag()->add(
+            'message_success',
+            'data berhasil dihapus'
+        );
+
         return $this->redirect($this->generateUrl('popem_admin_list_post'));
+    }
+
+    public function configurationAction(Request $request)
+    {
+        $yaml = new Parser();
+
+        $arrNewFiles = [];
+        $files = $yaml->parse(file_get_contents(dirname(__DIR__) . '/Resources/config/routing/admin/routing.yml'));
+
+        foreach ($files as $item) {
+            array_push($arrNewFiles, $item);
+        }
+
+        $file = [];
+        for ($i=0; $i < count($arrNewFiles); ++$i) {
+            foreach ($arrNewFiles[$i] as $item) {
+                array_push($file,$item);
+            }
+        }
+
+        if($request->getMethod() == 'POST') {
+            
+        }
+
+        return var_dump($file);
+
+        return $this->render('AppBundle:backend:configuration/configuration.html.twig',['files'=>$file]);
     }
 }

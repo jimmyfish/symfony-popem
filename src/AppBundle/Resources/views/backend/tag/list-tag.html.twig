@@ -10,34 +10,53 @@
                             <i class="imoon-3x imoon imoon-bubbles"></i>
                             <span>Daftar Tag</span>
                         </div>
+                        {% for message in app.session.getFlashBag.get('message_success') %}
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-times"></i></button>
+                                <span style="color:#444">{{ message}}</span>
+                            </div>
+                        {% endfor %}
+                        {% for message in app.session.getFlashBag.get('message_error') %}
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-times"></i></button>
+                                <span style="color:#444">{{ message}}</span>
+                            </div>
+                        {% endfor %}
                         <div style="padding:30px 10px 10px 10px;background-color: #fff;margin-top: 10px;border:6px solid rgba(204, 204, 204,0.5)">
                             <div class="panel panel-visible" id="spy2">
-                                <table class="table-striped table-bordered table-responsive" id="datatable2" width="100%">
-                                    <thead>
+                                <div class="panel-body pn">
+                                    <table class="table-striped table-bordered table-responsive" id="datatable2" width="100%">
+                                        <thead>
                                         <tr>
                                             <th>No.</th>
                                             <th>Nama Tag</th>
                                             <th>Aksi</th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% if data|length > 0 %}
-                                    {% set i = 1 %}
-                                        {% for dat in data %}
+                                        </thead>
+                                        <tbody>
+                                        {% if data|length > 0 %}
+                                            {% set i = 1 %}
+                                            {% for dat in data %}
+                                                <tr>
+                                                    <td>{{ i }}</td>
+                                                    <td>{{ dat.nameTag }}</td>
+                                                    <td>
+                                                        <a title="update tag" href="{{ path('popem_admin_update_tag',{id: dat.id}) }}" onclick="return confirm('Apakah anda yakin?')" class="btn btn-primary btn-xs">
+                                                            UPDATE
+                                                        </a>
+                                                        <a href="{{ path('popem_admin_delete_tag',{id: dat.id}) }}" class="btn btn-danger btn-xs" title="delete tag" onclick="return confirm('apakah anda yakin?')">DELETE</a>
+                                                    </td>
+                                                </tr>
+                                                {% set i = i + 1 %}
+                                            {% endfor %}
+                                        {% else %}
                                             <tr>
-                                                <td>{{ i }}</td>
-                                                <td>{{ dat.nameTag }}</td>
-                                                <td></td>
+                                                <td colspan="3" style="text-align: center">Tidak ada data</td>
                                             </tr>
-                                            {% set i = i + 1 %}
-                                        {% endfor %}
-                                    {% else %}
-                                        <tr>
-                                            <td colspan="3">Tidak ada data</td>
-                                        </tr>
-                                    {% endif %}
-                                    </tbody>
-                                </table>
+                                        {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
