@@ -8,44 +8,31 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class UserController extends Controller
 {
 
-    public function loginAction(Request $request)
+    public function loginAction(Request $request, Session $session)
     {
-        $client = new Client();
-
-        $response = array();
-
-        $status = true;
+        $options = array(
+            'auth' => ['popem_auth', 'Blink182'],
+            'form_params' => [
+                'username' => $request->get('username'),
+                'password' => $request->get('password'),
+            ],
+        );
 
         $targetSite = $this->container->getParameter('api_target');
 
-        try {
-            $response = $client->request('POST', $targetSite . '/login', [
-                'auth' => ['popem_auth', 'Blink182'],
-                'form_params' => [
-                    'username' => $request->get('username'),
-                    'password' => $request->get('password'),
-                ],
-            ]);
+        $response = ApiController::makeRequest('POST', $targetSite . '/login', $options);
 
-        } catch (ClientException $e) {
-            $response = $e->getResponse();
-            $status = false;
+        if ($response['body']['status'] == true) {
+            $session->set('_token', ['value' => base64_encode($request->get('username'))]);
+
         }
 
-        $data = [
-            'status' => $status,
-            'status_code' => $response->getStatusCode(),
-            'content-type' => $response->getHeaderLine('content-type'),
-            'body' => \GuzzleHttp\json_decode($response->getBody(), true),
-        ];
-
-        echo json_encode($data);
-
-        return new Response();
+        return new JsonResponse($response);
     }
 
 }

@@ -14,6 +14,7 @@ use AppBundle\Entity\Post;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ClientController extends Controller
 {
@@ -78,5 +79,10 @@ class ClientController extends Controller
     public function dummyAction()
     {
         return $this->render('AppBundle:Client:defaults/login.html.twig');
+    }
+
+    public function logoutAction(Session $session)
+    {
+        $session->clear();
     }
 }

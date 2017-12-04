@@ -35,3 +35,8 @@ popem_client_dummy:
   path: /dummy
   defaults:
     _controller: AppBundle:Client:dummy
+
+popem_client_logout:
+  path: /logout
+  defaults:
+    _controller: AppBundle:Client:logout
