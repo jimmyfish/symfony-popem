@@ -21,6 +21,8 @@ AppBundle\Entity\Page:
             type: text
         tag:
             type: text
+        status:
+            type: integer
         metaKeyword:
             type: text
             column: meta_keyword

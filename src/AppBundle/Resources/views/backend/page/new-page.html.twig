@@ -41,8 +41,9 @@
                                 <div class="col-md-12">
                                     <label for="tag">Tag</label>
                                     <select name="tag[]" id="select2" class="form-control" multiple="multiple">
-                                        <option value="0">test</option>
-                                        <option value="1">testing</option>
+                                        {% for item in tag %}
+                                            <option value="{{ item.id }}">{{ item.nameTag }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>

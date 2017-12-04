@@ -15,6 +15,7 @@ use AppBundle\Entity\Post;
 use AppBundle\Entity\Tag;
 use AppBundle\Entity\User;
 use Cocur\Slugify\Slugify;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -95,7 +96,7 @@ class AdminController extends Controller
         return $this->redirect($this->generateUrl('popem_admin_login'));
     }
 
-    public function newPageAction(Request $request)
+    public function newPageAction(Request $request,$id=0)
     {
         $session = $request->getSession();
         if(!($session->has('token'))) {
@@ -108,11 +109,16 @@ class AdminController extends Controller
 
         $slugify = new Slugify();
 
+        $page = $em->getRepository(Page::class)->findAll();
+
+        $newData = [];
+
         if($request->getMethod() == 'POST') {
             $data = new Page();
             $data->setTitle($request->get('title'));
             $data->setSlug($slugify->slugify($request->get('title')));
             $data->setBody($request->get('body'));
+            $data->setStatus(0);
 
             if(!empty($request->files->get('image'))) {
                 $file = $request->files->get('image');
@@ -158,17 +164,37 @@ class AdminController extends Controller
             $data->setTag(serialize($arrNewTag));
             $data->setMetaKeyword($request->get('meta-keyword'));
             $data->setMetaDescription($request->get('meta-description'));
-            
 
-            $em->persist($data);
-            $em->flush();
+            array_push($newData,$data);
 
-            $this->get('session')->getFlashBag()->add(
-                'message_success',
-                'data berhasil disimpan'
-            );
+            foreach ($newData as $key => $item) {
+                foreach ($page as $keyPage => $itemPage) {
+                    if($itemPage->getSlug() === $item->getSlug()) {
+                        $item->setSlug($slugify->slugify($request->get('title')) . '-' . $itemPage->getId());
+                    }
+                }
+            }
+
+            foreach ($newData as $data) {
+                $em->persist($data);
+            }
+
+            try {
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add(
+                    'message_success',
+                    'data berhasil disimpan'
+                );
+            }catch (UniqueConstraintViolationException $e) {
+                $this->get('session')->getFlashBag()->add(
+                    'message_error',
+                    'data tidak berhasil disimpan'
+                );
+            }
 
             return $this->redirect($this->generateUrl('popem_admin_list_page'));
+
         }
 
         return $this->render('AppBundle:backend:page/new-page.html.twig' , [
@@ -191,6 +217,10 @@ class AdminController extends Controller
         $data = $em->getRepository(Page::class)->find($id);
 
         $tag = $em->getRepository(Tag::class)->findAll();
+
+        $page = $em->getRepository(Page::class)->findAll();
+
+        $newData = [];
 
         if($request->getMethod() == 'POST') {
             $data->setTitle($request->get('title'));
@@ -235,9 +265,35 @@ class AdminController extends Controller
 
             $data->setMetaKeyword($request->get('meta-keyword'));
             $data->setMetaDescription($request->get('meta-description'));
+            $data->setStatus($request->get('status'));
 
-            $em->persist($data);
-            $em->flush();
+            array_push($newData,$data);
+
+            foreach ($newData as $key => $item) {
+                foreach ($page as $keyPage => $itemPage) {
+                    if($itemPage->getSlug() == $item->getSlug()) {
+                        $item->setSlug($slugify->slugify($request->get('title')) . '-' . $itemPage->getId());
+                    }
+                }
+            }
+
+            foreach ($newData as $data) {
+                $em->persist($data);
+            }
+
+            try {
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add(
+                    'message_success',
+                    'data berhasil di update'
+                );
+            }catch (UniqueConstraintViolationException $e) {
+                $this->get('session')->getFlashBag()->add(
+                    'message_error',
+                    'data tidak boleh sama'
+                );
+            }
 
             return $this->redirect($this->generateUrl('popem_admin_list_page'));
         }
@@ -246,29 +302,6 @@ class AdminController extends Controller
             'data'=>$data,
             'tag' => $tag
         ]);
-    }
-
-    public function deletePageAction(Request $request,$id)
-    {
-        $session = $request->getSession();
-
-        if(!($session->has('token'))) {
-            return $this->redirect($this->generateUrl('popem_admin_login'));
-        }
-
-        $em = $this->getDoctrine()->getManager();
-
-        $data = $em->getRepository(Page::class)->find($id);
-
-        $em->remove($data);
-        $em->flush();
-
-        $this->get('session')->getFlashBag()->add(
-            'message_success',
-            'data berhasil dihapus'
-        );
-
-        return $this->redirect($this->generateUrl('popem_admin_list_page'));
     }
 
     public function listPageAction(Request $request)
@@ -284,6 +317,48 @@ class AdminController extends Controller
 
         return $this->render('AppBundle:backend:page/list-page.html.twig',['data'=>$data]);
     }
+
+    public function publishPageAction(Request $request,$id)
+    {
+        $session = $request->getSession();
+
+        if(!($session->has('token'))) {
+            return $this->redirect($this->generateUrl('popem_admin_login'));
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $data = $em->getRepository(Page::class)->find($id);
+
+        $data->setStatus(2);
+
+        $em->persist($data);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('popem_admin_list_page'));
+
+    }
+
+    public function unpublishPageAction(Request $request,$id)
+    {
+        $session = $request->getSession();
+
+        if(!($session->has('token'))) {
+            return $this->redirect($this->generateUrl('popem_admin_login'));
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $data = $em->getRepository(Page::class)->find($id);
+
+        $data->setStatus(1);
+
+        $em->persist($data);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('popem_admin_list_page'));
+    }
+
 
     public function homeAction(Request $request)
     {
@@ -494,7 +569,11 @@ class AdminController extends Controller
 
         $category = $em->getRepository(Category::class)->findAll();
 
+        $post = $em->getRepository(Post::class)->findAll();
+
         $slugify = new Slugify();
+
+        $newData = [];
 
         if($request->getMethod() == 'POST') {
             $data = new Post();
@@ -549,13 +628,33 @@ class AdminController extends Controller
             $data->setMetaKeyword($request->get('meta-keyword'));
             $data->setMetaDescription($request->get('meta-description'));
             
-            $em->persist($data);
-            $em->flush();
-            
-            $this->get('session')->getFlashBag()->add(
-                'message_success',
-                'data berhasil disimpan'
-            );
+            array_push($newData,$data);
+
+            foreach ($newData as $key => $item) {
+                foreach ($post as $keyPost => $itemPost) {
+                    if($itemPost->getSlug() === $item->getSlug()) {
+                        $item->setSlug($slugify->slugify($request->get('title')) . '-' . $itemPost->getId());
+                    }
+                }
+            }
+
+            foreach ($newData as $data) {
+                $em->persist($data);
+            }
+
+            try {
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add(
+                    'message_success',
+                    'data berhasil disimpan'
+                );
+            }catch (UniqueConstraintViolationException $e) {
+                $this->get('session')->getFlashBag()->add(
+                    'message_error',
+                    'data tidak berhasil disimpan'
+                );
+            }
             
             return $this->redirect($this->generateUrl('popem_admin_list_post'));
         }
@@ -565,8 +664,6 @@ class AdminController extends Controller
             'category' => $category
         ]);
     }
-
-
 
     public function listPostAction(Request $request)
     {
@@ -602,6 +699,10 @@ class AdminController extends Controller
         $tag = $em->getRepository(Tag::class)->findAll();
 
         $category = $em->getRepository(Category::class)->findAll();
+
+        $post = $em->getRepository(Post::class)->findAll();
+
+        $newData = [];
 
         if($request->getMethod() == 'POST') {
             $data->setTitle($request->get('title'));
@@ -650,13 +751,39 @@ class AdminController extends Controller
                 array_push($arrNewCategory, $item);
             }
 
-            $data->setCategory($arrNewCategory, $item);
+            $data->setCategory(serialize($arrNewCategory));
 
             $data->setMetaKeyword($request->get('meta-keyword'));
             $data->setMetaDescription($request->get('meta-description'));
+            $data->setStatus($request->get('status'));
 
-            $em->persist($data);
-            $em->flush();
+            array_push($newData,$data);
+
+            foreach ($newData as $key => $item) {
+                foreach ($post as $keyPost => $itemPost) {
+                    if($itemPost->getSlug() === $item->getSlug()) {
+                        $item->setSlug($slugify->slugify($request->get('title')) . '-' . $itemPost->getId());
+                    }
+                }
+            }
+
+            foreach ($newData as $data) {
+                $em->persist($data);
+            }
+
+            try {
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add(
+                    'message_success',
+                    'data berhasil disimpan'
+                );
+            }catch (UniqueConstraintViolationException $e) {
+                $this->get('session')->getFlashBag()->add(
+                    'message_error',
+                    'data tidak boleh sama'
+                );
+            }
 
             return $this->redirect($this->generateUrl('popem_admin_list_post'));
         }
@@ -667,7 +794,7 @@ class AdminController extends Controller
         ]);
     }
 
-    public function deletePostAction(Request $request, $id)
+    public function publishPostAction(Request $request,$id)
     {
         $session = $request->getSession();
 
@@ -679,13 +806,32 @@ class AdminController extends Controller
 
         $data = $em->getRepository(Post::class)->find($id);
 
-        $em->remove($data);
+        if($data instanceof Post) {
+            $data->setStatus(2);
+        }
+
+        $em->persist($data);
         $em->flush();
 
-        $this->get('session')->getFlashBag()->add(
-            'message_success',
-            'data berhasil dihapus'
-        );
+        return $this->redirect($this->generateUrl('popem_admin_list_post'));
+    }
+
+    public function unpublishPostAction(Request $request,$id)
+    {
+        $session = $request->getSession();
+        
+        if(!($session->has('token'))) {
+            return $this->redirect($this->generateUrl('popem_admin_login'));
+        }
+        
+        $em = $this->getDoctrine()->getManager();
+
+        $data = $em->getRepository(Post::class)->find($id);
+
+        $data->setStatus(1);
+
+        $em->persist($data);
+        $em->flush();
 
         return $this->redirect($this->generateUrl('popem_admin_list_post'));
     }
@@ -709,10 +855,25 @@ class AdminController extends Controller
         }
 
         if($request->getMethod() == 'POST') {
-            
+
+            $arrNewDump = [];
+
+            foreach ($request->get('file') as $item) {
+                array_push($arrNewDump,$item);
+            }
+
+            $yml = Yaml::dump($arrNewDump);
+
+            $open = fopen(file_put_contents(dirname(__DIR__) . '/Resources/config/routing/admin/test.yml',$yml),'w');
+
+            fwrite($open,$yml);
+
+
+//            file_put_contents(dirname(__DIR__) . '/Resources/config/routing/admin/test.yml',$yml);
+//
+//            if()
         }
 
-        return var_dump($file);
 
         return $this->render('AppBundle:backend:configuration/configuration.html.twig',['files'=>$file]);
     }

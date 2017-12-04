@@ -31,7 +31,10 @@
                                         <tr>
                                             <th>No.</th>
                                             <th>Title</th>
+                                            <th>Slug</th>
                                             <th>body</th>
+                                            <th>status</th>
+                                            <th>Aksi</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -41,13 +44,38 @@
                                                 <tr>
                                                     <td>{{ i }}</td>
                                                     <td>{{ dat.title }}</td>
+                                                    <td>{{ dat.slug }}</td>
                                                     <td>{{ dat.body }}</td>
+                                                    {% if dat.status == 0 %}
+                                                        <td>
+                                                            <span class="label label-warning">Pending</span>
+                                                        </td>
+                                                    {% elseif dat.status == 1 %}
+                                                        <td>
+                                                            <span class="label label-danger">Unpublish</span>
+                                                        </td>
+                                                    {% else %}
+                                                        <td>
+                                                            <span class="label label-success">Published</span>
+                                                        </td>
+                                                    {% endif %}
+                                                    <td>
+                                                        <a href="{{ path('popem_admin_update_page',{id: dat.id}) }}" title="update page" class="btn btn-primary btn-xs">
+                                                            UPDATE
+                                                        </a>
+                                                        <a href="{{ path('popem_admin_unpublish_page',{id: dat.id}) }}" title="unpublish page" class="btn btn-danger btn-xs">
+                                                            UNPUBLISH
+                                                        </a>
+                                                        <a href="{{ path('popem_admin_publish_page',{id: dat.id}) }}" title="publish page" class="btn btn-success btn-xs">
+                                                            PUBLISH
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                                 {% set i = i + 1 %}
                                             {% endfor %}
                                         {% else %}
                                             <tr>
-                                                <td colspan="3" style="text-align: center;">Tidak ada data article</td>
+                                                <td colspan="6" style="text-align: center;">Tidak ada data article</td>
                                             </tr>
                                         {% endif %}
                                         </tbody>

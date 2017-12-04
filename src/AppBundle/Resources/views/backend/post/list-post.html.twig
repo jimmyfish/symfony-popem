@@ -25,7 +25,10 @@
                                         <thead>
                                         <tr>
                                             <th>No.</th>
+                                            <th>title</th>
+                                            <th>slug</th>
                                             <th>Body</th>
+                                            <th>status</th>
                                             <th>Aksi</th>
                                         </tr>
                                         </thead>
@@ -36,23 +39,45 @@
                                                 <tr>
                                                     <td>{{ i }}</td>
                                                     <td>
+                                                        {% if item.title is defined %}
+                                                            {{ item.title }}
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>{{ item.slug }}</td>
+                                                    <td>
                                                         {% if item.body is defined %}
                                                             {{ item.body }}
                                                         {% endif %}
                                                     </td>
+                                                    {% if item.status == 0 %}
+                                                        <td>
+                                                            <span class="label label-warning">Pending</span>
+                                                        </td>
+                                                    {% elseif item.status == 1 %}
+                                                        <td>
+                                                            <span class="label label-danger">Unpublish</span>
+                                                        </td>
+                                                    {% else %}
+                                                        <td>
+                                                            <span class="label label-success">Published</span>
+                                                        </td>
+                                                    {% endif %}
                                                     <td>
                                                         <a title="update post" onclick="return confirm('Apakah anda yakin?')" href="{{ path('popem_admin_update_post',{id: item.id}) }}" class="btn btn-primary btn-xs">
                                                             UPDATE
                                                         </a>
-                                                        <a title="delete post" onclick="return confirm('Apakah anda yakin?')" href="{{ path('popem_admin_delete_post',{id: item.id}) }}" class="btn btn-danger btn-xs">
-                                                            DELETE
+                                                        <a title="unpublish post" onclick="return confirm('Apakah anda yakin?')" href="{{ path('popem_admin_unpublish_post',{id: item.id}) }}" class="btn btn-danger btn-xs">
+                                                            UNPUBLISH
+                                                        </a>
+                                                        <a title="publish post" onclick="return confirm('Apakah anda yakin')" href="{{ path('popem_admin_publish_post',{id: item.id}) }}" class="btn btn-success btn-xs">
+                                                            PUBLISH
                                                         </a>
                                                     </td>
                                                 </tr>
                                             {% endfor %}
                                         {% else %}
                                             <tr>
-                                                <td colspan="3" style="text-align: center">Tidak ada data</td>
+                                                <td colspan="6" style="text-align: center">Tidak ada data</td>
                                             </tr>
                                         {% endif %}
                                         </tbody>

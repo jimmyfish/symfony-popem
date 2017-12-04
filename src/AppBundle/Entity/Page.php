@@ -38,6 +38,11 @@ class Page
     private $tag;
 
     /**
+     * @var int
+     */
+    private $status;
+
+    /**
      * @var string
      */
     private $metaKeyword;
@@ -152,6 +157,25 @@ class Page
     public function getBody()
     {
         return $this->body;
+    }
+
+    /**
+     * @param $status
+     * @return $this
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     /**

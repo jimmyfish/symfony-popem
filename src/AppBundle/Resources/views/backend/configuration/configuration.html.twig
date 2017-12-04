@@ -7,18 +7,34 @@
                 <div class="col-md-3">
                     &nbsp;
                 </div>
-                <div class="col-md-6">
-                    <form action="">
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <textarea name="" id="" cols="30" rows="10">
-                                    {% for file in files %}
-                                        {{ file|join(',') }}
-                                    {% endfor %}
-                                </textarea>
-                            </div>
+                <div class="col-md-6 center-block">
+                    <div class="f-center">
+                        <i class="imoon-3x imoon imoon-menu"></i>
+                        <h1>New Configuration</h1>
+                    </div>
+                    <div class="panel" style="border:6px solid rgba(204, 204, 204,0.5)">
+                        <div class="panel-heading">
                         </div>
-                    </form>
+                        <div class="panel-body">
+                            <form action="" method="post" class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="configuration">configuration</label>
+                                        <textarea name="file[]" id="configuration" cols="30" rows="10">
+                                            {% for file in files %}
+                                                {{ file|join(',') }}
+                                            {% endfor %}
+                                        </textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="submit" value="submit" class="btn btn-primary btn-flat pull-right">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-3">
 

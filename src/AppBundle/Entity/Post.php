@@ -43,6 +43,11 @@ class Post
     private $tag;
 
     /**
+     * @var int
+     */
+    private $status;
+
+    /**
      * @var string
      */
     private $metaKeyword;
@@ -191,6 +196,24 @@ class Post
         $this->tag = $tag;
     }
 
+    /**
+     * @param $status
+     * @return $this
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
     /**
      * @return string
      */

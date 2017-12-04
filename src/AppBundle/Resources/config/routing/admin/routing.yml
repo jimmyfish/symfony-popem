@@ -40,11 +40,15 @@ popem_admin_update_page:
       _controller:  AppBundle:Admin:updatePage
     methods:  [GET,POST]
 
-popem_admin_delete_page:
-    path: /delete-page/{id}
+popem_admin_publish_page:
+    path: /publish-page/{id}
     defaults:
-      _controller:  AppBundle:Admin:deletePage
-    methods:  [GET]
+      _controller:  AppBundle:Admin:publishPage
+
+popem_admin_unpublish_page:
+    path: /unpublish-page/{id}
+    defaults:
+      _controller:  AppBundle:Admin:unpublishPage
 
 popem_admin_new_category:
     path: /category
@@ -88,11 +92,15 @@ popem_admin_update_post:
         _controller:  AppBundle:Admin:updatePost
     methods:  [GET,POST]
 
-popem_admin_delete_post:
-     path:  /delete-post/{id}
-     defaults:
-        _controller:  AppBundle:Admin:deletePost
-     methods: [GET]
+popem_admin_publish_post:
+    path: /publish-post/{id}
+    defaults:
+        _controller:  AppBundle:Admin:publishPost
+
+popem_admin_unpublish_post:
+    path: /unpublish-post/{id}
+    defaults:
+       _controller: AppBundle:Admin:unpublishPost
 
 popem_admin_new_tag:
     path: /new-tag
@@ -122,4 +130,4 @@ popem_admin_configuration:
     path: /configuration
     defaults:
       _controller:  AppBundle:Admin:configuration
-    methods:  [GET]
+    methods:  [GET,POST]

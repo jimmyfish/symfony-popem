@@ -23,6 +23,8 @@ AppBundle\Entity\Post:
             type: text
         tag:
             type: text
+        status:
+            type: integer
         metaKeyword:
             type: text
             column: meta_keyword

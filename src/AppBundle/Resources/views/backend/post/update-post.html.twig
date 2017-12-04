@@ -64,6 +64,17 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12">
+                                        <label for="">Status</label>
+                                        <select name="status" id="" class="form-control">
+                                            <option value="">-- Pilih Status --</option>
+                                            <option value="0" {% if data.status == 0 %}selected{% endif %}>Pending</option>
+                                            <option value="1" {% if data.status == 1 %}selected{% endif %}>Unpublish</option>
+                                            <option value="2" {% if data.status == 2 %}selected{% endif %}>Publish</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
                                         <input type="submit" value="submit" class="btn btn-primary btn-flat pull-right">
                                     </div>
                                 </div>
