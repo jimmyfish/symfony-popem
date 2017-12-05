@@ -44,11 +44,13 @@ popem_admin_publish_page:
     path: /publish-page/{id}
     defaults:
       _controller:  AppBundle:Admin:publishPage
+    methods: [GET,POST]  
 
 popem_admin_unpublish_page:
     path: /unpublish-page/{id}
     defaults:
       _controller:  AppBundle:Admin:unpublishPage
+    methods: [GET]  
 
 popem_admin_new_category:
     path: /category
@@ -96,11 +98,13 @@ popem_admin_publish_post:
     path: /publish-post/{id}
     defaults:
         _controller:  AppBundle:Admin:publishPost
+    methods: [GET,POST]    
 
 popem_admin_unpublish_post:
     path: /unpublish-post/{id}
     defaults:
        _controller: AppBundle:Admin:unpublishPost
+    methods: [GET]   
 
 popem_admin_new_tag:
     path: /new-tag
