@@ -3,11 +3,13 @@
 {% block content %}
     <section class="table-layout animated fadeIn borderedBackground">
         <div class="container-fluid">
+            &nbsp;
             <div class="row">
                 <div class="col-md-11 center-block">
                     <div class="col-md-12">
                         <div class="f-center">
-
+                            <i class="fa fa-list-alt" style="font-size: 48px;"></i>
+                            <h1>Daftar Category</h1>
                         </div>
                         {% for message in app.session.getFlashBag.get('message_success') %}
                             <div class="alert alert-success alert-dismissable">
