@@ -848,33 +848,52 @@ class AdminController extends Controller
         }
 
         $file = [];
+        $data = [];
+        $arrMethods = [];
+
         for ($i=0; $i < count($arrNewFiles); ++$i) {
-            foreach ($arrNewFiles[$i] as $item) {
-                array_push($file,$item);
-            }
+            $file[] = [
+                'path' => $arrNewFiles[$i]['path'],
+                'defaults' => $arrNewFiles[$i]['defaults'],
+                'methods' => $arrNewFiles[$i]['methods']
+            ];
         }
 
         if($request->getMethod() == 'POST') {
+            $data['path'] = $request->get('path');
 
-            $arrNewDump = [];
-
-            foreach ($request->get('file') as $item) {
-                array_push($arrNewDump,$item);
+            foreach ($request->get('methods') as $item) {
+                array_push($arrMethods, $item);
             }
 
-            $yml = Yaml::dump($arrNewDump);
+            $data['defaults']['_controller'] = $request->get('controller');
 
-            $open = fopen(file_put_contents(dirname(__DIR__) . '/Resources/config/routing/admin/test.yml',$yml),'w');
+            $data['methods'] = $arrMethods;
 
-            fwrite($open,$yml);
-
-
-//            file_put_contents(dirname(__DIR__) . '/Resources/config/routing/admin/test.yml',$yml);
-//
-//            if()
+            return var_dump(array_merge($file,$data));
         }
 
-
+//        if($request->getMethod() == 'POST') {
+//
+//            $arrNewDump = [];
+//
+//            foreach ($request->get('file') as $item) {
+//                array_push($arrNewDump,$item);
+//            }
+//
+//            $yml = Yaml::dump($arrNewDump);
+//
+//            $open = fopen(file_put_contents(dirname(__DIR__) . '/Resources/config/routing/admin/test.yml',$yml),'w');
+//
+//            fwrite($open,$yml);
+//
+//
+////            file_put_contents(dirname(__DIR__) . '/Resources/config/routing/admin/test.yml',$yml);
+////
+////            if()
+//        }
+//
+//
         return $this->render('AppBundle:backend:configuration/configuration.html.twig',['files'=>$file]);
     }
 }

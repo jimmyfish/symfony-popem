@@ -1,0 +1,129 @@
+- /login
+-
+    _controller: 'AppBundle:Admin:login'
+-
+    - GET
+    - POST
+- /register
+-
+    _controller: 'AppBundle:Admin:register'
+-
+    - GET
+    - POST
+- /logout
+-
+    _controller: 'AppBundle:Admin:logout'
+-
+    - GET
+- /home
+-
+    _controller: 'AppBundle:Admin:home'
+-
+    - GET
+- /new-page
+-
+    _controller: 'AppBundle:Admin:newPage'
+-
+    - GET
+    - POST
+- /list-page
+-
+    _controller: 'AppBundle:Admin:listPage'
+-
+    - GET
+- '/update-page/{id}'
+-
+    _controller: 'AppBundle:Admin:updatePage'
+-
+    - GET
+    - POST
+- '/publish-page/{id}'
+-
+    _controller: 'AppBundle:Admin:publishPage'
+-
+    - GET
+    - POST
+- '/unpublish-page/{id}'
+-
+    _controller: 'AppBundle:Admin:unpublishPage'
+-
+    - GET
+- /category
+-
+    _controller: 'AppBundle:Admin:newCategory'
+-
+    - GET
+    - POST
+- /list-category
+-
+    _controller: 'AppBundle:Admin:listCategory'
+-
+    - GET
+- /update-category
+-
+    _controller: 'AppBundle:Admin:updateCategory'
+-
+    - GET
+    - POST
+- '/delete-category/{id}'
+-
+    _controller: 'AppBundle:Admin:deleteCategory'
+-
+    - GET
+- /new-post
+-
+    _controller: 'AppBundle:Admin:newPost'
+-
+    - GET
+    - POST
+- /list-post
+-
+    _controller: 'AppBundle:Admin:listPost'
+-
+    - GET
+- '/update-post/{id}'
+-
+    _controller: 'AppBundle:Admin:updatePost'
+-
+    - GET
+    - POST
+- '/publish-post/{id}'
+-
+    _controller: 'AppBundle:Admin:publishPost'
+-
+    - GET
+    - POST
+- '/unpublish-post/{id}'
+-
+    _controller: 'AppBundle:Admin:unpublishPost'
+-
+    - GET
+- /new-tag
+-
+    _controller: 'AppBundle:Admin:newTag'
+-
+    - GET
+    - POST
+- /list-tag
+-
+    _controller: 'AppBundle:Admin:listTag'
+-
+    - GET
+- '/update-tag/{id}'
+-
+    _controller: 'AppBundle:Admin:updateTag'
+-
+    - GET
+    - POST
+- '/delete-tag/{id}'
+-
+    _controller: 'AppBundle:Admin:deleteTag'
+-
+    - GET
+- /configuration
+-
+    _controller: 'AppBundle:Admin:configuration'
+-
+    - GET
+    - POST
+- "                                                                                            /login\r\n                                                                                            AppBundle:Admin:login\r\n                                                                                            GET,POST\r\n                                                                                            /register\r\n                                                                                            AppBundle:Admin:register\r\n                                                                                            GET,POST\r\n                                                                                            /logout\r\n                                                                                            AppBundle:Admin:logout\r\n                                                                                            GET\r\n                                                                                            /home\r\n                                                                                            AppBundle:Admin:home\r\n                                                                                            GET\r\n                                                                                            /new-page\r\n                                                                                            AppBundle:Admin:newPage\r\n                                                                                            GET,POST\r\n                                                                                            /list-page\r\n                                                                                            AppBundle:Admin:listPage\r\n                                                                                            GET\r\n                                                                                            /update-page/{id}\r\n                                                                                            AppBundle:Admin:updatePage\r\n                                                                                            GET,POST\r\n                                                                                            /publish-page/{id}\r\n                                                                                            AppBundle:Admin:publishPage\r\n                                                                                            GET,POST\r\n                                                                                            /unpublish-page/{id}\r\n                                                                                            AppBundle:Admin:unpublishPage\r\n                                                                                            GET\r\n                                                                                            /category\r\n                                                                                            AppBundle:Admin:newCategory\r\n                                                                                            GET,POST\r\n                                                                                            /list-category\r\n                                                                                            AppBundle:Admin:listCategory\r\n                                                                                            GET\r\n                                                                                            /update-category\r\n                                                                                            AppBundle:Admin:updateCategory\r\n                                                                                            GET,POST\r\n                                                                                            /delete-category/{id}\r\n                                                                                            AppBundle:Admin:deleteCategory\r\n                                                                                            GET\r\n                                                                                            /new-post\r\n                                                                                            AppBundle:Admin:newPost\r\n                                                                                            GET,POST\r\n                                                                                            /list-post\r\n                                                                                            AppBundle:Admin:listPost\r\n                                                                                            GET\r\n                                                                                            /update-post/{id}\r\n                                                                                            AppBundle:Admin:updatePost\r\n                                                                                            GET,POST\r\n                                                                                            /publish-post/{id}\r\n                                                                                            AppBundle:Admin:publishPost\r\n                                                                                            GET,POST\r\n                                                                                            /unpublish-post/{id}\r\n                                                                                            AppBundle:Admin:unpublishPost\r\n                                                                                            GET\r\n                                                                                            /new-tag\r\n                                                                                            AppBundle:Admin:newTag\r\n                                                                                            GET,POST\r\n                                                                                            /list-tag\r\n                                                                                            AppBundle:Admin:listTag\r\n                                                                                            GET\r\n                                                                                            /update-tag/{id}\r\n                                                                                            AppBundle:Admin:updateTag\r\n                                                                                            GET,POST\r\n                                                                                            /delete-tag/{id}\r\n                                                                                            AppBundle:Admin:deleteTag\r\n                                                                                            GET\r\n                                                                                            /configuration\r\n                                                                                            AppBundle:Admin:configuration\r\n                                                                                            GET,POST\r\n\r\n/test\r\n\r\n                                                                                    "

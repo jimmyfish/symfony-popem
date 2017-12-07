@@ -19,12 +19,25 @@
                             <form action="" method="post" class="form-horizontal">
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <label for="configuration">configuration</label>
-                                        <textarea name="file[]" id="configuration" cols="30" rows="10">
-                                            {% for file in files %}
-                                                {{ file|join(',') }}
-                                            {% endfor %}
-                                        </textarea>
+                                        <label for="input">Path</label>
+                                        <input type="text" name="path" id="input" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="methods">Methods</label>
+                                        <select name="methods[]" id="methods" multiple="multiple" class="form-control select2">
+                                            <option value="">-- Pilih Methods --</option>
+                                            <option value="GET">GET</option>
+                                            <option value="POST">POST</option>
+                                        </select>
+                                        {#<textarea name="methods[]" id="methods" cols="30" rows="10"></textarea>#}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="controller">Nama Controller</label>
+                                        <input type="text" name="controller" id="controller" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -42,4 +55,9 @@
             </div>
         </div>
     </section>
+{% endblock %}
+{% block customJS %}
+    <script>
+        $('.select2').select2();
+    </script>
 {% endblock %}
