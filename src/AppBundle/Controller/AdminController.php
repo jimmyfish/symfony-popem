@@ -838,11 +838,15 @@ class AdminController extends Controller
 
     public function configurationAction(Request $request)
     {
+        $session = $request->getSession();
 
+        if(!($session->has('token'))) {
+            return $this->redirect($this->generateUrl('popem_admin_login'));
+        }
         $files = file_get_contents(dirname(__DIR__) . '/Resources/config/routing/admin/menu.yml');
 
         if($request->getMethod() == 'POST') {
-            
+
             $data = $request->get('code');
 
             $open = fopen(file_put_contents(dirname(__DIR__) . '/Resources/config/routing/admin/menu.yml',$data),'w');
