@@ -838,62 +838,18 @@ class AdminController extends Controller
 
     public function configurationAction(Request $request)
     {
-        $yaml = new Parser();
 
-        $arrNewFiles = [];
-        $files = $yaml->parse(file_get_contents(dirname(__DIR__) . '/Resources/config/routing/admin/routing.yml'));
-
-        foreach ($files as $item) {
-            array_push($arrNewFiles, $item);
-        }
-
-        $file = [];
-        $data = [];
-        $arrMethods = [];
-
-        for ($i=0; $i < count($arrNewFiles); ++$i) {
-            $file[] = [
-                'path' => $arrNewFiles[$i]['path'],
-                'defaults' => $arrNewFiles[$i]['defaults'],
-                'methods' => $arrNewFiles[$i]['methods']
-            ];
-        }
+        $files = file_get_contents(dirname(__DIR__) . '/Resources/config/routing/admin/menu.yml');
 
         if($request->getMethod() == 'POST') {
-            $data['path'] = $request->get('path');
+            
+            $data = $request->get('code');
 
-            foreach ($request->get('methods') as $item) {
-                array_push($arrMethods, $item);
-            }
+            $open = fopen(file_put_contents(dirname(__DIR__) . '/Resources/config/routing/admin/menu.yml',$data),'w');
 
-            $data['defaults']['_controller'] = $request->get('controller');
-
-            $data['methods'] = $arrMethods;
-
-            return var_dump(array_merge($file,$data));
+            fwrite($open, $data);
         }
 
-//        if($request->getMethod() == 'POST') {
-//
-//            $arrNewDump = [];
-//
-//            foreach ($request->get('file') as $item) {
-//                array_push($arrNewDump,$item);
-//            }
-//
-//            $yml = Yaml::dump($arrNewDump);
-//
-//            $open = fopen(file_put_contents(dirname(__DIR__) . '/Resources/config/routing/admin/test.yml',$yml),'w');
-//
-//            fwrite($open,$yml);
-//
-//
-////            file_put_contents(dirname(__DIR__) . '/Resources/config/routing/admin/test.yml',$yml);
-////
-////            if()
-//        }
-//
-//
-        return $this->render('AppBundle:backend:configuration/configuration.html.twig',['files'=>$file]);
+        return $this->render('AppBundle:backend:configuration/configuration.html.twig',['files'=>$files]);
     }
 }
