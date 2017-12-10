@@ -128,7 +128,7 @@ class AdminController extends Controller
                 if(in_array($ex,$exAllowed)) {
                     if($file instanceof UploadedFile) {
                         if(!($file->getClientSize() > (1024 * 1024 * 1))) {
-                            $data->setImage($name1);
+                            $data->setImage($this->getParameter('page_directory')['resource'] . '/' . $name1);
                         }else {
                             $this->get('session')->getFlashBag()->add(
                                 'message_error',
@@ -235,7 +235,7 @@ class AdminController extends Controller
                 if(in_array($ex,$exAllowed)) {
                     if($file instanceof UploadedFile) {
                         if(!($file->getClientSize() > (1024 * 1024 * 1))) {
-                            $data->setImage($name1);
+                            $data->setImage($this->getParameter('page_directory')['resource'] . '/' . $name1);
                         }else {
                             $this->get('session')->getFlashBag()->add(
                                 'message_error',
@@ -589,7 +589,7 @@ class AdminController extends Controller
                 if(in_array($ex,$exAllowed)) {
                     if($file instanceof UploadedFile) {
                         if(!($file->getClientSize() > (1024 * 1024 * 1))) {
-                            $data->setImage($nama1);
+                            $data->setImage($this->getParameter('post_directory')['resource'] . '/' . $nama1);
                         }else {
                             $this->get('session')->getFlashBag()->add(
                                 'message_error',
@@ -718,7 +718,7 @@ class AdminController extends Controller
                 if(in_array($ex,$exAllowed)) {
                     if($file instanceof UploadedFile) {
                         if(!($file->getClientSize() > (1024 * 1024 * 1))) {
-                            $data->setImage($name1);
+                            $data->setImage($this->getParameter('post_directory')['resource'] . '/' . $name1);
                         }else {
                             $this->get('session')->getFlashBag()->add(
                                 'message_error',
