@@ -9,6 +9,8 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Page;
+use AppBundle\Entity\Post;
 use AppBundle\Form\LoginType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,11 +25,19 @@ class ClientController extends Controller
 
     public function blogAction()
     {
+        $manager = $this->getDoctrine()->getManager();
+
+        $data = $manager->getRepository(Page::class)->findAll();
+
         return new Response('BLOG VIEW');
     }
 
     public function articleAction(Request $request)
     {
+        $manager = $this->getDoctrine()->getManager();
+
+        $data = $manager->getRepository(Post::class)->findAll();
+
         return $this->render('AppBundle:Client:articles/article.html.twig');
     }
 

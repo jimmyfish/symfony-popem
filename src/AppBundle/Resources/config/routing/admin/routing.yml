@@ -135,3 +135,9 @@ popem_admin_configuration:
     defaults:
       _controller:  AppBundle:Admin:configuration
     methods:  [GET,POST]
+
+popem_admin_message:
+    path: /message-success
+    defaults:
+      _controller:  AppBundle:Admin:message
+    methods:  [GET]

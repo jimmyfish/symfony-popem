@@ -1,0 +1,18 @@
+{% extends 'backend/layouts.html.twig' %}
+
+{% block content %}
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    {% for message in app.session.getFlashBag.get('message_success') %}
+                        <div class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-times"></i></button>
+                            <span style="color:#444">{{ message}}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

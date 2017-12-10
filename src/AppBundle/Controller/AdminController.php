@@ -852,8 +852,20 @@ class AdminController extends Controller
             $open = fopen(file_put_contents(dirname(__DIR__) . '/Resources/config/routing/admin/menu.yml',$data),'w');
 
             fwrite($open, $data);
+
+            $this->get('session')->getFlashBag()->add(
+                'message_success',
+                'menu berhasil di tambahkan'
+            );
+
+            return $this->redirect($this->generateUrl('popem_admin_message'));
         }
 
         return $this->render('AppBundle:backend:configuration/configuration.html.twig',['files'=>$files]);
+    }
+
+    public function messageAction()
+    {
+        return $this->render('AppBundle:backend:configuration/message.html.twig');
     }
 }
