@@ -9,7 +9,7 @@
                         <div class="text-center">
                             <img src="{{ asset('assets_client') }}/img/profile.jpg" alt="" class="img-dashboard" height="100">
                             <p class="text-sunflower fz-19 mt-20">Jimmy Fish</p>
-                            <p class="text-clouds">$ 54,000</p>
+                            <p class="text-clouds">$ {{ data.balance }}</p>
                         </div>
                     </div>
                     <div class="latest-news dark-background ptb-25 plr-30">
@@ -52,7 +52,7 @@
                             <div class="col-md-9 col-xs-9">
                                 <div class="detail-wrapper">
                                     <p class="mb-0 text-concrete">Nama :</p>
-                                    <h4>Jimmy Fish</h4>
+                                    <h4>{% if (data.name|length == 0) %}Anonymous{% else %}{{ data.name }}{% endif %}</h4>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                             <table class="table">
                                 <tr>
                                     <th>Alamat E-Mail</th>
-                                    <td>killcoder212@gmail.com <i class="fa fa-check-circle text-river"></i></td>
+                                    <td>{{ data.email }} <i class="fa fa-check-circle text-river"></i></td>
                                 </tr>
 
                                 <tr>

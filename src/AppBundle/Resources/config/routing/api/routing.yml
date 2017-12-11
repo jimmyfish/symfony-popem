@@ -1,5 +1,22 @@
+popem_api_client_login_check:
+  path: /login-check
+  defaults:
+    _controller: AppBundle:Api/User:loginCheck
+  methods: GET
+
 popem_api_client_login:
-    path: /login
-    defaults:
-        _controller: AppBundle:Api/User:login
-    methods: [POST]
+  path: /login
+  defaults:
+      _controller: AppBundle:Api/User:login
+  methods: [POST]
+
+popem_api_client_register:
+  path: /register
+  defaults:
+    _controller: AppBundle:Api/User:register
+  methods: [POST]
+
+popem_api_client_dummy:
+  path: /dummy
+  defaults:
+    _controller: AppBundle:Api/User:dummy

@@ -16,23 +16,23 @@
                     <div class="content-form">
                         <form action="" style="padding-right: 12px;">
                             <div class="form-group">
-                                <label for="">Username :</label>
-                                <input class="form-control" type="text">
+                                <label for="username">Username :</label>
+                                <input class="form-control" type="text" name="username" id="username">
                             </div>
                             <div class="form-group">
-                                <label for="">Email :</label>
-                                <input class="form-control" type="email">
+                                <label for="email">Email :</label>
+                                <input class="form-control" type="email" name="email" id="email">
                             </div>
                             <div class="form-group">
-                                <label for="">Kata sandi :</label>
-                                <input class="form-control" type="password">
+                                <label for="password">Kata sandi :</label>
+                                <input class="form-control" type="password" name="password" id="password">
                             </div>
                             <div class="form-group">
-                                <label for="">Ulangi kata sandi :</label>
-                                <input class="form-control" type="password">
+                                <label for="password-confirm">Ulangi kata sandi :</label>
+                                <input class="form-control" type="password" name="password-confirm" id="password-confirm">
                             </div>
                             <div class="checkbox">
-                                <input id="" name="" type="checkbox">
+                                <input id="" name="" type="checkbox" required>
                                 <span>
                                     Saya menerima
                                     <a href="#">Peraturan dan Kebijakan</a>
@@ -40,8 +40,10 @@
                                 </span>
                             </div>
                             <div class="form-group">
-                                <input class="btn btn-submit btn-block" type="text" value="Proses">
+                                <button class="btn btn-submit btn-block" type="submit" onclick="registerAction(event)">Proses</button>
+                                {#<a href="javascript:void(0)" class="btn btn-submit btn-block" id="register-btn" onclick="">Proses</a>#}
                             </div>
+                            <p class="spinner hide"><i class="fa fa-spinner fa-spin"></i> Memproses</p>
                         </form>
                     </div>
                 </div>
@@ -864,4 +866,8 @@
                 </div>
             </div>
         </section>
+{% endblock %}
+
+{% block customJS %}
+    <script >{% include '@main_template/Client/home/home.js.twig' %}</script>
 {% endblock %}

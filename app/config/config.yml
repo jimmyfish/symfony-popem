@@ -44,6 +44,9 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
 
+    paths:
+      '%kernel.project_dir%/src/AppBundle/Resources/views': main_template
+
 # Doctrine Configuration
 doctrine:
     dbal:

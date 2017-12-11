@@ -1,0 +1,28 @@
+// BINDING REGISTER FUNCTION
+function registerAction(e) {
+    e.preventDefault();
+    var wrapper = jQuery('.content-main'),
+        container = wrapper.find('form'),
+        sendInfo = {
+            "username": container.find('#username').val(),
+            "email": container.find('#email').val(),
+            "password": container.find('#password').val(),
+            "passconf": container.find('#password-confirm').val()
+        },
+        sourcePath = "{{ path('popem_api_client_register') }}";
+
+    container.find('button').val('Memproses ...');
+    container.find('input, button').prop('disabled', true);
+    container.find('.spinner').removeClass('hide');
+
+    $.ajax({
+        type: 'POST',
+        url: sourcePath,
+        data: sendInfo,
+        success: function (msg) {
+            if (msg.status === true) {
+                wrapper.html('Terima Kasih, Pendaftaran telah berhasil diproses, silahkan aktivasi melalui link yang kami kirimkan melalui email anda');
+            }
+        }
+    });
+}

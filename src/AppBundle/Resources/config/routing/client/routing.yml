@@ -31,12 +31,17 @@ popem_client_login_auth_form:
     _controller: AppBundle:Client:loginAuth
   methods: [POST]
 
-popem_client_dummy:
-  path: /dummy
+popem_client_login_warp:
+  path: /login
   defaults:
-    _controller: AppBundle:Client:dummy
+    _controller: AppBundle:Client:login
 
 popem_client_logout:
   path: /logout
   defaults:
     _controller: AppBundle:Client:logout
+
+popem_client_activate:
+  path: /activate
+  defaults:
+    _controller: AppBundle:Client:activate
