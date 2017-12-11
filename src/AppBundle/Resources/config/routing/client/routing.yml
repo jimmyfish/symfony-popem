@@ -8,6 +8,12 @@ popem_client_blog:
   defaults:
     _controller: AppBundle:Client:blog
 
+popem_client_detail_blog:
+  path: /blog/{slug}
+  defaults:
+    _controller:  AppBundle:Client:detailBlog
+  methods:  [GET]
+
 popem_client_article:
   path: /article
   defaults:

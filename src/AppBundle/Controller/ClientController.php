@@ -33,7 +33,7 @@ class ClientController extends Controller
     {
         $manager = $this->getDoctrine()->getManager();
 
-        $data = $manager->getRepository(Page::class)->findAll();
+        $data = $manager->getRepository(Post::class)->findAll();
 
         return new Response('BLOG VIEW');
     }
@@ -42,9 +42,9 @@ class ClientController extends Controller
     {
         $manager = $this->getDoctrine()->getManager();
 
-        $data = $manager->getRepository(Page::class)->findOneBy(['slug'=>$slug]);
+        $data = $manager->getRepository(Post::class)->findOneBy(['slug'=>$slug]);
 
-        return $this->render('',[
+        return $this->render('AppBundle:Client:articles/article.html.twig',[
             'data' => $data
         ]);
     }
@@ -56,17 +56,6 @@ class ClientController extends Controller
         $data = $manager->getRepository(Post::class)->findAll();
 
         return $this->render('AppBundle:Client:articles/article.html.twig',[
-            'data' => $data
-        ]);
-    }
-
-    public function detailArticleAction($slug)
-    {
-        $manager = $this->getDoctrine()->getManager();
-
-        $data = $manager->getRepository(Post::class)->findOneBy(['slug'=>$slug]);
-
-        return $this->render('', [
             'data' => $data
         ]);
     }

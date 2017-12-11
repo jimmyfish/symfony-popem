@@ -10,6 +10,7 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\Category;
+use AppBundle\Entity\ImageResize;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\Tag;
@@ -120,7 +121,11 @@ class AdminController extends Controller
             $data->setBody($request->get('body'));
             $data->setStatus(0);
 
-            if(!empty($request->files->get('image'))) {
+            if(!is_dir($this->getParameter('page_directory')['resource'])) {
+                @mkdir($this->getParameter('page_directory')['resource'],0777,true);
+            }
+
+            if(!(empty($request->files->get('image')))) {
                 $file = $request->files->get('image');
                 $name1 = md5(uniqid()) . '.' . $file->guessExtension();
                 $exAllowed = array('jpg','png','jpeg','svg');
@@ -128,7 +133,11 @@ class AdminController extends Controller
                 if(in_array($ex,$exAllowed)) {
                     if($file instanceof UploadedFile) {
                         if(!($file->getClientSize() > (1024 * 1024 * 1))) {
-                            $data->setImage($this->getParameter('page_directory')['resource'] . '/' . $name1);
+                            ImageResize::createFromFile(
+                                $request->files->get('image')->getPathName()
+                            )->saveTo($this->getParameter('page_directory')['resource'] . '/' . $name1,20,true);
+//                            move_uploaded_file($name1,$this->getParameter('post_directory')['resource']);
+                            $data->setImage($name1);
                         }else {
                             $this->get('session')->getFlashBag()->add(
                                 'message_error',
@@ -235,7 +244,11 @@ class AdminController extends Controller
                 if(in_array($ex,$exAllowed)) {
                     if($file instanceof UploadedFile) {
                         if(!($file->getClientSize() > (1024 * 1024 * 1))) {
-                            $data->setImage($this->getParameter('page_directory')['resource'] . '/' . $name1);
+                            ImageResize::createFromFile(
+                                $request->files->get('image')->getPathName()
+                            )->saveTo($this->getParameter('page_directory')['resource'] . '/' . $name1,30,true);
+                            $data->setImage($name1);
+//                            $data->setImage($this->getParameter('page_directory')['resource'] . '/' . $name1);
                         }else {
                             $this->get('session')->getFlashBag()->add(
                                 'message_error',
@@ -580,7 +593,13 @@ class AdminController extends Controller
             $data->setTitle($request->get('title'));
             $data->setSlug($slugify->slugify($request->get('title')));
             $data->setBody($request->get('body'));
-            if(!empty($request->files->get('image'))) {
+            $data->setStatus(0);
+
+            if(!(is_dir($this->getParameter('post_directory')['resource']))) {
+                @mkdir($this->getParameter('post_directory')['resource'],0777,true);
+            }
+
+            if(!(empty($request->files->get('image')))) {
                 $file = $request->files->get('image');
                 $nama1 = md5(uniqid()) . '.' . $file->guessExtension();
                 $exAllowed = array('jpg','png','jpeg','svg');
@@ -589,7 +608,11 @@ class AdminController extends Controller
                 if(in_array($ex,$exAllowed)) {
                     if($file instanceof UploadedFile) {
                         if(!($file->getClientSize() > (1024 * 1024 * 1))) {
-                            $data->setImage($this->getParameter('post_directory')['resource'] . '/' . $nama1);
+                            ImageResize::createFromFile(
+                                $request->files->get('image')->getPathName()
+                            )->saveTo($this->getParameter('post_directory')['resource'] . '/' . $nama1,30,true);
+                            $data->setImage($nama1);
+//                            $data->setImage($this->getParameter('post_directory')['resource'] . '/' . $nama1);
                         }else {
                             $this->get('session')->getFlashBag()->add(
                                 'message_error',
@@ -718,7 +741,11 @@ class AdminController extends Controller
                 if(in_array($ex,$exAllowed)) {
                     if($file instanceof UploadedFile) {
                         if(!($file->getClientSize() > (1024 * 1024 * 1))) {
-                            $data->setImage($this->getParameter('post_directory')['resource'] . '/' . $name1);
+                            ImageResize::createFromFile(
+                                $request->files->get('image')->getPathName()
+                            )->saveTo($this->getParameter('post_directory')['resource'] . '/' . $name1,30,true);
+                            $data->setImage($name1);
+//                            $data->setImage($this->getParameter('post_directory')['resource'] . '/' . $name1);
                         }else {
                             $this->get('session')->getFlashBag()->add(
                                 'message_error',

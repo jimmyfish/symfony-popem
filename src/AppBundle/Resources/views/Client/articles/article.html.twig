@@ -1,5 +1,15 @@
 {% extends 'Client/layout.html.twig' %}
 
+{% block meta %}
+    {% if data.metaDescription %}
+        <meta name="description" content="{{ data.metaDescription }}">
+    {% endif %}
+
+    {% if data.metaKeyword %}
+        <meta name="keyword" content="{{ data.metaKeyword }}">
+    {% endif %}
+{% endblock %}
+
 {% block title %}Article{% endblock %}
 
 {% block content %}
@@ -90,30 +100,35 @@
                 </div>
                 <div class="col-md-9 no-padding content-wrapper">
                     <div class="img-header">
-                        <img src="http://placehold.it/640x480" alt="" class="img-responsive">
+                        <img src="{{ asset('uploads') }}/image/post/{{ data.image }}" alt="" class="img-responsive">
                     </div>
-                    <ul class="breadcrumb">
-                        <li><a href="#">Beranda</a></li>
-                        <li><a href="#">Artikel</a></li>
-                        <li><a href="#">Uang</a></li>
-                        <li>Sejak 2015, Tangkapan ikan tuna RI menurun</li>
-                    </ul>
+                    {#<ul class="breadcrumb">#}
+                        {#<li><a href="#">Beranda</a></li>#}
+                        {#<li><a href="#">Artikel</a></li>#}
+                        {#<li><a href="#">Uang</a></li>#}
+                        {#<li>Sejak 2015, Tangkapan ikan tuna RI menurun</li>#}
+                    {#</ul>#}
                     <div class="container">
 
                         <div class="article">
 
-                            <h2>Sejak 2015, Tangkapan ikan tuna RI menurun</h2>
+                            <h2>{% if data.title is defined %}{{ data.title }}{% else %}-{% endif %}</h2>
                             <span class="article-date text-concrete">Sabtu, 25 November 2017</span>
                             <span class="article-writer">&nbsp;<a href="#">Admin</a></span>
 
                             <div class="article-content pb-50">
-                                <img src="http://placehold.it/640x480" alt="" class="ptb-50">
-                                <p><strong>Proinsta.com -</strong> Rektor Institut Pertanian Bogor (IPB) Arif Satria mengungkapkan sejak tahun 2015 jumlah tangkapan ikan tuna Indonesia selalu lebih rendah dari kuota yang telah ditetapkan.</p>
-                                <p>Pada tahun 2015, hasil tangkapan tuna sebesar 592 ribu ton padahal kuota yang diberikan sebesar 750 ribu ton. Sementara itu, tahun 2016 jumlah tangkapan tuna tercatat 600 ribu ton dari kuota 750 ribu ton.</p>
-                                <p>"Tahun 2017, Kuota 899 ton hasil tangkapan per 1 September 288 ton. Kouta makin naik, tapi jumlah tangkapan turun," ungkapnya di Gedung Mina Bahari III, <a href="#">Jakarta Pusat</a>, Senin (20/11).</p>
-                                <p>Untuk dapat meningkatkan hasil tangkapan, pemerintah mesti lebih banyak menyediakan kapal penangkap tuna sehingga kuota yang ada bisa terpenuhi. Seperti menambah kapal long line untuk memanfaatkan catch limit (batas tangkapan) Big eye
-                                    tuna (tuna mata besar) di Western Central Pasific sebanyak 5.889 ton per tahun atau setara dengan sekitar 15.704 GT kapal di Laut Lepas.</p>
-                                <p>Selain itu, perlu juga tambahan kapal di wilayah tangkap IOTC (Indian Ocean Tuna Comission) untuk mengantisipasi bahwa jumlah kapal menjadi kriteria dalam alokasi kuota hasil tangkapan.</p>
+                                {% if data.body is defined %}
+                                {{ data.body | raw }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                                {#<img src="http://placehold.it/640x480" alt="" class="ptb-50">#}
+                                {#<p><strong>Proinsta.com -</strong> Rektor Institut Pertanian Bogor (IPB) Arif Satria mengungkapkan sejak tahun 2015 jumlah tangkapan ikan tuna Indonesia selalu lebih rendah dari kuota yang telah ditetapkan.</p>#}
+                                {#<p>Pada tahun 2015, hasil tangkapan tuna sebesar 592 ribu ton padahal kuota yang diberikan sebesar 750 ribu ton. Sementara itu, tahun 2016 jumlah tangkapan tuna tercatat 600 ribu ton dari kuota 750 ribu ton.</p>#}
+                                {#<p>"Tahun 2017, Kuota 899 ton hasil tangkapan per 1 September 288 ton. Kouta makin naik, tapi jumlah tangkapan turun," ungkapnya di Gedung Mina Bahari III, <a href="#">Jakarta Pusat</a>, Senin (20/11).</p>#}
+                                {#<p>Untuk dapat meningkatkan hasil tangkapan, pemerintah mesti lebih banyak menyediakan kapal penangkap tuna sehingga kuota yang ada bisa terpenuhi. Seperti menambah kapal long line untuk memanfaatkan catch limit (batas tangkapan) Big eye#}
+                                    {#tuna (tuna mata besar) di Western Central Pasific sebanyak 5.889 ton per tahun atau setara dengan sekitar 15.704 GT kapal di Laut Lepas.</p>#}
+                                {#<p>Selain itu, perlu juga tambahan kapal di wilayah tangkap IOTC (Indian Ocean Tuna Comission) untuk mengantisipasi bahwa jumlah kapal menjadi kriteria dalam alokasi kuota hasil tangkapan.</p>#}
                             </div>
                         </div>
                     </div>
