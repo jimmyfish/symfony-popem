@@ -632,13 +632,7 @@ class AdminController extends Controller
                 }
             }
 
-            $arrNewCategory = [];
-
-            foreach ($request->get('category') as $item) {
-                array_push($arrNewCategory, $item);
-            }
-
-            $data->setCategory(serialize($arrNewCategory));
+            $data->setCategoryId($em->getRepository(Category::class)->find($request->get('category')));
 
             $arrNewTag = [];
 

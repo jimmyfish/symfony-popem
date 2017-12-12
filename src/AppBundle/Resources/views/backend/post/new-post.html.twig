@@ -35,7 +35,8 @@
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <label for="category">Category</label>
-                                        <select name="category[]" class="form-control select2" id="category" multiple="multiple">
+                                        <select name="category" class="form-control" id="category">
+                                            <option value="">-- Pilih Kategori --</option>
                                             {% for cat in category %}
                                                 <option value="{{ cat.id }}">{{ cat.nameCategory }}</option>
                                             {% endfor %}

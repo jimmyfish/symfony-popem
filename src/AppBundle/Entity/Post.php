@@ -33,9 +33,9 @@ class Post
     private $body;
 
     /**
-     * @var string
+     * @var int
      */
-    private $category;
+    private $categoryId;
 
     /**
      * @var string
@@ -165,19 +165,22 @@ class Post
     }
 
     /**
-     * @return string
+     * @param Category $categoryId
+     * @return $this
      */
-    public function getCategory()
+    public function setCategoryId(Category $categoryId)
     {
-        return $this->category;
+        $this->categoryId = $categoryId;
+
+        return $this;
     }
 
     /**
-     * @param $category
+     * @return int
      */
-    public function setCategory($category)
+    public function getCategoryId()
     {
-        $this->category = $category;
+        return $this->categoryId;
     }
 
     /**

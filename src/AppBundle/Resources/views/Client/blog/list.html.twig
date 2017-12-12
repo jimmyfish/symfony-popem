@@ -95,39 +95,28 @@
                             <h2>Daftar Blog 2017</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam commodi dolore doloribus eligendi est illo maxime perspiciatis similique. Alias dolore eligendi eos ipsa libero necessitatibus neque non placeat velit?</p>
                             <hr align="left">
+                            {% for dat in data %}
+                                <div class="row item">
+                                    <div class="col-md-4">
+                                        <img src="https://cdns.klimg.com/merdeka.com/i/w/news/2017/12/13/918986/670x335/jalankan-gcg-bank-bjb-raih-penghargaan-dari-kpk.jpg" alt="" class="img-responsive">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p class="blog-title">
+                                            {% if data.title is defined %}
+                                                
+                                            {#<a href="#">Jalankan GCG, bank bjb raih penghargaan dari KPK</a>#}
+                                        </p>
+                                        <p class="blog-subtitle">
+                                            <strong>Merdeka.com</strong> - PT Bank Pembangunan Daerah Jawa Barat dan Banten Tbk, atau bank bjb meraih penghargaan dari Komisi Pemberantasan Korupsi (KPK) bertepatan dengan Hari Anti-Korupsi se-Dunia di Hotel Bidakara, Jakarta, Selasa (12/12/2017). Penghargaan diterima langsung Direktur Utama bank bjb Ahmad Irfan dan Direktur Kepatuhan dan Manajemen Risiko bank bjb Agus Mulyana.
+                                        </p>
+                                        <p class="blog-readmore">
+                                            <a href="#">Baca lebih lanjut</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endfor %}
 
-                            <div class="row item">
-                                <div class="col-md-4">
-                                    <img src="https://cdns.klimg.com/merdeka.com/i/w/news/2017/12/13/918986/670x335/jalankan-gcg-bank-bjb-raih-penghargaan-dari-kpk.jpg" alt="" class="img-responsive">
-                                </div>
-                                <div class="col-md-8">
-                                    <p class="blog-title">
-                                        <a href="#">Jalankan GCG, bank bjb raih penghargaan dari KPK</a>
-                                    </p>
-                                    <p class="blog-subtitle">
-                                        <strong>Merdeka.com</strong> - PT Bank Pembangunan Daerah Jawa Barat dan Banten Tbk, atau bank bjb meraih penghargaan dari Komisi Pemberantasan Korupsi (KPK) bertepatan dengan Hari Anti-Korupsi se-Dunia di Hotel Bidakara, Jakarta, Selasa (12/12/2017). Penghargaan diterima langsung Direktur Utama bank bjb Ahmad Irfan dan Direktur Kepatuhan dan Manajemen Risiko bank bjb Agus Mulyana.
-                                    </p>
-                                    <p class="blog-readmore">
-                                        <a href="#">Baca lebih lanjut</a>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row item">
-                                <div class="col-md-4">
-                                    <img src="http://placehold.it/640x480" alt="" class="img-responsive">
-                                </div>
-                                <div class="col-md-8">
-                                    <p class="blog-title">
-                                        <a href="#">8 Makanan ini akan bantu kamu untuk taklukan nafsu makan yang menggila</a>
-                                    </p>
-                                    <p class="blog-subtitle">
-                                        <strong>Merdeka.com</strong> - Nafsu makan yang tidak bisa dikontrol adalah salah satu kendala bagi mereka yang sedang diet. Sebab nafsu makan ini bisa berujung pada konsumsi makanan dalam jumlah besar yang kemudian mengakibatkan kenaikan berat badan.
-                                    </p>
-                                    <p class="blog-readmore">
-                                        <a href="#">Baca lebih lanjut</a>
-                                    </p>
-                                </div>
-                            </div>
+
 
                             <div class="pagination-wrapper text-center">
                                 <ul class="pagination">

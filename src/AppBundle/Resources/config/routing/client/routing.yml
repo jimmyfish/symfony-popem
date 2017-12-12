@@ -21,7 +21,7 @@ popem_client_article:
   methods: [GET, POST]
 
 popem_client_category:
-  path: /category
+  path: /category/{category}
   defaults:
     _controller:  AppBundle:Client:blogCategory
 

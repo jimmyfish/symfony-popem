@@ -8,6 +8,12 @@ AppBundle\Entity\Post:
             id: true
             generator:
                 strategy: AUTO
+    manyToOne:
+        categoryId:
+            targetEntity: Category
+            joinColumn:
+                name: category_id
+                referencedColumns:  id
     fields:
         title:
             type: string
@@ -18,8 +24,6 @@ AppBundle\Entity\Post:
             type: string
             length: 255
         body:
-            type: text
-        category:
             type: text
         tag:
             type: text

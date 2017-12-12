@@ -44,7 +44,9 @@ class ClientController extends Controller
 
         $data = $manager->getRepository(Post::class)->findAll();
 
-        return $this->render('AppBundle:Client:blog/list.html.twig');
+        return $this->render('AppBundle:Client:blog/list.html.twig',[
+            'data' => $data
+        ]);
     }
 
     public function detailBlogAction($slug)
@@ -69,13 +71,13 @@ class ClientController extends Controller
         ]);
     }
 
-    public function blogCategoryAction()
+    public function blogCategoryAction($category)
     {
         $manager = $this->getDoctrine()->getManager();
 
-        $query = $manager->getRepository(Post::class)->findAll();
+        $query = $manager->getRepository(Post::class)->findOneBy(['categoryId' => $category]);
 
-        return var_dump($data);
+        return var_dump($query);
     }
 
     public function dashboardClientAction(Request $request)
