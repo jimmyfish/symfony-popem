@@ -20,6 +20,11 @@ popem_client_article:
     _controller: AppBundle:Client:article
   methods: [GET, POST]
 
+popem_client_category:
+  path: /category
+  defaults:
+    _controller:  AppBundle:Client:blogCategory
+
 popem_client_dashboard:
   path: /dashboard
   defaults:

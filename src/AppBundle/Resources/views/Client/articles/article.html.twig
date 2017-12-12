@@ -1,11 +1,11 @@
 {% extends 'Client/layout.html.twig' %}
 
 {% block meta %}
-    {% if data.metaDescription %}
+    {% if data.metaDescription is defined %}
         <meta name="description" content="{{ data.metaDescription }}">
     {% endif %}
 
-    {% if data.metaKeyword %}
+    {% if data.metaKeyword is defined %}
         <meta name="keyword" content="{{ data.metaKeyword }}">
     {% endif %}
 {% endblock %}
@@ -100,7 +100,11 @@
                 </div>
                 <div class="col-md-9 no-padding content-wrapper">
                     <div class="img-header">
-                        <img src="{{ asset('uploads') }}/image/post/{{ data.image }}" alt="" class="img-responsive">
+                        {% if data.image is defined %}
+                            <img src="{{ asset('uploads') }}/image/post/{{ data.image }}" alt="" class="img-responsive">
+                        {% else %}
+                            <img src="http://placehold.it/640x480" alt="" class="img-responsive">
+                        {% endif %}
                     </div>
                     {#<ul class="breadcrumb">#}
                         {#<li><a href="#">Beranda</a></li>#}

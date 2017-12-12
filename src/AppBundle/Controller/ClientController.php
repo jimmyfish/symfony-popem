@@ -69,6 +69,14 @@ class ClientController extends Controller
         ]);
     }
 
+    public function blogCategoryAction()
+    {
+        $manager = $this->getDoctrine()->getManager();
+
+        $query = $manager->getRepository(Post::class)->findAll();
+
+        return var_dump($data);
+    }
 
     public function dashboardClientAction(Request $request)
     {
