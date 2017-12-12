@@ -93,24 +93,32 @@
                         <div class="blog">
 
                             <h2>Daftar Blog 2017</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam commodi dolore doloribus eligendi est illo maxime perspiciatis similique. Alias dolore eligendi eos ipsa libero necessitatibus neque non placeat velit?</p>
+                            {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam commodi dolore doloribus eligendi est illo maxime perspiciatis similique. Alias dolore eligendi eos ipsa libero necessitatibus neque non placeat velit?</p>#}
                             <hr align="left">
                             {% for dat in data %}
                                 <div class="row item">
                                     <div class="col-md-4">
-                                        <img src="https://cdns.klimg.com/merdeka.com/i/w/news/2017/12/13/918986/670x335/jalankan-gcg-bank-bjb-raih-penghargaan-dari-kpk.jpg" alt="" class="img-responsive">
+                                        {% if dat.image is defined %}
+                                            <img src="{{ asset('uploads') }}/image/post/{{ dat.image }}" alt="" class="img-responsive">
+                                        {% else %}
+                                            <img src="https://cdns.klimg.com/merdeka.com/i/w/news/2017/12/13/918986/670x335/jalankan-gcg-bank-bjb-raih-penghargaan-dari-kpk.jpg" alt="" class="img-responsive">
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-8">
                                         <p class="blog-title">
-                                            {% if data.title is defined %}
-                                                
+                                            {% if dat.title is defined %}
+                                                {{ dat.title }}
+                                            {% endif %}
                                             {#<a href="#">Jalankan GCG, bank bjb raih penghargaan dari KPK</a>#}
                                         </p>
                                         <p class="blog-subtitle">
-                                            <strong>Merdeka.com</strong> - PT Bank Pembangunan Daerah Jawa Barat dan Banten Tbk, atau bank bjb meraih penghargaan dari Komisi Pemberantasan Korupsi (KPK) bertepatan dengan Hari Anti-Korupsi se-Dunia di Hotel Bidakara, Jakarta, Selasa (12/12/2017). Penghargaan diterima langsung Direktur Utama bank bjb Ahmad Irfan dan Direktur Kepatuhan dan Manajemen Risiko bank bjb Agus Mulyana.
+                                            {% if dat.body is defined %}
+                                                {{ dat.body | raw }}
+                                            {% endif %}
+                                            {#<strong>Merdeka.com</strong> - PT Bank Pembangunan Daerah Jawa Barat dan Banten Tbk, atau bank bjb meraih penghargaan dari Komisi Pemberantasan Korupsi (KPK) bertepatan dengan Hari Anti-Korupsi se-Dunia di Hotel Bidakara, Jakarta, Selasa (12/12/2017). Penghargaan diterima langsung Direktur Utama bank bjb Ahmad Irfan dan Direktur Kepatuhan dan Manajemen Risiko bank bjb Agus Mulyana.#}
                                         </p>
                                         <p class="blog-readmore">
-                                            <a href="#">Baca lebih lanjut</a>
+                                            <a href="{{ path('popem_client_detail_blog',{slug : dat.slug}) }}">Baca lebih lanjut</a>
                                         </p>
                                     </div>
                                 </div>

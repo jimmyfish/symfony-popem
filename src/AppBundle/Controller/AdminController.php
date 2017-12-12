@@ -644,6 +644,8 @@ class AdminController extends Controller
             
             $data->setMetaKeyword($request->get('meta-keyword'));
             $data->setMetaDescription($request->get('meta-description'));
+            $data->setPublishedAt(new \DateTime());
+            $data->setUpdatedAt(new \DateTime());
             
             array_push($newData,$data);
 

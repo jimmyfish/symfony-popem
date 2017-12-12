@@ -42,10 +42,21 @@ class ClientController extends Controller
     {
         $manager = $this->getDoctrine()->getManager();
 
-        $data = $manager->getRepository(Post::class)->findAll();
+        $repository = $manager->getRepository(Post::class);
+
+        $data = $repository->findAll();
+
+        $latest = $repository->createQueryBuilder('p')
+            ->orderBy('p.publishedAt','ASC')
+            ->getQuery();
+
+        $news = $latest->getResult();
+
+//        return var_dump($news);
 
         return $this->render('AppBundle:Client:blog/list.html.twig',[
-            'data' => $data
+            'data' => $data,
+            'latest' => $news
         ]);
     }
 
