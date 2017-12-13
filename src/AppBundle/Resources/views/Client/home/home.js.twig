@@ -26,3 +26,28 @@ function registerAction(e) {
         }
     });
 }
+
+function depositAction(e) {
+    e.preventDefault();
+    var wrapper = jQuery('.content-main'),
+        container = wrapper.find('form'),
+        sourcePath = "{{ path('popem_api_client_deposit_account') }}",
+        formData = new FormData();
+
+        formData.append("fileInput", container.find('#file')[0].files[0]);
+
+    var sendInfo = {
+        "broker_id": parseInt(container.find('#deposit__broker').val()),
+        "login": parseInt(container.find('#login').val()),
+        "email": container.find('#email').val(),
+        "phone": container.find('#phone').val(),
+        "bank_name": container.find('#bank_name').val(),
+        "bank_account": parseInt(container.find('#bank_account').val()),
+        "bank_beneficiary_name": container.find('#bank_beneficiary_name').val(),
+        "bank_id": parseInt(container.find('#bank_id').val()),
+        "amount": parseInt(container.find('#amount').val()),
+        "file": new FormData(container.find('#file')[0].files[0])
+    }
+
+    console.log(sendInfo);
+}

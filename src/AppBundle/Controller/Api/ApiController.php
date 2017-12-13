@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ApiController extends Controller
 {
-    public function doRequest(Request $request, $method, $uri, array $data = null, $type = 'form_params')
+    public function doRequest($method, $uri, array $data = null, $type = 'form_params')
     {
 
         if ($method === 'GET')
@@ -28,8 +28,9 @@ class ApiController extends Controller
 
         $httpResponse = new Response();
 
-        $session = $request->getSession();
+        $request = new Request();
 
+        $session = $request->getSession();
 
         $options['auth'] = ['popem_auth', 'Blink182'];
 
@@ -39,8 +40,6 @@ class ApiController extends Controller
         ];
 
         $cookieJar = new SessionCookieJar('SESSION_STORAGE', true);
-
-        $session->set('isLogin', true);
 
         $client = new Client([
             'base_uri' => 'http://localhost:8000',

@@ -51,3 +51,8 @@ popem_client_activate:
   path: /activate
   defaults:
     _controller: AppBundle:Client:activate
+
+popem_client_dummy_form:
+  path: /dummy
+  defaults:
+    _controller: AppBundle:Client:dummy

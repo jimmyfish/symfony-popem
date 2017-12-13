@@ -1,0 +1,117 @@
+{% extends 'Client/layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row mt-50 mb-50">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="content-main">
+                    <form action="" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="deposit__broker">Broker :</label>
+                            <select class="form-control" id="deposit__broker" name="deposit__broker">
+                                {% for info in information.broker.data.data %}
+                                    <option value="{{ info.broker_id }}">{{ info.broker_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="login">Login :</label>
+                            <input class="form-control" type="text" name="login" id="login" value="12314123">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email :</label>
+                            <input class="form-control" id="email" name="email" type="email" value="dito@tuta.io">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone :</label>
+                            <input class="form-control" id="phone" name="phone" type="number" value="08990314474">
+                        </div>
+                        <div class="form-group">
+                            <label for="bank_name">Nama Bank :</label>
+                            <input class="form-control" id="bank_name" name="bank_name" type="text" value="BCA">
+                        </div>
+                        <div class="form-group">
+                            <label for="bank_account">Akun Bank :</label>
+                            <input class="form-control" type="text" name="bank_account" id="bank_account"
+                                   value="123123123">
+                            {#<p class="text-error">This is error message.</p>#}
+                        </div>
+                        <div class="form-group">
+                            <label for="bank_beneficiary_name">Bank Beneficiary Name :</label>
+                            <input class="form-control" required="" type="text" name="bank_beneficiary_name"
+                                   id="bank_beneficiary_name" value="Dito YP">
+                        </div>
+                        <div class="form-group">
+                            <label for="bank_id">Bank Tujuan :</label>
+                            <select class="form-control" id="bank_id" name="bank_id">
+                                {% for bank in information.bank.data.data %}
+                                    <option value="{{ bank.bank_id }}">{{ bank.bank_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Jumlah (USD) :</label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="dollar">$</span>
+                                <input aria-describedby="dollar" class="form-control" placeholder="Amount"
+                                       type="number" name="amount" id="amount" value="123">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="file">File :</label>
+                            <input id="file" name="file" type="file">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-submit btn-block" type="submit">Proses</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block customJS %}
+    <script>
+        $(function () {
+            $('.content-main form').submit(function (e) {
+                e.preventDefault();
+                var wrapper = $('.content-main'),
+                    container = wrapper.find('form'),
+                    sourcePath = "{{ path('popem_api_client_deposit_account') }}",
+                    formData = new FormData();
+
+                formData.append("broker_id", parseInt(container.find('#deposit__broker').val()));
+                formData.append("login", parseInt(container.find('#login').val()));
+                formData.append("email", container.find('#email').val());
+                formData.append("phone", container.find('#phone').val());
+                formData.append("bank_name", container.find('#bank_name').val());
+                formData.append("bank_account", parseInt(container.find('#bank_account').val()));
+                formData.append("bank_beneficiary_name", container.find('#bank_beneficiary_name').val());
+                formData.append("bank_id", parseInt(container.find('#bank_id').val()));
+                formData.append("amount", parseInt(container.find('#amount').val()));
+                formData.append("file", container.find('#file')[0].files[0]);
+
+                $.ajax({
+                    type: 'POST',
+                    url: sourcePath,
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    cache: false,
+                    dataType: 'json',
+                    beforeSend: function () {
+                        console.log('Processing image ..');
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -9,7 +9,7 @@
                         <div class="text-center">
                             <img src="{{ asset('assets_client') }}/img/profile.jpg" alt="" class="img-dashboard" height="100">
                             <p class="text-sunflower fz-19 mt-20">Jimmy Fish</p>
-                            <p class="text-clouds">$ {{ data.balance }}</p>
+                            <p class="text-clouds">$ <span id="balance">{{ data.balance }}</span></p>
                         </div>
                     </div>
                     <div class="latest-news dark-background ptb-25 plr-30">
@@ -65,12 +65,17 @@
 
                                 <tr>
                                     <th>Nomor Telefon</th>
-                                    <td>(+62) 8990314474 <i class="fa fa-check-circle text-river"></i></td>
+                                    <td>{{ data.phone }}</td>
                                 </tr>
 
                                 <tr>
-                                    <th>Alamat Bitcoin</th>
-                                    <td>172hkk9wr1ruJiX1DuAF7RsBq3FCLtYqvi <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-clone"></i>&nbsp; Copy</a></td>
+                                    <th>Alamat</th>
+                                    {#<td>172hkk9wr1ruJiX1DuAF7RsBq3FCLtYqvi <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-clone"></i>&nbsp; Copy</a></td>#}
+                                    <td>
+                                        {{ data.address }}, {{ data.city }}
+                                        <br>{{ data.state }} - {{ data.postal_code }}
+                                        <br>{{ data.country }}
+                                    </td>
                                 </tr>
 
                                 <tr>
@@ -147,6 +152,12 @@
                     }
                 ]
             });
+
+            var balanceText = $('#balance'),
+                num = parseInt(balanceText.text()),
+                balance = num.toLocaleString();
+
+            balanceText.text(balance);
         });
     </script>
 {% endblock %}

@@ -24,9 +24,18 @@ use GuzzleHttp\Cookie\SessionCookieJar;
 
 class ClientController extends Controller
 {
-    public function homeAction()
+    public function homeAction(Request $request)
     {
-        return $this->render('AppBundle:Client:home/index.html.twig');
+        $api = new ApiController();
+
+        $targetUrl = $this->container->getParameter('api_target');
+
+        $information['broker'] = $api->doRequest('GET', $targetUrl . '/broker-list');
+        $information['bank'] = $api->doRequest('GET', $targetUrl . '/bank-list');
+
+        return $this->render('AppBundle:Client:home/index.html.twig', [
+            'information' => $information,
+        ]);
     }
 
     public function blogAction()
@@ -35,7 +44,7 @@ class ClientController extends Controller
 
         $data = $manager->getRepository(Post::class)->findAll();
 
-        return new Response('BLOG VIEW');
+        return $this->render('AppBundle:Client:blog/list.html.twig');
     }
 
     public function detailBlogAction($slug)
@@ -61,7 +70,7 @@ class ClientController extends Controller
     }
 
 
-    public function dashboardClientAction()
+    public function dashboardClientAction(Request $request)
     {
         $api = new ApiController();
         $targetUrl = $this->container->getParameter('api_target') . '/user-info';
@@ -119,5 +128,19 @@ class ClientController extends Controller
         }
 
         return $this->render('AppBundle:Client:defaults/activate.html.twig');
+    }
+
+    public function dummyAction(Request $request)
+    {
+        $api = new ApiController();
+
+        $targetUrl = $this->container->getParameter('api_target');
+
+        $information['broker'] = $api->doRequest('GET', $targetUrl . '/broker-list');
+        $information['bank'] = $api->doRequest('GET', $targetUrl . '/bank-list');
+
+        return $this->render('AppBundle:Client:defaults/dummy.html.twig', [
+            'information' => $information,
+        ]);
     }
 }

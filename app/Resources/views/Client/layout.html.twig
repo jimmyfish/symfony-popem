@@ -62,7 +62,7 @@
                                 <input type="password" class="form-control" name="_password" id="_password">
                             </div>
                             <div class="form-group">
-                                <label for="" class="process-text">&nbsp;</label>
+                                <label for="" class="process-text text-capitalize">&nbsp;</label>
                                 <input type="submit" value="LOGIN" class="btn red-button plr-30 pull-right">
                             </div>
                         </form>
@@ -87,7 +87,7 @@
             <div class="navbar-header">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{{ path('popem_client_index') }}">
-                        <img alt="" src="{{ asset('assets_client') }}/img/logo.svg">
+                        <img alt="" src="{{ asset('assets_client') }}/img/logo.png">
                     </a>
                 </div>
                 <button aria-expanded="false" class="navbar-toggle collapsed"
@@ -167,7 +167,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <img alt="" src="{{ asset('assets_client') }}/img/logo.svg">
+                <img alt="" src="{{ asset('assets_client') }}/img/logo.png">
                 <p></p>
                 <div class="col-xs-4">
                     <img alt="" class="img-responsive" src="{{ asset('assets_client') }}/img/payments/bca.gif">
@@ -267,14 +267,19 @@
                 input = $(this).find('input');
 
             input.prop('disabled', true);
-            $(this).find('.process-text').text('Processing ...');
+            $(this).find('.process-text').text('Processing ...').removeClass('text-danger');
 
             $.ajax({
                 type: 'POST',
                 url: sourcePath,
                 data: sendInfo,
                 success: function (msg) {
-                    if (msg.data.status === true) location.href = destPath
+                    if (msg.data.status === true) {
+                        location.href = destPath
+                    } else {
+                        input.prop('disabled', false);
+                        $('.process-text').text(msg.data.message).addClass('text-danger');
+                    }
                 }
             });
         });

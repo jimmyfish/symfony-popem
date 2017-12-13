@@ -16,6 +16,18 @@ popem_api_client_register:
     _controller: AppBundle:Api/User:register
   methods: [POST]
 
+popem_api_client_balance:
+  path: /user-balance
+  defaults:
+    _controller: AppBundle:Api/User:clientBalance
+  methods: GET
+
+popem_api_client_deposit_account:
+  path: /deposit-account
+  defaults:
+    _controller: AppBundle:Api/User:clientDepositAccount
+  methods: POST
+
 popem_api_client_dummy:
   path: /dummy
   defaults:

@@ -14,6 +14,9 @@
                 <div class="hide" id="sidebar-content-1">
                     <p>Register</p>
                     <div class="content-form">
+                        <div class="form-notification">
+                            
+                        </div>
                         <form action="" style="padding-right: 12px;">
                             <div class="form-group">
                                 <label for="username">Username :</label>
@@ -56,69 +59,69 @@
                 <div class="hide" id="sidebar-content-2">
                     <p>Deposit</p>
                     <div class="content-form">
-                        <form>
+                        <form enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="deposit__broker">Broker :</label>
-                                <select class="form-control" id="deposit__broker" name="deposit__broker"
-                                        placeholder="Pilih Broker">
-                                    <option value="0">Item 1</option>
-                                    <option value="0">Item 2</option>
-                                    <option value="0">Item 3</option>
+                                <select class="form-control" id="deposit__broker" name="deposit__broker">
+                                        {% for info in information.broker.data.data %}
+                                            <option value="{{ info.broker_id }}">{{ info.broker_name }}</option>
+                                        {% endfor %}
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="">Login :</label>
-                                <input class="form-control" type="text">
+                                <label for="login">Login :</label>
+                                <input class="form-control" type="text" name="login" id="login">
                             </div>
                             <div class="form-group">
-                                <label for="">Email :</label>
-                                <input class="form-control" id="" name="" type="email">
+                                <label for="email">Email :</label>
+                                <input class="form-control" id="email" name="email" type="email">
                             </div>
                             <div class="form-group">
-                                <label for="">Phone :</label>
-                                <input class="form-control" id="" name="" type="number">
+                                <label for="phone">Phone :</label>
+                                <input class="form-control" id="phone" name="phone" type="number">
                             </div>
                             <div class="form-group">
-                                <label for="">Nama Bank :</label>
-                                <input class="form-control" id="" name="" type="text">
+                                <label for="bank_name">Nama Bank :</label>
+                                <input class="form-control" id="bank_name" name="bank_name" type="text">
                             </div>
                             <div class="form-group">
-                                <label for="">Akun Bank :</label>
-                                <input class="form-control has-error" type="text">
-                                <p class="text-error">This is error message.</p>
+                                <label for="bank_account">Akun Bank :</label>
+                                <input class="form-control" type="text" name="bank_account" id="bank_account">
+                                {#<p class="text-error">This is error message.</p>#}
                             </div>
                             <div class="form-group">
-                                <label for="">Bank Beneficiary Name :</label>
-                                <input class="form-control" required="" type="text">
+                                <label for="bank_beneficiary_name">Bank Beneficiary Name :</label>
+                                <input class="form-control" required="" type="text" name="bank_beneficiary_name" id="bank_beneficiary_name">
                             </div>
                             <div class="form-group">
-                                <label for="">Bank Tujuan :</label>
-                                <select class="form-control" id="" name="">
-                                    <option value="">Item</option>
-                                    <option value="">Item</option>
-                                    <option value="">Item</option>
+                                <label for="bank_id">Bank Tujuan :</label>
+                                <select class="form-control" id="bank_id" name="bank_id">
+                                    {% for bank in information.bank.data.data %}
+                                        <option value="{{ bank.bank_id }}">{{ bank.bank_name }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="">Jumlah (USD) :</label>
+                                <label for="amount">Jumlah (USD) :</label>
                                 <div class="input-group">
-                                    <span class="input-group-addon" id="ammount">$</span>
-                                    <input aria-describedby="ammount" class="form-control" placeholder="Amount"
-                                           type="number">
+                                    <span class="input-group-addon" id="dollar">$</span>
+                                    <input aria-describedby="dollar" class="form-control" placeholder="Amount"
+                                           type="number" name="amount" id="amount">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="">File :</label>
+                                <label for="file">File :</label>
                                 <label class="type-input">
                                     <p>
                                         <i class="fa fa-image"></i>
                                     </p>
                                     Browse
-                                    <input id="" name="" type="file">
+                                    <input id="file" name="file" type="file">
                                 </label>
                             </div>
                             <div class="form-group">
-                                <input class="btn btn-submit btn-block" type="submit" value="Proses">
+                                <button class="btn btn-submit btn-block" type="submit" onclick="depositAction(event)">Proses</button>
+
                             </div>
                         </form>
                     </div>
@@ -869,5 +872,7 @@
 {% endblock %}
 
 {% block customJS %}
-    <script >{% include '@main_template/Client/home/home.js.twig' %}</script>
+    <script>
+        {% include '@main_template/Client/home/home.js.twig' %}
+    </script>
 {% endblock %}

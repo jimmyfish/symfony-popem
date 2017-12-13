@@ -11,4 +11,4 @@ parameters:
     mailer_password: null
     secret: ThisTokenIsNotSoSecretChangeIt
 
-    api_target: http://localhost:1234/
+    api_target: http://139.59.232.88/popem/public/index.php
