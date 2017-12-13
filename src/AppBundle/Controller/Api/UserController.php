@@ -99,11 +99,73 @@ class UserController extends Controller
     {
         $api = new ApiController();
 
+
         $targetUrl = $this->container->getParameter('api_target');
 
-        return new JsonResponse($request->files->get('file'));
+        $img = $request->files->get('file');
 
-//        $response = $api->doRequest('POST', $targetUrl . '/deposit-account');
+        if(!(is_dir($this->getParameter('tmp_directory')['resource']))) {
+            @mkdir($this->getParameter('tmp_directory')['resource'],0777,true);
+        }
+
+        $dirName = $this->getParameter('tmp_directory')['resource'];
+
+        $filename = md5(uniqid()) . '.' . $img->guessExtension();
+
+        $img->move($dirName, $filename);
+
+        if (file_exists($dirName . '/' . $filename)) {
+            $formData = [
+                [
+                    'name' => 'broker_id',
+                    'contents' => $request->get('broker_id')
+                ],
+                [
+                    'name' => 'login',
+                    'contents' => $request->get('login')
+                ],
+                [
+                    'name' => 'email',
+                    'contents' => $request->get('email')
+                ],
+                [
+                    'name' => 'phone',
+                    'contents' => $request->get('phone')
+                ],
+                [
+                    'name' => 'bank_name',
+                    'contents' => $request->get('bank_name')
+                ],
+                [
+                    'name' => 'bank_account',
+                    'contents' => $request->get('bank_account')
+                ],
+                [
+                    'name' => 'bank_beneficiary_name',
+                    'contents' => $request->get('bank_beneficiary_name')
+                ],
+                [
+                    'name' => 'bank_id',
+                    'contents' => $request->get('bank_id')
+                ],
+                [
+                    'name' => 'amount',
+                    'contents' => $request->get('amount')
+                ],
+                [
+                    'name' => 'file',
+                    'contents' => fopen($dirName . '/' . $filename, 'r'),
+                ]
+            ];
+
+            $response = $api->doRequest('POST', $targetUrl . '/deposit-account', $formData, 'multipart');
+
+            unlink($dirName . '/' . $filename);
+
+            return new JsonResponse($response);
+        } else {
+            return new JsonResponse(['data' => 'Image upload not successfull']);
+        }
     }
 
 }

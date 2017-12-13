@@ -21,33 +21,58 @@ function registerAction(e) {
         data: sendInfo,
         success: function (msg) {
             if (msg.status === true) {
-                wrapper.html('Terima Kasih, Pendaftaran telah berhasil diproses, silahkan aktivasi melalui link yang kami kirimkan melalui email anda');
+                wrapper.find('.success-notification').removeClass('hide');
+                wrapper.find('form').hide();
             }
         }
     });
 }
 
+// BINDING DEPOSIT TO ACCOUNT FUNCTION
 function depositAction(e) {
     e.preventDefault();
-    var wrapper = jQuery('.content-main'),
+    var wrapper = $('.content-main'),
         container = wrapper.find('form'),
         sourcePath = "{{ path('popem_api_client_deposit_account') }}",
         formData = new FormData();
 
-        formData.append("fileInput", container.find('#file')[0].files[0]);
+    formData.append("broker_id", parseInt(container.find('#deposit__broker').val()));
+    formData.append("login", parseInt(container.find('#login').val()));
+    formData.append("email", container.find('#deposit_email').val());
+    formData.append("phone", container.find('#phone').val());
+    formData.append("bank_name", container.find('#bank_name').val());
+    formData.append("bank_account", parseInt(container.find('#bank_account').val()));
+    formData.append("bank_beneficiary_name", container.find('#bank_beneficiary_name').val());
+    formData.append("bank_id", parseInt(container.find('#bank_id').val()));
+    formData.append("amount", parseInt(container.find('#amount').val()));
+    formData.append("file", container.find('#file')[0].files[0]);
 
-    var sendInfo = {
-        "broker_id": parseInt(container.find('#deposit__broker').val()),
-        "login": parseInt(container.find('#login').val()),
-        "email": container.find('#email').val(),
-        "phone": container.find('#phone').val(),
-        "bank_name": container.find('#bank_name').val(),
-        "bank_account": parseInt(container.find('#bank_account').val()),
-        "bank_beneficiary_name": container.find('#bank_beneficiary_name').val(),
-        "bank_id": parseInt(container.find('#bank_id').val()),
-        "amount": parseInt(container.find('#amount').val()),
-        "file": new FormData(container.find('#file')[0].files[0])
-    }
-
-    console.log(sendInfo);
+    $.ajax({
+        type: 'POST',
+        url: sourcePath,
+        data: formData,
+        contentType: false,
+        processData: false,
+        cache: false,
+        dataType: 'json',
+        beforeSend: function () {
+            wrapper.find('input').prop('disabled', true);
+            wrapper.find('button').prop('disabled', true);
+            wrapper.find('.caption').text('Memproses');
+            wrapper.find('.spinner').removeClass('hide');
+        },
+        success: function (data) {
+            if (data.data.status == true) {
+                var sucWrapper = wrapper.find('.success-notification'),
+                    balance = parseInt(data.data.amount_transfer).toLocaleString();
+                sucWrapper.find('.dept_amount').text(balance);
+                sucWrapper.find('.ticket').text(data.data.ticket_number);
+                container.hide();
+                sucWrapper.removeClass('hide');
+            }
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
 }

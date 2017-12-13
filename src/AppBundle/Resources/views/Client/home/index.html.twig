@@ -14,8 +14,16 @@
                 <div class="hide" id="sidebar-content-1">
                     <p>Register</p>
                     <div class="content-form">
-                        <div class="form-notification">
-                            
+                        <div class="success-notification hide">
+                            <div class="text-center text">
+                                <span class="fa-stack fa-lg success">
+                                    <i class="fa fa-circle fa-stack-2x text-emerald"></i>
+                                    <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                                </span>
+                                <br>
+                                <p class="mt-20 mb-20">Terima Kasih, Pendaftaran telah berhasil diproses, silahkan aktivasi melalui link yang kami kirimkan melalui email anda</p>
+                                {#<p><a href="#" class="btn btn-success btn-block">Kembali</a></p>#}
+                            </div>
                         </div>
                         <form action="" style="padding-right: 12px;">
                             <div class="form-group">
@@ -44,7 +52,6 @@
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-submit btn-block" type="submit" onclick="registerAction(event)">Proses</button>
-                                {#<a href="javascript:void(0)" class="btn btn-submit btn-block" id="register-btn" onclick="">Proses</a>#}
                             </div>
                             <p class="spinner hide"><i class="fa fa-spinner fa-spin"></i> Memproses</p>
                         </form>
@@ -59,6 +66,16 @@
                 <div class="hide" id="sidebar-content-2">
                     <p>Deposit</p>
                     <div class="content-form">
+                        <div class="success-notification hide mt-50">
+                            <div class="text-center text">
+                                <span class="fa-stack fa-lg success">
+                                    <i class="fa fa-circle fa-stack-2x text-emerald"></i>
+                                    <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                                </span>
+                                <br>
+                                <p class="mt-20 mb-20">Terima kasih, Deposit berjumlah Rp. <span class="dept_amount">20000</span> dengan nomor tiket <span class="ticket">10000</span> telah berhasil diproses.</p>
+                            </div>
+                        </div>
                         <form enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="deposit__broker">Broker :</label>
@@ -70,28 +87,27 @@
                             </div>
                             <div class="form-group">
                                 <label for="login">Login :</label>
-                                <input class="form-control" type="text" name="login" id="login">
+                                <input class="form-control" type="number" name="login" id="login" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email :</label>
-                                <input class="form-control" id="email" name="email" type="email">
+                                <label for="deposit_email">Email :</label>
+                                <input class="form-control" id="deposit_email" name="deposit_email" type="email" required>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone :</label>
-                                <input class="form-control" id="phone" name="phone" type="number">
+                                <input class="form-control" id="phone" name="phone" type="number" required>
                             </div>
                             <div class="form-group">
                                 <label for="bank_name">Nama Bank :</label>
-                                <input class="form-control" id="bank_name" name="bank_name" type="text">
+                                <input class="form-control" id="bank_name" name="bank_name" type="text" required>
                             </div>
                             <div class="form-group">
                                 <label for="bank_account">Akun Bank :</label>
-                                <input class="form-control" type="text" name="bank_account" id="bank_account">
-                                {#<p class="text-error">This is error message.</p>#}
+                                <input class="form-control" type="number" name="bank_account" id="bank_account" required>
                             </div>
                             <div class="form-group">
                                 <label for="bank_beneficiary_name">Bank Beneficiary Name :</label>
-                                <input class="form-control" required="" type="text" name="bank_beneficiary_name" id="bank_beneficiary_name">
+                                <input class="form-control" required="" type="text" name="bank_beneficiary_name" id="bank_beneficiary_name" required>
                             </div>
                             <div class="form-group">
                                 <label for="bank_id">Bank Tujuan :</label>
@@ -106,7 +122,7 @@
                                 <div class="input-group">
                                     <span class="input-group-addon" id="dollar">$</span>
                                     <input aria-describedby="dollar" class="form-control" placeholder="Amount"
-                                           type="number" name="amount" id="amount">
+                                           type="number" name="amount" id="amount" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -120,7 +136,10 @@
                                 </label>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-submit btn-block" type="submit" onclick="depositAction(event)">Proses</button>
+                                <button class="btn btn-submit btn-block submitting" type="submit" onclick="depositAction(event)">
+                                <span class="spinner hide"><i class="fa fa-spinner fa-spin"></i></span> &nbsp;
+                                <span class="caption">Proses</span>
+                                </button>
 
                             </div>
                         </form>

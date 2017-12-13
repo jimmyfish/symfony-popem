@@ -1563,3 +1563,18 @@ table.dataTable thead th {
     left: 0;
     position: absolute;
 }
+
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+/* NEW SETTING FOR SIDEBAR */
+
+.success-notification .success {
+    font-size: 4em;
+}
