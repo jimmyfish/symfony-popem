@@ -71,30 +71,24 @@
                     <div class="latest-news dark-background ptb-25 plr-30">
                         <p class="text-sunflower fz-19">Latest News</p>
                         <div class="row">
-                            <div class="item">
-                                <div class="col-xs-12">
-                                    <a href="#">
-                                        <p class="news-title text-pome iq-fw-700">Usai diperiksa, Novanto cerita soal kecelakaan hingga ngaku luka berat</p>
-                                    </a>
-                                    <p class="news-desc text-clouds">Ketua DPR Setya Novanto menjelaskan mengenai kecelakaan lalu lintas yang dialami sehingga membuat dirinya harus masuk rumah sakit.</p>
+                            {% for new in latest %}
+                                <div class="item">
+                                    <div class="col-xs-12">
+                                        <a href="{{ path('popem_client_detail_blog',{slug: new.slug }) }}">
+                                            <p class="news-title text-pome iq-fw-700">
+                                                {% if new.title is defined %}
+                                                    {{ new.title }}
+                                                {% endif %}
+                                            </p>
+                                        </a>
+                                         <p class="news-desc text-clouds">
+                                             {% if new.body is defined %}
+                                                 {{ new.body | raw }}
+                                             {% endif %}
+                                         </p>
+                                        </div>
                                 </div>
-                            </div>
-                            <div class="item">
-                                <div class="col-xs-12">
-                                    <a href="#">
-                                        <p class="news-title text-pome iq-fw-700">Panglima TNI beberkan ciri-ciri ulama palsu yang tak perlu diikuti</p>
-                                    </a>
-                                    <p class="news-desc text-clouds">Di samping itu, ulama di Indonesia selalu memberikan tausiyah kepada umatnya untuk menjadi seorang muslim yang cinta bangsa dan Negara</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="col-xs-12">
-                                    <a href="#">
-                                        <p href="#" class="news-title text-pome iq-fw-700">Upaya Setnov lolos dari jeratan KPK hingga akhirnya dijebloskan ke penjara</p>
-                                    </a>
-                                    <p class="news-desc text-clouds">Penahanan itu melalui proses panjang hingga perlawanan hukum dari ketua DPR tersebut. </p>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -115,10 +109,11 @@
                     <div class="container">
 
                         <div class="article">
-
                             <h2>{% if data.title is defined %}{{ data.title }}{% else %}-{% endif %}</h2>
-                            <span class="article-date text-concrete">Sabtu, 25 November 2017</span>
-                            <span class="article-writer">&nbsp;<a href="#">Admin</a></span>
+                            <span class="article-date text-concrete">
+                                {{ data.publishedAt is empty ? "" : data.publishedAt|date('d M Y') }}
+                            </span>
+                            {#<span class="article-writer">&nbsp;<a href="#">Admin</a></span>#}
 
                             <div class="article-content pb-50">
                                 {% if data.body is defined %}
@@ -126,13 +121,6 @@
                                 {% else %}
                                     -
                                 {% endif %}
-                                {#<img src="http://placehold.it/640x480" alt="" class="ptb-50">#}
-                                {#<p><strong>Proinsta.com -</strong> Rektor Institut Pertanian Bogor (IPB) Arif Satria mengungkapkan sejak tahun 2015 jumlah tangkapan ikan tuna Indonesia selalu lebih rendah dari kuota yang telah ditetapkan.</p>#}
-                                {#<p>Pada tahun 2015, hasil tangkapan tuna sebesar 592 ribu ton padahal kuota yang diberikan sebesar 750 ribu ton. Sementara itu, tahun 2016 jumlah tangkapan tuna tercatat 600 ribu ton dari kuota 750 ribu ton.</p>#}
-                                {#<p>"Tahun 2017, Kuota 899 ton hasil tangkapan per 1 September 288 ton. Kouta makin naik, tapi jumlah tangkapan turun," ungkapnya di Gedung Mina Bahari III, <a href="#">Jakarta Pusat</a>, Senin (20/11).</p>#}
-                                {#<p>Untuk dapat meningkatkan hasil tangkapan, pemerintah mesti lebih banyak menyediakan kapal penangkap tuna sehingga kuota yang ada bisa terpenuhi. Seperti menambah kapal long line untuk memanfaatkan catch limit (batas tangkapan) Big eye#}
-                                    {#tuna (tuna mata besar) di Western Central Pasific sebanyak 5.889 ton per tahun atau setara dengan sekitar 15.704 GT kapal di Laut Lepas.</p>#}
-                                {#<p>Selain itu, perlu juga tambahan kapal di wilayah tangkap IOTC (Indian Ocean Tuna Comission) untuk mengantisipasi bahwa jumlah kapal menjadi kriteria dalam alokasi kuota hasil tangkapan.</p>#}
                             </div>
                         </div>
                     </div>
@@ -140,22 +128,18 @@
                         <div class="container">
                             <p><strong>Baca Juga</strong></p>
                             <div class="row">
-                                <div class="col-md-3 col-sm-6">
-                                    <img src="http://placehold.it/640x480" alt="" class="img-responsive mb-10">
-                                    <p><a href="#">Akui pukul putrinya yang labrak Jennifer Dunn</a></p>
-                                </div>
-                                <div class="col-md-3 col-sm-6">
-                                    <img src="http://placehold.it/640x480" alt="" class="img-responsive mb-10">
-                                    <p><a href="#">Haris, Pria yang Dituding Selingkuh dengan Jennifer Dunn Buka Suara</a></p>
-                                </div>
-                                <div class="col-md-3 col-sm-6">
-                                    <img src="http://placehold.it/640x480" alt="" class="img-responsive mb-10">
-                                    <p><a href="#">Juventus Ditaklukkan Sampdoria 2-3</a></p>
-                                </div>
-                                <div class="col-md-3 col-sm-6">
-                                    <img src="http://placehold.it/640x480" alt="" class="img-responsive mb-10">
-                                    <p><a href="#">Aguero Juga Pernah Tabrak Tiang di Jalan, Ronaldo Hancurkan Ferrari</a></p>
-                                </div>
+                                {% for rela in related %}
+                                    {% if data.tag == rela.tag %}
+                                        <div class="col-md-3 col-sm-6">
+                                            {% if rela.image is defined %}
+                                                <img src="{{ asset('uploads') }}/image/post/{{ rela.image }}" alt="" class="img-responsive mb-10">
+                                            {% else %}
+                                                <img src="http://placehold.it/640x480" alt="" class="img-responsive mb-10">
+                                            {% endif %}
+                                            <p><a href="{{ path('popem_client_detail_blog',{slug: rela.slug}) }}">{{ rela.title }}</a></p>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

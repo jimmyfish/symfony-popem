@@ -29,4 +29,12 @@ AppBundle\Entity\Page:
         metaDescription:
             type: text
             column: meta_description
+        publishedAt:
+            type: datetime
+            column: published_at
+            nullable: true
+        updatedAt:
+            type: datetime
+            column: updated_at
+            nullable: true
     lifecycleCallbacks: {  }

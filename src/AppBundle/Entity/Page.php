@@ -52,6 +52,16 @@ class Page
      */
     private $metaDescription;
 
+    /**
+     * @var \DateTime
+     */
+    private $publishedAt;
+
+    /**
+     * @var \DateTime
+     */
+    private $updatedAt;
+
 
     /**
      * Get id
@@ -248,6 +258,44 @@ class Page
     public function getMetaDescription()
     {
         return $this->metaDescription;
+    }
+
+    /**
+     * @param $publishedAt
+     * @return $this
+     */
+    public function setPublishedAt($publishedAt)
+    {
+        $this->publishedAt = $publishedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getPublishedAt()
+    {
+        return $this->publishedAt;
+    }
+
+    /**
+     * @param $updatedAt
+     * @return $this
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }
 

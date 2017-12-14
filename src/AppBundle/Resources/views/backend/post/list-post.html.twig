@@ -10,7 +10,6 @@
                         <div class="f-center">
                             <i class="fa fa-list-alt" style="font-size: 48px;"></i>
                             <h1>Daftar Post</h1>
-                            <p>test</p>
                         </div>
                         {% for message in app.session.getFlashBag.get('message_success') %}
                             <div class="alert alert-success alert-dismissable">
@@ -74,6 +73,7 @@
                                                         </a>
                                                     </td>
                                                 </tr>
+                                                {% set i = i + 1 %}
                                             {% endfor %}
                                         {% else %}
                                             <tr>

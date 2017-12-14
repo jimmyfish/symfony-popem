@@ -13,6 +13,7 @@ use AppBundle\Entity\Post;
 use AppBundle\Controller\Api\ApiController;
 use AppBundle\Form\LoginType;
 use Doctrine\Common\Util\Debug;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use GuzzleHttp\Cookie\CookieJar;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,36 +39,69 @@ class ClientController extends Controller
         ]);
     }
 
-    public function blogAction()
+    public function blogAction(Request $request)
     {
         $manager = $this->getDoctrine()->getManager();
 
         $repository = $manager->getRepository(Post::class);
 
-        $data = $repository->findAll();
+        $dql = "SELECT p FROM AppBundle:Post p";
+        $data = $manager->createQuery($dql);
 
         $latest = $repository->createQueryBuilder('p')
-            ->orderBy('p.publishedAt','ASC')
+            ->orderBy('p.publishedAt','DESC')
             ->getQuery();
 
         $news = $latest->getResult();
 
-//        return var_dump($news);
+        /**
+         * @var $paginator \Knp\Component\Pager\Paginator
+         */
+        $paginator = $this->get('knp_paginator');
+
+        $pagination = $paginator->paginate(
+            $data,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit',10)
+        );
 
         return $this->render('AppBundle:Client:blog/list.html.twig',[
-            'data' => $data,
+            'data' => $pagination,
             'latest' => $news
         ]);
+    }
+
+    public function paginate($dql, $page = 1 , $limit = 5)
+    {
+        $paginator = new Paginator($dql);
+
+        $paginator->getQuery()
+            ->setFirstResult($limit * ($page - 1))
+            ->setMaxResults($limit);
+
+        return $paginator;
     }
 
     public function detailBlogAction($slug)
     {
         $manager = $this->getDoctrine()->getManager();
 
-        $data = $manager->getRepository(Post::class)->findOneBy(['slug'=>$slug]);
+        $repository = $manager->getRepository(Post::class);
+
+        $data = $repository->findOneBy(['slug'=>$slug]);
+
+        $related = $repository->findAll();
+
+        $latest = $repository->createQueryBuilder('p')
+            ->orderBy('p.publishedAt','DESC')
+            ->getQuery();
+
+        $news = $latest->getResult();
 
         return $this->render('AppBundle:Client:articles/article.html.twig',[
-            'data' => $data
+            'data' => $data,
+            'related' => $related,
+            'latest' => $news
         ]);
     }
 

@@ -20,6 +20,7 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
 
 require __DIR__.'/../vendor/autoload.php';
 Debug::enable();
+date_default_timezone_set('Asia/Jakarta');
 
 $kernel = new AppKernel('dev', true);
 if (PHP_VERSION_ID < 70000) {

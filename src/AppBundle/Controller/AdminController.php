@@ -634,13 +634,7 @@ class AdminController extends Controller
 
             $data->setCategoryId($em->getRepository(Category::class)->find($request->get('category')));
 
-            $arrNewTag = [];
-
-            foreach ($request->get('tag') as $item) {
-                array_push($arrNewTag, $item);
-            }
-
-            $data->setTag(serialize($arrNewTag));
+            $data->setTag(serialize($request->get('tag')));
             
             $data->setMetaKeyword($request->get('meta-keyword'));
             $data->setMetaDescription($request->get('meta-description'));
@@ -741,7 +735,6 @@ class AdminController extends Controller
                                 $request->files->get('image')->getPathName()
                             )->saveTo($this->getParameter('post_directory')['resource'] . '/' . $name1,30,true);
                             $data->setImage($name1);
-//                            $data->setImage($this->getParameter('post_directory')['resource'] . '/' . $name1);
                         }else {
                             $this->get('session')->getFlashBag()->add(
                                 'message_error',
@@ -779,6 +772,7 @@ class AdminController extends Controller
             $data->setMetaKeyword($request->get('meta-keyword'));
             $data->setMetaDescription($request->get('meta-description'));
             $data->setStatus($request->get('status'));
+            $data->setUpdatedAt(new \DateTime());
 
             array_push($newData,$data);
 
