@@ -141,8 +141,6 @@ class ClientController extends Controller
 
             $response = $api->doRequest($request,'GET', $targetUrl, $options);
 
-//            return new JsonResponse($response);
-
             if ($response['status'] == true) {
                 return $this->redirectToRoute('popem_client_login_warp');
             }

@@ -76,3 +76,48 @@ function depositAction(e) {
         }
     });
 }
+
+function withdrawalAccount(e) {
+    e.preventDefault();
+
+    var wrapper = jQuery('.content-main'),
+        container = wrapper.find('form'),
+        sourcePath = "{{ path('popem_api_client_withdrawal_account') }}",
+        sendInfo = {
+            'broker_id': parseInt(container.find('#withdrawal_broker_id').val()),
+            'login': parseInt(container.find('#withdrawal_login').val()),
+            'phone_password': container.find('#withdrawal_phone_password').val(),
+            'email': container.find('#withdrawal_email').val(),
+            'phone': container.find('#withdrawal_phone').val(),
+            'bank_name': container.find('#withdrawal_bank_name').val(),
+            'bank_account': container.find('#withdrawal_bank_account').val(),
+            'bank_beneficiary_name': container.find('#withdrawal_bank_beneficiary_name').val(),
+            'amount': parseInt(container.find('#withdrawal_amount').val()),
+        };
+
+
+    $.ajax({
+        type: 'POST',
+        url: sourcePath,
+        data: sendInfo,
+        beforeSend: function () {
+            wrapper.find('input').prop('disabled', true);
+            wrapper.find('button').prop('disabled', true);
+            wrapper.find('.caption').text('Memproses');
+            wrapper.find('.spinner').removeClass('hide');
+        },
+        success: function (data) {
+            if (data.data.status == true) {
+                var sucWrapper = wrapper.find('.success-notification');
+                sucWrapper.find('.ticket').text(data.data.ticket_number);
+                container.hide();
+                sucWrapper.removeClass('hide');
+            } else {
+                console.log(data);
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}

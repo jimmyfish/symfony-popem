@@ -28,6 +28,12 @@ popem_api_client_deposit_account:
     _controller: AppBundle:Api/User:clientDepositAccount
   methods: POST
 
+popem_api_client_withdrawal_account:
+  path: /withdrawal-account
+  defaults:
+    _controller: AppBundle:Api/User:clientWithdrawalAccount
+  methods: POST
+
 popem_api_client_dummy:
   path: /dummy
   defaults:

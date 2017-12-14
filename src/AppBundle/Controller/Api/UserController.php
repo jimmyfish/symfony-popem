@@ -168,4 +168,27 @@ class UserController extends Controller
         }
     }
 
+    public function clientWithdrawalAccountAction(Request $request)
+    {
+        $api = new ApiController();
+
+        $targetUrl = $this->container->getParameter('api_target');
+
+        $options = [
+            'broker_id' => $request->get('broker_id'),
+            'login' => $request->get('login'),
+            'phone_password' => $request->get('email'),
+            'email' => $request->get('email'),
+            'phone' => $request->get('phone'),
+            'bank_name' => $request->get('bank_name'),
+            'bank_account' => $request->get('bank_account'),
+            'bank_beneficiary_name' => $request->get('bank_beneficiary_name'),
+            'amount' => $request->get('amount'),
+        ];
+
+        $response = $api->doRequest('POST', $targetUrl . '/withdrawal-account', $options);
+
+        return new JsonResponse($response);
+    }
+
 }

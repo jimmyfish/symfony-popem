@@ -154,60 +154,66 @@
                 <div class="hide" id="sidebar-content-3">
                     <p>Withdraw</p>
                     <div class="content-form">
+                        <div class="success-notification hide mt-50">
+                            <div class="text-center text">
+                                <span class="fa-stack fa-lg success">
+                                    <i class="fa fa-circle fa-stack-2x text-emerald"></i>
+                                    <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                                </span>
+                                <br>
+                                <p class="mt-20 mb-20">Terima kasih, Withdrawal berjumlah Rp. <span class="dept_amount">20000</span> dengan nomor tiket <span class="ticket">10000</span> telah berhasil diproses.</p>
+                            </div>
+                        </div>
                         <form action="">
                             <div class="form-group">
-                                <label for="">Broker :</label>
-                                <select class="form-control" id="" name="">
-                                    <option value="">Item</option>
-                                    <option value="">Item</option>
-                                    <option value="">Item</option>
-                                    <option value="">Item</option>
-                                    <option value="">Item</option>
-                                    <option value="">Item</option>
-                                    <option value="">Item</option>
-                                    <option value="">Item</option>
-                                    <option value="">Item</option>
-                                    <option value="">Item</option>
+                                <label for="withdrawal_broker_id">Broker :</label>
+                                <select class="form-control" id="withdrawal_broker_id" name="withdrawal_broker_id">
+                                    {% for info in information.broker.data.data %}
+                                        <option value="{{ info.broker_id }}">{{ info.broker_name }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="">Login :</label>
-                                <input class="form-control" type="text">
+                                <label for="withdrawal_login">Login :</label>
+                                <input class="form-control" type="number" id="withdrawal_login" name="withdrawal_login">
                             </div>
                             <div class="form-group">
-                                <label for="">Phone Password :</label>
-                                <input class="form-control" type="text">
+                                <label for="withdrawal_phone_password">Phone Password :</label>
+                                <input class="form-control" type="password" id="withdrawal_phone_password" name="withdrawal_phone_password">
                             </div>
                             <div class="form-group">
-                                <label for="">Email :</label>
-                                <input class="form-control" type="text">
+                                <label for="withdrawal_email">Email :</label>
+                                <input class="form-control" type="email" id="withdrawal_email" name="withdrawal_email">
                             </div>
                             <div class="form-group">
-                                <label for="">Phone :</label>
-                                <input class="form-control" type="text">
+                                <label for="withdrawal_phone">Phone :</label>
+                                <input class="form-control" type="text" id="withdrawal_phone" name="withdrawal_phone">
                             </div>
                             <div class="form-group">
-                                <label for="">Nama Bank :</label>
-                                <input class="form-control" type="text">
+                                <label for="withdrawal_bank_name">Nama Bank :</label>
+                                <input class="form-control" type="text" id="withdrawal_bank_name" name="withdrawal_bank_name">
                             </div>
                             <div class="form-group">
-                                <label for="">Akun Bank :</label>
-                                <input class="form-control" type="text">
+                                <label for="withdrawal_bank_account">Akun Bank :</label>
+                                <input class="form-control" type="text" id="withdrawal_bank_account" name="withdrawal_bank_account">
                             </div>
                             <div class="form-group">
-                                <label for="">Bank Beneficiary Name :</label>
-                                <input class="form-control" type="text">
+                                <label for="withdrawal_bank_beneficiary_name">Bank Beneficiary Name :</label>
+                                <input class="form-control" type="text" id="withdrawal_bank_beneficiary_name" name="withdrawal_bank_beneficiary_name">
                             </div>
                             <div class="form-group">
-                                <label for="">Jumlah (USD) :</label>
+                                <label for="withdrawal_amount">Jumlah (USD) :</label>
                                 <div class="input-group">
                                     <span class="input-group-addon" id="withdrawal-ammount">$</span>
                                     <input aria-describedby="withdrawal-ammount" class="form-control"
-                                           placeholder="Amount" type="text">
+                                           placeholder="Amount" type="number" name="withdrawal_amount" id="withdrawal_amount">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input class="btn btn-submit btn-block" type="submit" value="Proses">
+                                <button class="btn btn-submit btn-block submitting" type="submit" onclick="withdrawalAccount(event)">
+                                <span class="spinner hide"><i class="fa fa-spinner fa-spin"></i></span> &nbsp;
+                                <span class="caption">Proses</span>
+                                </button>
                             </div>
                         </form>
                     </div>
