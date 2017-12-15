@@ -73,17 +73,6 @@ class ClientController extends Controller
         ]);
     }
 
-    public function paginate($dql, $page = 1 , $limit = 5)
-    {
-        $paginator = new Paginator($dql);
-
-        $paginator->getQuery()
-            ->setFirstResult($limit * ($page - 1))
-            ->setMaxResults($limit);
-
-        return $paginator;
-    }
-
     public function detailBlogAction($slug)
     {
         $manager = $this->getDoctrine()->getManager();
