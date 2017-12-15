@@ -1578,3 +1578,7 @@ input::-webkit-inner-spin-button {
 .success-notification .success {
     font-size: 4em;
 }
+
+.menu-top .btn {
+    font-size: 14px;
+}

@@ -46,8 +46,8 @@
                             <i class="fa fa-sign-in"></i> Login Account
                         </a>
                     {% else %}
-                        <a href="{{ path('popem_client_logout') }}" >
-                            <i class="fa fa-sign-out"></i> Logout Account
+                        <a href="{{ path('popem_client_dashboard') }}" >
+                            <i class="fa fa-user"></i> {{ app.session.get('userLog') }}
                         </a>
                     {% endif %}
                     <div class="content hide">

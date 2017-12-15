@@ -10,6 +10,11 @@
                             <img src="{{ asset('assets_client') }}/img/profile.jpg" alt="" class="img-dashboard" height="100">
                             <p class="text-sunflower fz-19 mt-20">Jimmy Fish</p>
                             <p class="text-clouds">$ <span id="balance">{{ data.balance }}</span></p>
+                            <p>
+                                <a href="{{ path('popem_client_logout') }}">
+                                    Logout
+                                </a>
+                            </p>
                         </div>
                     </div>
                     <div class="latest-news dark-background ptb-25 plr-30">
@@ -57,14 +62,70 @@
                             </div>
                         </div>
                         <div class="profile-details mt-50">
+                            <div class="row menu-top mb-50">
+                                <div class="col-md-3">
+                                    <a href="#" class="btn btn-lg btn-default btn-block" data-toggle="modal" data-target="#validateClient">Account Validation</a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="#" class="btn btn-lg btn-default btn-block" data-toggle="modal" data-target="#addAccount">Add Account</a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="#" class="btn btn-lg btn-default btn-block">Something</a>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="#" class="btn btn-lg btn-default btn-block">Something</a>
+                                </div>
+                            </div>
+                            <div class="modal-container">
+                                <div id="validateClient" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Client Validation</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="post">
+
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div id="addAccount" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Add Account</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Some text in the modal.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                             <table class="table">
                                 <tr>
-                                    <th>Alamat E-Mail</th>
+                                    <th><span class="hidden-xs">Alamat </span>E-Mail</th>
                                     <td>{{ data.email }} <i class="fa fa-check-circle text-river"></i></td>
                                 </tr>
 
                                 <tr>
-                                    <th>Nomor Telefon</th>
+                                    <th><span class="hidden-xs">Nomor </span>Telefon</th>
                                     <td>{{ data.phone }}</td>
                                 </tr>
 
@@ -80,7 +141,7 @@
 
                                 <tr>
                                     <th>Alamat Ethereum</th>
-                                    <td>0x123f681646d4a755815f9cb19e1acc8565a0c2ac <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-clone"></i>&nbsp; Copy</a></td>
+                                    <td>0x123f681646d4a755815f9cb19e1acc8565a0c2ac <a href="#" class="btn btn-primary btn-xs pull-right hidden-xs"><i class="fa fa-clone"></i>&nbsp; Copy</a></td>
                                 </tr>
                             </table>
                         </div>
@@ -159,5 +220,6 @@
 
             balanceText.text(balance);
         });
+        {% include '@main_template/Client/additional/dashboard.js.twig' %}
     </script>
 {% endblock %}

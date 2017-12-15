@@ -13,6 +13,7 @@ use GuzzleHttp\Cookie\SessionCookieJar;
 use GuzzleHttp\Exception\ClientException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -41,10 +42,14 @@ class ApiController extends Controller
 
         $cookieJar = new SessionCookieJar('SESSION_STORAGE', true);
 
+
+        foreach ($cookieJar as $cookie) {
+            $cookie->setExpires(time() + 1 * 3600);
+        }
+
         $client = new Client([
             'base_uri' => 'http://localhost:8000',
             'cookies' => $cookieJar,
-            'timeout' => 100.0
         ]);
 
         $response = [];

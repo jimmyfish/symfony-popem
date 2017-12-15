@@ -125,21 +125,24 @@ class ClientController extends Controller
 
     public function dashboardClientAction(Request $request)
     {
-        $api = new ApiController();
-        $targetUrl = $this->container->getParameter('api_target') . '/user-info';
+        if ($request->getSession()->get('isLogin') == true) {
+            $api = new ApiController();
+            $targetUrl = $this->container->getParameter('api_target') . '/user-info';
 
-        $response = $api->doRequest($request, 'GET', $targetUrl);
+            $response = $api->doRequest('GET', $targetUrl);
 
-        if ($response['status'] == false) {
-            if ($request->getSession()->get('isLogin') == true) {
+            if ($response['status'] == false) {
                 $request->getSession()->clear();
+                $this->get('session')->getFlashBag()->add('message', 'Sesi anda telah berakhir, silahkan login kembali');
+                return $this->redirectToRoute('popem_client_login_warp');
             }
+
+            return $this->render('AppBundle:Client:defaults/dashboard.html.twig', [
+                'data' => $response['data']['data'],
+            ]);
+        } else {
             return $this->redirectToRoute('popem_client_login_warp');
         }
-
-        return $this->render('AppBundle:Client:defaults/dashboard.html.twig', [
-            'data' => $response['data']['data'],
-        ]);
     }
 
     public function loginAuthLegacyAction(Request $request)
@@ -159,6 +162,10 @@ class ClientController extends Controller
     public function logoutAction(Request $request, Session $session)
     {
         $session->clear();
+
+        $cookie = new SessionCookieJar('SESSION_STORAGE');
+
+        $cookie->clear();
 
         return $this->redirect($request->headers->get('referer'));
     }
@@ -185,13 +192,8 @@ class ClientController extends Controller
     {
         $api = new ApiController();
 
-        $targetUrl = $this->container->getParameter('api_target');
+        $response = $api->doRequest('GET', $this->container->getParameter('api_target').'/user-balance');
 
-        $information['broker'] = $api->doRequest('GET', $targetUrl . '/broker-list');
-        $information['bank'] = $api->doRequest('GET', $targetUrl . '/bank-list');
-
-        return $this->render('AppBundle:Client:defaults/dummy.html.twig', [
-            'information' => $information,
-        ]);
+        return new JsonResponse($response);
     }
 }

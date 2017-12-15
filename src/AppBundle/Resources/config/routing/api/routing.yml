@@ -34,6 +34,24 @@ popem_api_client_withdrawal_account:
     _controller: AppBundle:Api/User:clientWithdrawalAccount
   methods: POST
 
+popem_api_client_add_account:
+  path: /add-account
+  defaults:
+    _controller: AppBundle:Api/User:addAccount
+  methods: POST
+
+popem_api_client_validate_account:
+  path: /validate-account
+  defaults:
+    _controller: AppBundle:Api/User:accountValidation
+  methods: POST
+
+popem_api_client_validate:
+  path: /validate-client
+  defaults:
+    _controller: AppBundle:Api/User:clientValidation
+  methods: POST
+
 popem_api_client_dummy:
   path: /dummy
   defaults:
