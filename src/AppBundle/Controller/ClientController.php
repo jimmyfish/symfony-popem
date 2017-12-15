@@ -81,10 +81,17 @@ class ClientController extends Controller
 
         $data = $repository->findOneBy(['slug'=>$slug]);
 
-        $related = $repository->findAll();
+        $limited = 4;
+        $related = $repository->createQueryBuilder('p')
+            ->orderBy('p.publishedAt','DESC')
+            ->setMaxResults($limited)
+            ->getQuery()
+            ->getResult();
 
+        $limit = 3;
         $latest = $repository->createQueryBuilder('p')
             ->orderBy('p.publishedAt','DESC')
+            ->setMaxResults($limit)
             ->getQuery();
 
         $news = $latest->getResult();
