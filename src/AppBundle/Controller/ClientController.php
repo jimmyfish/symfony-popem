@@ -45,14 +45,15 @@ class ClientController extends Controller
 
         $repository = $manager->getRepository(Post::class);
 
-        $dql = "SELECT p FROM AppBundle:Post p";
-        $data = $manager->createQuery($dql);
-
         $latest = $repository->createQueryBuilder('p')
-            ->orderBy('p.publishedAt','DESC')
             ->getQuery();
 
-        $news = $latest->getResult();
+        $limit = 3;
+        $news = $repository->createQueryBuilder('p')
+            ->orderBy('p.publishedAt','DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
 
         /**
          * @var $paginator \Knp\Component\Pager\Paginator
@@ -60,14 +61,15 @@ class ClientController extends Controller
         $paginator = $this->get('knp_paginator');
 
         $pagination = $paginator->paginate(
-            $data,
+            $latest,
             $request->query->getInt('page', 1),
-            $request->query->getInt('limit',10)
+            $request->query->getInt('limit',5)
         );
 
         return $this->render('AppBundle:Client:blog/list.html.twig',[
-            'data' => $pagination,
+            'pagination' => $pagination,
             'latest' => $news
+
         ]);
     }
 

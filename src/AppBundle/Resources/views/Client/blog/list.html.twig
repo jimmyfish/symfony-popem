@@ -89,7 +89,7 @@
                             <h2>Daftar Blog 2017</h2>
                             {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam commodi dolore doloribus eligendi est illo maxime perspiciatis similique. Alias dolore eligendi eos ipsa libero necessitatibus neque non placeat velit?</p>#}
                             <hr align="left">
-                            {% for dat in data %}
+                            {% for dat in pagination %}
                                 <div class="row item">
                                     <div class="col-md-4">
                                         {% if dat.image is defined %}
@@ -118,18 +118,13 @@
                                 </div>
                             {% endfor %}
 
-                            {#<div class="pagination-wrapper text-center">#}
-                                {#<ul class="pagination">#}
-                                    {#<li>{{  dump(knp_pagination_render(data)) }}</li>#}
-                                {#</ul>#}
-                            {#</div>#}
-
-                            <div class="navigation text-center">
-                                {{ dump(knp_pagination_render(data)) }}
+                            <div class="pagination-wrapper text-center">
+                                <ul class="pagination">
+                                    <li>{{ knp_pagination_render(pagination) }}</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
