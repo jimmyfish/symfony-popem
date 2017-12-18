@@ -1,322 +1,262 @@
-{% extends 'Client/layout.html.twig' %}
+{% extends 'Client/dashboard.layout.html.twig' %}
 
-{% block content %}
-    <section id="main-content">
-        <div class="container-fluid">
-            <div class="row flex-row">
-                <div class="col-md-3 content-wrapper no-padding dark-background">
-                    <div id="account-summary" class="grey-background ptb-25 plr-30">
-                        <div class="text-center">
-                            <img src="{{ asset('assets_client') }}/img/profile.jpg" alt="" class="img-dashboard"
-                                 height="100">
-                            <p class="text-sunflower fz-19 mt-20">Jimmy Fish</p>
-                            <p class="text-clouds">$ <span id="balance">{{ data.balance }}</span></p>
-                            <p>
-                                <a href="{{ path('popem_client_logout') }}">
-                                    Logout
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="latest-news dark-background ptb-25 plr-30">
-                        <p class="text-sunflower fz-19">Latest News</p>
-                        <div class="row">
-                            <div class="item">
-                                <div class="col-xs-12">
-                                    <a href="#">
-                                        <p class="news-title text-base iq-fw-700">Usai diperiksa, Novanto cerita soal
-                                            kecelakaan hingga ngaku luka berat</p>
-                                    </a>
-                                    <p class="news-desc text-clouds">Ketua DPR Setya Novanto menjelaskan mengenai
-                                        kecelakaan lalu lintas yang dialami sehingga membuat dirinya harus masuk rumah
-                                        sakit.</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="col-xs-12">
-                                    <a href="#">
-                                        <p class="news-title text-base iq-fw-700">Panglima TNI beberkan ciri-ciri ulama
-                                            palsu yang tak perlu diikuti</p>
-                                    </a>
-                                    <p class="news-desc text-clouds">Di samping itu, ulama di Indonesia selalu
-                                        memberikan tausiyah kepada umatnya untuk menjadi seorang muslim yang cinta
-                                        bangsa dan Negara</p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="col-xs-12">
-                                    <a href="#">
-                                        <p class="news-title text-base iq-fw-700">Upaya Setnov lolos dari jeratan KPK
-                                            hingga akhirnya dijebloskan ke penjara</p>
-                                    </a>
-                                    <p class="news-desc text-clouds">Penahanan itu melalui proses panjang hingga
-                                        perlawanan hukum dari ketua DPR tersebut. </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8 content-wrapper">
-                    <div class="container">
-                        <h2>Detail Akun<span class="pull-right"><a href="#" class="fz-16">Edit Profil</a></span></h2>
-                        <div class="row mt-20">
-                            <div class="col-md-3 col-xs-3">
-                                <img src="{{ asset('assets_client') }}/img/profile.jpg" alt="" class="img-responsive">
-                            </div>
-                            <div class="col-md-9 col-xs-9">
-                                <div class="detail-wrapper">
-                                    <p class="mb-0 text-concrete">Nama :</p>
-                                    <h4>{% if (data.name|length == 0) %}Anonymous{% else %}{{ data.name }}{% endif %}</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="profile-details mt-50">
-                            <div class="row menu-top mb-50">
-                                <div class="col-md-3">
-                                    <a href="#" class="btn btn-lg btn-default btn-block" data-toggle="modal"
-                                       data-target="#validateClient">Client Validation</a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="#" class="btn btn-lg btn-default btn-block" data-toggle="modal"
-                                       data-target="#addAccount">Add Account</a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="#" class="btn btn-lg btn-default btn-block">Something</a>
-                                </div>
-                                <div class="col-md-3">
-                                    <a href="#" class="btn btn-lg btn-default btn-block">Something</a>
-                                </div>
-                            </div>
-                            <div class="modal-container">
-                                <div id="validateClient" class="modal fade" role="dialog">
-                                    <div class="modal-dialog">
-
-                                        <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <form method="post">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;
-                                                    </button>
-                                                    <h4 class="modal-title">Client Validation</h4>
-                                                </div>
-                                                <div class="modal-body">
-
-                                                    <div class="form-group">
-                                                        <label for="v_client_name">Name:</label>
-                                                        <input type="text" name="v_client_name" id="v_client_name"
-                                                               class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="v_client_phone">Phone:</label>
-                                                        <input type="number" name="v_client_phone" id="v_client_phone"
-                                                               class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="v_client_address">Address:</label>
-                                                        <input type="text" name="v_client_address" id="v_client_address"
-                                                               class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="v_client_city">City:</label>
-                                                        <input type="text" name="v_client_city" id="v_client_city"
-                                                               class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="v_client_postal">Postal code:</label>
-                                                        <input type="number" name="v_client_postal" id="v_client_postal"
-                                                               class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="v_client_state">State:</label>
-                                                        <input type="text" name="v_client_state" id="v_client_state"
-                                                               class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="v_client_country">Country:</label>
-                                                        <select name="v_client_country" id="v_client_country" class="form-control">
-                                                            <option value="ID">Indonesia</option>
-                                                            <option value="MY">Malaysia</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="v_client_bank_name">Bank name:</label>
-                                                        <input type="text" name="v_client_bank_name" id="v_client_bank_name"
-                                                               class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="v_client_bank_account">Bank account:</label>
-                                                        <input type="number" name="v_client_bank_account" id="v_client_bank_account"
-                                                               class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="v_client_beneficiary">Bank beneficiary name:</label>
-                                                        <input type="text" name="v_client_beneficiary" id="v_client_beneficiary"
-                                                               class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="v_client_file">File:</label>
-                                                        <input type="file" name="v_client_file" id="v_client_file"
-                                                               class="form-control">
-                                                    </div>
-                                                    <p class="spinner hide"><i class="fa fa-spinner fa-spin"></i> Processing ...</p>
-                                                    <div class="notif-wrapper alert alert-info hide" role="alert">
-                                                        Validation input success, quiting...
-                                                    </div>
-
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                    <button type="submit" class="btn red-button" onclick="validateClient(event)">
-                                                        Validate
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div id="addAccount" class="modal fade" role="dialog">
-                                    <div class="modal-dialog">
-
-                                        <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <form action="post">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;
-                                                    </button>
-                                                    <h4 class="modal-title">Add Account</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label for="a_login">Login</label>
-                                                        <input type="number" class="form-control" id="a_login" name="a_login">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="a_broker_id">Broker</label>
-                                                        <input type="number" class="form-control" id="a_broker_id" name="a_broker_id">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="a_phone_password">Phone Password</label>
-                                                        <input type="password" class="form-control" id="a_phone_password" name="a_phone_password">
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                    <button type="submit" class="btn red-button" onclick="addAccount(event)">
-                                                        Validate
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <table class="table">
-                                <tr>
-                                    <th><span class="hidden-xs">Alamat </span>E-Mail</th>
-                                    <td>{{ data.email }} <i class="fa fa-check-circle text-river"></i></td>
-                                </tr>
-
-                                <tr>
-                                    <th><span class="hidden-xs">Nomor </span>Telefon</th>
-                                    <td>{{ data.phone }}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>Alamat</th>
-                                    {#<td>172hkk9wr1ruJiX1DuAF7RsBq3FCLtYqvi <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-clone"></i>&nbsp; Copy</a></td>#}
-                                    <td>
-                                        {{ data.address }}, {{ data.city }}
-                                        <br>{{ data.state }} - {{ data.postal_code }}
-                                        <br>{{ data.country }}
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <th>Alamat Ethereum</th>
-                                    <td>0x123f681646d4a755815f9cb19e1acc8565a0c2ac <a href="#"
-                                                                                      class="btn btn-primary btn-xs pull-right hidden-xs"><i
-                                                    class="fa fa-clone"></i>&nbsp; Copy</a></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div id="profile-balance" class="mt-20">
-                            <p class="text-base fz-19">Balance</p>
-                            <table class="table table-bordered table-responsive">
-                                <thead>
-                                <tr>
-                                    <th>Tradeable Balance</th>
-                                    <th>Current Balance</th>
-                                    <th>Lost Balance</th>
-                                    <th>Win %</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>$ 52,000</td>
-                                    <td>$ 53,000</td>
-                                    <td class="text-base">- ($ 25,000)</td>
-                                    <td>52 %</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div id="profile-history" class="mt-20">
-                            <p class="text-base fz-19">History</p>
-                            <table class="table table-bordered table-responsive" id="history-table">
-                                <thead>
-                                <tr>
-                                    <th>Tanggal</th>
-                                    <th>Tipe Transaksi</th>
-                                    <th>Jumlah</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>27 November 2017</td>
-                                    <td>Deposit</td>
-                                    <td class="text-nephritis">$ 5,000</td>
-                                </tr>
-                                <tr>
-                                    <td>28 November 2017</td>
-                                    <td>Withdrawal</td>
-                                    <td class="text-base">$ 2,500</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+{% block mainContent %}
+    <div class="container">
+        <h2>Detail Akun<span class="pull-right"><a href="#" class="fz-16">Edit Profil</a></span></h2>
+        <div class="row mt-20">
+            <div class="col-md-3 col-xs-3">
+                <img src="{{ asset('assets_client') }}/img/profile.jpg" alt="" class="img-responsive">
+            </div>
+            <div class="col-md-9 col-xs-9">
+                <div class="detail-wrapper">
+                    <p class="mb-0 text-concrete">Nama :</p>
+                    <h4>{% if (data.name|length == 0) %}Anonymous{% else %}{{ data.name }}{% endif %}</h4>
                 </div>
             </div>
         </div>
-    </section>
-{% endblock %}
+        <div class="profile-details mt-50">
+            <div class="row menu-top mb-50">
+                <div class="col-md-3">
+                    <a href="#" class="btn btn-lg btn-default btn-block" data-toggle="modal"
+                       data-target="#validateClient">Client Validation</a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="btn btn-lg btn-default btn-block" data-toggle="modal"
+                       data-target="#addAccount">Add Account</a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="btn btn-lg btn-default btn-block">Something</a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="btn btn-lg btn-default btn-block">Something</a>
+                </div>
+            </div>
+            <div class="modal-container">
+                <div id="validateClient" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
 
-{% block vendorJS %}
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.material.min.js"></script>
-{% endblock %}
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <form method="post">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;
+                                    </button>
+                                    <h4 class="modal-title">Client Validation</h4>
+                                </div>
+                                <div class="modal-body">
 
-{% block customJS %}
-    <script>
-        $(function () {
-            $('#history-table').DataTable({
-                columnDefs: [
-                    {
-                        targets: [0, 1, 2],
-                        className: 'mdl-data-table__cell--non-numeric'
-                    }
-                ]
-            });
+                                    <div class="form-group">
+                                        <label for="v_client_name">Name:</label>
+                                        <input type="text" name="v_client_name" id="v_client_name"
+                                               class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="v_client_phone">Phone:</label>
+                                        <input type="number" name="v_client_phone" id="v_client_phone"
+                                               class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="v_client_address">Address:</label>
+                                        <input type="text" name="v_client_address" id="v_client_address"
+                                               class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="v_client_city">City:</label>
+                                        <input type="text" name="v_client_city" id="v_client_city"
+                                               class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="v_client_postal">Postal code:</label>
+                                        <input type="number" name="v_client_postal" id="v_client_postal"
+                                               class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="v_client_state">State:</label>
+                                        <input type="text" name="v_client_state" id="v_client_state"
+                                               class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="v_client_country">Country:</label>
+                                        <select name="v_client_country" id="v_client_country"
+                                                class="form-control">
+                                            <option value="ID">Indonesia</option>
+                                            <option value="MY">Malaysia</option>
+                                        </select>
+                                    </div>
 
-            var balanceText = $('#balance'),
-                num = parseInt(balanceText.text()),
-                balance = num.toLocaleString();
+                                    <div class="form-group">
+                                        <label for="v_client_bank_name">Bank name:</label>
+                                        <input type="text" name="v_client_bank_name"
+                                               id="v_client_bank_name"
+                                               class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="v_client_bank_account">Bank account:</label>
+                                        <input type="number" name="v_client_bank_account"
+                                               id="v_client_bank_account"
+                                               class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="v_client_beneficiary">Bank beneficiary name:</label>
+                                        <input type="text" name="v_client_beneficiary"
+                                               id="v_client_beneficiary"
+                                               class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="v_client_file">File:</label>
+                                        <input type="file" name="v_client_file" id="v_client_file"
+                                               class="form-control" required>
+                                    </div>
+                                    <p class="spinner hide"><i class="fa fa-spinner fa-spin"></i>
+                                        Processing ...</p>
+                                    <div class="notif-wrapper alert alert-info hide" role="alert">
+                                        <span>Validation input success, quiting...</span>
+                                    </div>
 
-            balanceText.text(balance);
-        });
-        {% include '@main_template/Client/additional/dashboard.js.twig' %}
-    </script>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancel
+                                    </button>
+                                    <button type="submit" class="btn red-button"
+                                            onclick="validateClient(event)">
+                                        Validate
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="addAccount" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <form action="post">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;
+                                    </button>
+                                    <h4 class="modal-title">Add Account</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="a_login">Login</label>
+                                        <input type="number" class="form-control" id="a_login"
+                                               name="a_login" required autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="a_broker_id">Broker</label>
+                                        <select name="a_broker_id" id="a_broker_id" class="form-control">
+                                            <option value="null">-- Please select --</option>
+                                            {% for info in information.broker.data.data %}
+                                                <option value="{{ info.broker_id }}" data-buy="{{ info.buy }}" data-sell="{{ info.sell }}">{{ info.broker_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="row mt-10">
+                                            <div class="col-md-5 col-md-offset-1">Buy : <span id="buy-value">-</span></div>
+                                            <div class="col-md-6">Sell : <span id="sell-value">-</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="a_phone_password">Phone Password</label>
+                                        <input type="password" class="form-control"
+                                               id="a_phone_password" name="a_phone_password" required autocomplete="off">
+                                    </div>
+                                    <p class="spinner hide"><i class="fa fa-spinner fa-spin"></i>
+                                        Processing ...</p>
+                                    <div class="notif-wrapper alert alert-info hide" role="alert">
+                                        <span>Add account input success, quiting...</span>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        Cancel
+                                    </button>
+                                    <button type="submit" class="btn red-button"
+                                            onclick="addAccount(event)">
+                                        Validate
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <table class="table">
+                <tr>
+                    <th><span class="hidden-xs">Alamat </span>E-Mail</th>
+                    <td>{{ data.email }} <i class="fa fa-check-circle text-river"></i></td>
+                </tr>
+
+                <tr>
+                    <th><span class="hidden-xs">Nomor </span>Telefon</th>
+                    <td>{{ data.phone }}</td>
+                </tr>
+
+                <tr>
+                    <th>Alamat</th>
+                    {#<td>172hkk9wr1ruJiX1DuAF7RsBq3FCLtYqvi <a href="#" class="btn btn-primary btn-xs pull-right"><i class="fa fa-clone"></i>&nbsp; Copy</a></td>#}
+                    <td>
+                        {{ data.address }}, {{ data.city }}
+                        <br>{{ data.state }} - {{ data.postal_code }}
+                        <br>{{ data.country }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Alamat Ethereum</th>
+                    <td>0x123f681646d4a755815f9cb19e1acc8565a0c2ac <a href="#"
+                                                                      class="btn btn-primary btn-xs pull-right hidden-xs"><i
+                                    class="fa fa-clone"></i>&nbsp; Copy</a></td>
+                </tr>
+            </table>
+        </div>
+        <div id="profile-balance" class="mt-20">
+            <p class="text-base fz-19">Balance</p>
+            <table class="table table-bordered table-responsive">
+                <thead>
+                <tr>
+                    <th>Tradeable Balance</th>
+                    <th>Current Balance</th>
+                    <th>Lost Balance</th>
+                    <th>Win %</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>$ 52,000</td>
+                    <td>$ 53,000</td>
+                    <td class="text-base">- ($ 25,000)</td>
+                    <td>52 %</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="profile-history" class="mt-20">
+            <p class="text-base fz-19">History</p>
+            <table class="table table-bordered table-responsive" id="history-table">
+                <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Tipe Transaksi</th>
+                    <th>Jumlah</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>27 November 2017</td>
+                    <td>Deposit</td>
+                    <td class="text-nephritis">$ 5,000</td>
+                </tr>
+                <tr>
+                    <td>28 November 2017</td>
+                    <td>Withdrawal</td>
+                    <td class="text-base">$ 2,500</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

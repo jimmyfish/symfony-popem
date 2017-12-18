@@ -127,9 +127,9 @@ class ClientController extends Controller
     {
         if ($request->getSession()->get('isLogin') == true) {
             $api = new ApiController();
-            $targetUrl = $this->container->getParameter('api_target') . '/user-info';
+            $targetUrl = $this->container->getParameter('api_target');
 
-            $response = $api->doRequest('GET', $targetUrl);
+            $response = $api->doRequest('GET', $targetUrl . '/user-info');
             $information['broker'] = $api->doRequest('GET', $targetUrl . '/broker-list');
 
             if ($response['status'] == false) {

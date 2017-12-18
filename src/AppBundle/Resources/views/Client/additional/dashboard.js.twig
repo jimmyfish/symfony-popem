@@ -1,3 +1,28 @@
+$(function () {
+    $('#history-table').DataTable({
+        columnDefs: [
+            {
+                targets: [0, 1, 2],
+                className: 'mdl-data-table__cell--non-numeric'
+            }
+        ]
+    });
+
+    var balanceText = $('#balance'),
+        num = parseInt(balanceText.text()),
+        balance = num.toLocaleString();
+
+    balanceText.text(balance);
+
+    $('#a_broker_id').change(function (e) {
+        var buy = $(this).find(':selected').attr('data-buy'),
+            sell = $(this).find(':selected').attr('data-sell');
+
+        $('#buy-value').text(buy);
+        $('#sell-value').text(sell);
+    })
+});
+
 function validateAccount(e) {
     e.preventDefault();
     var wrapper = $('#validateAccount');
@@ -13,7 +38,7 @@ function validateClient(e) {
     formData.append("name", wrapper.find('#v_client_name').val());
     formData.append("phone", parseInt(wrapper.find('#v_client_phone').val()));
     formData.append("address", wrapper.find('#v_client_address').val());
-    formData.append("city", wrapper.find('#v_client_city').va());
+    formData.append("city", wrapper.find('#v_client_city').val());
     formData.append("postal_code", parseInt(wrapper.find('#v_client_postal').val()));
     formData.append("state", wrapper.find('#v_client_state').val());
     formData.append("country", wrapper.find('#v_client_country').val());
