@@ -130,6 +130,7 @@ class ClientController extends Controller
             $targetUrl = $this->container->getParameter('api_target') . '/user-info';
 
             $response = $api->doRequest('GET', $targetUrl);
+            $information['broker'] = $api->doRequest('GET', $targetUrl . '/broker-list');
 
             if ($response['status'] == false) {
                 $request->getSession()->clear();
@@ -139,6 +140,7 @@ class ClientController extends Controller
 
             return $this->render('AppBundle:Client:defaults/dashboard.html.twig', [
                 'data' => $response['data']['data'],
+                'information' => $information,
             ]);
         } else {
             return $this->redirectToRoute('popem_client_login_warp');

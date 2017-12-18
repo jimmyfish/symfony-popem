@@ -1,5 +1,68 @@
-function validationAccount(e) {
+function validateAccount(e) {
     e.preventDefault();
     var wrapper = $('#validateAccount');
 
+}
+
+function validateClient(e) {
+    e.preventDefault();
+    var wrapper = $('#validateClient form'),
+        sourcePath = "{{ path('popem_api_client_validate') }}",
+        formData = new FormData();
+
+    formData.append("name", wrapper.find('#v_client_name').val());
+    formData.append("phone", parseInt(wrapper.find('#v_client_phone').val()));
+    formData.append("address", wrapper.find('#v_client_address').val());
+    formData.append("city", wrapper.find('#v_client_city').va());
+    formData.append("postal_code", parseInt(wrapper.find('#v_client_postal').val()));
+    formData.append("state", wrapper.find('#v_client_state').val());
+    formData.append("country", wrapper.find('#v_client_country').val());
+    formData.append("bank_name", wrapper.find('#v_client_bank_name').val());
+    formData.append("bank_account", parseInt(wrapper.find('#v_client_bank_account').val()));
+    formData.append("bank_beneficiary_name", wrapper.find('#v_client_beneficiary').val());
+    formData.append("file", wrapper.find('#v_client_file')[0].files[0]);
+
+    $.ajax({
+        type: 'POST',
+        url: sourcePath,
+        data: formData,
+        processData: false,
+        dataType: 'json',
+        contentType: false,
+        beforeSend: function () {
+            wrapper.find('input').prop('disabled', true);
+            wrapper.find('.spinner').removeClass('hide');
+        },
+        success: function (data) {
+            if (data.status == true) {
+                setTimeout(function () {
+                    wrapper.find('.notif-wrapper').removeClass('hide');
+                    location.reload();
+                }, 2000);
+            }
+        }
+    });
+}
+
+function addAccount(e) {
+    e.preventDefault();
+
+    var wrapper = $('#addAccount'),
+        sourcePath = "{{ path('popem_api_client_add_account') }}",
+        sendInfo = {
+            'login': parseInt(wrapper.find('#a_login').val()),
+            'broker_id': parseInt(wrapper.find('#a_broker_id').val()),
+            'phone_password': wrapper.find('#a_phone_password').val()
+        };
+
+    $.ajax({
+        type: 'POST',
+        url: sourcePath,
+        beforeSend: function () {
+
+        },
+        success: function (data) {
+
+        }
+    });
 }
