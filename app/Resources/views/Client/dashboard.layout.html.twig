@@ -10,7 +10,7 @@
                             <img src="{{ asset('assets_client') }}/img/profile.jpg" alt="" class="img-dashboard"
                                  height="100">
                             <p class="text-sunflower fz-19 mt-20">Jimmy Fish</p>
-                            <p class="text-clouds">$ <span id="balance">{{ data.balance }}</span></p>
+                            <p class="text-clouds">$ <span id="balance">12,000</span></p>
                             <p>
                                 <a href="{{ path('popem_client_logout') }}">
                                     Logout
@@ -121,4 +121,5 @@
     <script>
         {% include '@main_template/Client/additional/dashboard.js.twig' %}
     </script>
+    {% block innerJS %}{% endblock %}
 {% endblock %}
