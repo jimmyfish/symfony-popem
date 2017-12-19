@@ -1,0 +1,68 @@
+{% extends 'Client/dashboard.layout.html.twig' %}
+
+{% block mainContent %}
+    <div class="container">
+        <h2 class="mb-20 title">Transfer to Account</h2>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="transfer_type">Tipe Transfer</label>
+                    <select name="transfer_type" id="transfer_type" class="form-control">
+                        <option value="to">Transfer to Account</option>
+                        <option value="from">Transfer from Account</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <form action="{{ path('popem_client_transfer_to') }}" id="transfer-to" method="post">
+                    <div class="form-group">
+                        <label for="transfer_to_amount">Amount</label>
+                        <input type="number" name="transfer_to_amount" id="transfer_to_amount" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="transfer_to_account_id">Account ID</label>
+                        <input type="number" class="form-control" id="transfer_to_account_id"
+                               name="transfer_to_account_id">
+                    </div>
+                    <div class="form-group text-right">
+                        <input type="submit" value="Transfer" class="btn red-button">
+                    </div>
+                </form>
+                <form action="{{ path('popem_client_transfer_from') }}" id="transfer-from" method="post" style="display: none;">
+                    <div class="form-group">
+                        <label for="transfer_from_amount">Amount</label>
+                        <input type="text" name="transfer_from_amount" id="transfer_from_amount" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="transfer_from_account_id">Account ID</label>
+                        <input type="number" name="transfer_from_account_id" id="transfer_from_account_id"
+                               class="form-control">
+                    </div>
+                    <div class="form-group text-right">
+                        <input type="submit" value="Transfer" class="btn red-button">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block innerJS %}
+    <script>
+        $(function() {
+            $('#transfer_type').change(function() {
+                if ($(this).val() == 'to') {
+                    $('#transfer-to').show();
+                    $('#transfer-from').hide();
+                } else {
+                    $('#transfer-from').show();
+                    $('#transfer-to').hide();
+                }
+                $('.title').text($(this).find(':selected').text());
+            });
+        });
+    </script>
+{% endblock %}

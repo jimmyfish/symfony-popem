@@ -78,6 +78,24 @@ popem_client_validate_account:
   defaults:
     _controller: AppBundle:Client:validateAccount
 
+popem_client_transfer_account:
+  path: /account/transfer
+  defaults:
+    _controller: AppBundle:Client:transferAccount
+  methods: GET
+
+popem_client_transfer_from:
+  path: /account/transfer-from
+  defaults:
+    _controller: AppBundle:Client:transferFromAccount
+  methods: POST
+
+popem_client_transfer_to:
+  path: /account/transfer-to
+  defaults:
+    _controller: AppBundle:Client:transferToAccount
+  methods: POST
+
 popem_client_dummy_form:
   path: /dummy
   defaults:

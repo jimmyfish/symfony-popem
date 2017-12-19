@@ -335,6 +335,8 @@ class ClientController extends Controller
     {
         $api = new ApiController();
 
+        $information['broker'] = $api->doRequest('GET', $this->container->getParameter('api_target').'/broker-list');
+
         if ($request->getMethod() === 'POST') {
             $img = $request->files->get('file');
 
@@ -395,7 +397,19 @@ class ClientController extends Controller
             }
         }
 
-        return $this->render('AppBundle:Client:member/validate.account.html.twig');
+        return $this->render('AppBundle:Client:member/validate.account.html.twig', [
+            'information' => $information,
+        ]);
+    }
+
+    public function transferAccountAction(Request $request)
+    {
+        $api = new ApiController();
+        $information['broker'] = $api->doRequest('GET', $this->container->getParameter('api_target').'/broker-list');
+
+        return $this->render('AppBundle:Client:member/transfer.account.html.twig', [
+            'information' => $information,
+        ]);
     }
 
     public function dummyAction(Request $request)
