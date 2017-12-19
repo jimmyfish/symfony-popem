@@ -1,9 +1,11 @@
-  
-path: /test
-label: test
 
-path: /testing
-label: testing
+popem_admin_test:
+      path: /test
+      label: test
+
+popem_admin_testing:
+      path: /testing
+      label: testing
                                         
                                         
                                         

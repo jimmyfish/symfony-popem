@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use GuzzleHttp\Cookie\SessionCookieJar;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Parser;
 
 
 class ClientController extends Controller
@@ -151,6 +152,39 @@ class ClientController extends Controller
     public function loginAuthLegacyAction(Request $request)
     {
 
+    }
+
+    public function multiexplode ($delimiters,$string) {
+
+        $ready = str_replace($delimiters, $delimiters[0], $string);
+        $launch = explode($delimiters[0], $ready);
+        return  $launch;
+    }
+
+    public function layoutAction()
+    {
+        $yaml = new Parser();
+
+        $arrNewFiles = [];
+
+        $file = [];
+
+        $files = $yaml->parse(file_get_contents(dirname(__DIR__) . '/Resources/config/routing/admin/menu.yml'));
+
+        foreach ($files as $item) {
+            array_push($arrNewFiles,$item);
+        }
+
+        for($i=0;$i<count($arrNewFiles); $i++) {
+            $file[] = [
+                'path' => $arrNewFiles[$i]['path'],
+                'label' => $arrNewFiles[$i]['label']
+            ];
+        }
+
+        return $this->render('Client/layout.html.twig',[
+            'files' => $files
+        ]);
     }
 
     public function loginAction(Request $request)

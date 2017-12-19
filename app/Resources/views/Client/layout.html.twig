@@ -101,57 +101,14 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="#">IB Instaforex</a>
-                    </li>
-                    <li>
-                        <a href="#">Layanan</a>
-                    </li>
-                    <li>
-                        <a href="#">Rewards</a>
-                    </li>
-                    <li>
-                        <a href="#">News</a>
-                    </li>
-                    <li>
-                        <a href="#">Testimonials</a>
-                    </li>
-                    <li>
-                        <a href="#">Faq</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
-                    <li>
-                        <a href="#">Panduan</a>
-                    </li>
-                    <li class="dropdown">
-                        <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
-                           href="#" role="button">
-                            Dropdown
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#">Action</a>
-                            </li>
-                            <li>
-                                <a href="#">Another action</a>
-                            </li>
-                            <li>
-                                <a href="#">Something else here</a>
-                            </li>
-                            <li class="divider" role="separator"></li>
-                            <li>
-                                <a href="#">Separated link</a>
-                            </li>
-                            <li class="divider" role="separator"></li>
-                            <li>
-                                <a href="#">One more separated link</a>
-                            </li>
-                        </ul>
-                    </li>
+                    {% for file in files %}
+                        <li>
+                            <a href="{{ file['path'] }}">{{ file['label'] }}</a>
+                        </li>
+                    {% endfor %}
+
                 </ul>
+
             </div>
             <!-- /.navbar-collapse -->
         </div>
