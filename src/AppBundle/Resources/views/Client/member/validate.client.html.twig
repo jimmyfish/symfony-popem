@@ -1,0 +1,85 @@
+{% extends 'Client/dashboard.layout.html.twig' %}
+
+{% block mainContent %}
+    <div class="container">
+        <h2 class="mb-20">Validate Client</h2>
+
+        <div class="row">
+            <div class="col-md-8">
+                {% for msg in app.session.getFlashBag().get('message_error') %}
+                    <div class="alert alert-danger">
+                        msg
+                    </div>
+                {% endfor %}
+                <form method="post" action="{{ path('popem_client_validate_client') }}" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label for="v_client_name">Name:</label>
+                        <input type="text" name="v_client_name" id="v_client_name"
+                               class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="v_client_phone">Phone:</label>
+                        <input type="number" name="v_client_phone" id="v_client_phone"
+                               class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="v_client_address">Address:</label>
+                        <textarea name="v_client_address" id="v_client_address" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="v_client_city">City:</label>
+                        <input type="text" name="v_client_city" id="v_client_city"
+                               class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="v_client_postal">Postal code:</label>
+                        <input type="number" name="v_client_postal" id="v_client_postal"
+                               class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="v_client_state">State:</label>
+                        <input type="text" name="v_client_state" id="v_client_state"
+                               class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="v_client_country">Country:</label>
+                        <select name="v_client_country" id="v_client_country"
+                                class="form-control">
+                            <option value="ID">Indonesia</option>
+                            <option value="MY">Malaysia</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="v_client_bank_name">Bank name:</label>
+                        <input type="text" name="v_client_bank_name"
+                               id="v_client_bank_name"
+                               class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="v_client_bank_account">Bank account:</label>
+                        <input type="number" name="v_client_bank_account"
+                               id="v_client_bank_account"
+                               class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="v_client_beneficiary">Bank beneficiary name:</label>
+                        <input type="text" name="v_client_beneficiary"
+                               id="v_client_beneficiary"
+                               class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="v_client_file">File:</label>
+                        <input type="file" name="v_client_file" id="v_client_file"
+                               class="form-control" required>
+                    </div>
+                    <div class="form-group text-right">
+                        <input type="submit" value="Validate" class="btn red-button">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

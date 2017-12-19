@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use GuzzleHttp\Cookie\SessionCookieJar;
+use Symfony\Component\Yaml\Yaml;
 
 
 class ClientController extends Controller
@@ -190,12 +191,184 @@ class ClientController extends Controller
         return $this->render('AppBundle:Client:defaults/activate.html.twig');
     }
 
-    public function dummyAction(Request $request)
+    public function validateClientAction(Request $request)
+    {
+        if ($request->getMethod() === 'POST') {
+            $api = new ApiController();
+            $img = $request->files->get('v_client_file');
+
+            if(!(is_dir($this->getParameter('tmp_directory')['resource']))) {
+                @mkdir($this->getParameter('tmp_directory')['resource'],0777,true);
+            }
+
+            $dirName = $this->getParameter('tmp_directory')['resource'];
+
+            $filename = md5(uniqid()) . '.' . $img->guessExtension();
+
+            $img->move($dirName, $filename);
+
+            if (file_exists($dirName . '/' . $filename)) {
+                $formData = [
+                    [
+                        'name' => 'name',
+                        'contents' => $request->get('v_client_name'),
+                    ],
+                    [
+                        'name' => 'phone',
+                        'contents' => $request->get('v_client_phone'),
+                    ],
+                    [
+                        'name' => 'address',
+                        'contents' => $request->get('v_client_address'),
+                    ],
+                    [
+                        'name' => 'city',
+                        'contents' => $request->get('v_client_city'),
+                    ],
+                    [
+                        'name' => 'postal_code',
+                        'contents' => $request->get('v_client_postal'),
+                    ],
+                    [
+                        'name' => 'state',
+                        'contents' => $request->get('v_client_state'),
+                    ],
+                    [
+                        'name' => 'country',
+                        'contents' => $request->get('v_client_country'),
+                    ],
+                    [
+                        'name' => 'file',
+                        'contents' => fopen($dirName . '/' . $filename,'r'),
+                    ],
+                    [
+                        'name' => 'bank_name',
+                        'contents' => $request->get('v_client_bank_name'),
+                    ],
+                    [
+                        'name' => 'bank_account',
+                        'contents' => $request->get('v_client_bank_account'),
+                    ],
+                    [
+                        'name' => 'bank_beneficiary_name',
+                        'contents' => $request->get('v_client_beneficiary'),
+                    ]
+                ];
+
+                $response = $api->doRequest('POST', $this->container->getParameter('api_target').'/validation-user', $formData, 'multipart');
+
+                if ($response['status'] == true) {
+                    $request->getSession()->getFlashBag()->add('message', 'Permintaan validasi telah terkirim');
+                    return $this->redirectToRoute('popem_client_dashboard');
+                } else {
+                    $request->getSession()->getFlashBag()->add('message_error', $response['data']);
+                    return false;
+                }
+            }
+        }
+
+        return $this->render('AppBundle:Client:member/validate.client.html.twig');
+    }
+
+    public function addAccountAction(Request $request)
+    {
+        $api = new ApiController();
+        $information['broker'] = $api->doRequest('GET', $this->container->getParameter('api_target').'/broker-list');
+
+        if ($request->getMethod() === 'POST') {
+            $options = [
+                'login' => (int)$request->get('login'),
+                'broker_id' => (int)$request->get('broker_id'),
+                'phone_password' => $request->get('phone_password'),
+            ];
+
+            $response = $api->doRequest('POST', $this->container->getParameter('api_target').'/account-add', $options);
+
+            if ($response['status'] == true) {
+                $request->getSession()->getFlashBag()->add('message_success', 'Penambahan akun telah berhasil di proses');
+                return $this->redirectToRoute('popem_client_add_account');
+            } else {
+                $request->getSession()->getFlashBag()->add('message_error', $response['data']);
+                return $this->redirect($request->headers->get('referer'));
+            }
+        }
+
+        return $this->render('AppBundle:Client:member/add.account.html.twig', [
+            'information' => $information,
+        ]);
+    }
+
+    public function validateAccountAction(Request $request)
     {
         $api = new ApiController();
 
-        $response = $api->doRequest('GET', $this->container->getParameter('api_target').'/user-balance');
+        if ($request->getMethod() === 'POST') {
+            $img = $request->files->get('file');
 
-        return new JsonResponse($response);
+            if(!(is_dir($this->getParameter('tmp_directory')['resource']))) {
+                @mkdir($this->getParameter('tmp_directory')['resource'],0777,true);
+            }
+
+            $dirname = $this->getParameter('tmp_directory')['resource'];
+            $filename = md5(uniqid()) . '.' . $img->guessExtension();
+
+            $img->move($dirname, $filename);
+
+            if (file_exists($dirname . '/' . $filename)) {
+                $options = [
+                    [
+                        'name' => 'broker_id',
+                        'contents' => (int)$request->get('broker_id'),
+                    ],
+                    [
+                        'name' => 'login',
+                        'contents' => (int)$request->get('login'),
+                    ],
+                    [
+                        'name' => 'phone_password',
+                        'contents' => $request->get('phone_password'),
+                    ],
+                    [
+                        'name' => 'email',
+                        'contents' => $request->get('email'),
+                    ],
+                    [
+                        'name' => 'file',
+                        'contents' => fopen($dirname . '/' . $filename, 'r'),
+                    ],
+                    [
+                        'name' => 'bank_name',
+                        'contents' => $request->get('bank_name'),
+                    ],
+                    [
+                        'name' => 'bank_account',
+                        'contents' => $request->get('bank_account'),
+                    ],
+                    [
+                        'name' => 'bank_beneficiary_name',
+                        'contents' => $request->get('bank_beneficiary_name'),
+                    ],
+                ];
+
+                $response = $api->doRequest('POST', $this->container->getParameter('api_target').'/validation-account', $options, 'multipart');
+
+                if ($response['status']) {
+                    $request->getSession()->getFlashBag()->add('message_success', 'Pengajuan validasi akun telah berhasil ditambahkan.');
+                    return $this->redirectToRoute('popem_client_dashboard');
+                } else {
+                    $request->getSession()->getFlashBag()->add('message_error', $response['data']);
+                    return $this->redirect($request->headers->get('referer'));
+                }
+            }
+        }
+
+        return $this->render('AppBundle:Client:member/validate.account.html.twig');
+    }
+
+    public function dummyAction(Request $request)
+    {
+        $request->getSession()->getFlashBag()->add('message', 'Permintaan validasi telah terkirim');
+
+        return $this->redirectToRoute('popem_client_dashboard');
     }
 }

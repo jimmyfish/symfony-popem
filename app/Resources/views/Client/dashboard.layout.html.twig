@@ -10,7 +10,7 @@
                             <img src="{{ asset('assets_client') }}/img/profile.jpg" alt="" class="img-dashboard"
                                  height="100">
                             <p class="text-sunflower fz-19 mt-20">Jimmy Fish</p>
-                            <p class="text-clouds">$ <span id="balance">12,000</span></p>
+                            <p class="text-clouds">$ <span id="balance">12000</span></p>
                             <p>
                                 <a href="{{ path('popem_client_logout') }}">
                                     Logout
@@ -19,51 +19,45 @@
                         </div>
                     </div>
                     <div class="sidebar-menu">
-                        {#<a href="#" class="active">Home</a>#}
-                        {#<a href="#">Link 1</a>#}
-                        {#<a href="#">Link 2</a>#}
-                        {#<a href="#">Link 3</a>#}
-                        {#<a href="#">Link 4</a>#}
                         <div class="panel-group" id="accordionMenu" role="tablist" aria-multiselectable="true">
-                            <a href="#">Dashboard</a>
+                            <a href="{{ path('popem_client_dashboard') }}">Dashboard</a>
+                            <a href="{{ path('popem_client_validate_client') }}">Validate Client</a>
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingTwo">
                                     <h4 class="panel-title">
                                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                            Client Control
+                                            Account
                                         </a>
                                     </h4>
                                 </div>
                                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                     <div class="panel-body">
                                         <ul class="nav">
-                                            <li><a href="#">item 1</a></li>
-                                            <li><a href="#">item 2</a></li>
-                                            <li><a href="#">item 3</a></li>
-                                            <li><a href="#">item 4</a></li>
+                                            <li><a href="{{ path('popem_client_add_account') }}">Add Account</a></li>
+                                            <li><a href="{{ path('popem_client_validate_account') }}">Validate Account</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingThree">
-                                    <h4 class="panel-title">
-                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                            Account
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                    <div class="panel-body">
-                                        <ul class="nav">
-                                            <li><a href="#">item 1</a></li>
-                                            <li><a href="#">item 2</a></li>
-                                            <li><a href="#">item 3</a></li>
-                                            <li><a href="#">item 4</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            {#<div class="panel panel-default">#}
+                                {#<div class="panel-heading" role="tab" id="headingThree">#}
+                                    {#<h4 class="panel-title">#}
+                                        {#<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">#}
+                                            {#Account#}
+                                        {#</a>#}
+                                    {#</h4>#}
+                                {#</div>#}
+                                {#<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">#}
+                                    {#<div class="panel-body">#}
+                                        {#<ul class="nav">#}
+                                            {#<li><a href="#">item 1</a></li>#}
+                                            {#<li><a href="#">item 2</a></li>#}
+                                            {#<li><a href="#">item 3</a></li>#}
+                                            {#<li><a href="#">item 4</a></li>#}
+                                        {#</ul>#}
+                                    {#</div>#}
+                                {#</div>#}
+                            {#</div>#}
                         </div>
                     </div>
                     <div class="latest-news dark-background ptb-25 plr-30">

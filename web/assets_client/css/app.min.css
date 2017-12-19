@@ -1663,3 +1663,7 @@ input::-webkit-inner-spin-button {
 .sidebar-menu .nav > li > a:hover {
     background: #1F1F1F;
 }
+
+textarea {
+    resize: vertical;
+}

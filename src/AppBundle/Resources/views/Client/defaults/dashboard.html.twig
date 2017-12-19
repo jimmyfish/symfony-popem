@@ -2,7 +2,9 @@
 
 {% block mainContent %}
     <div class="container">
-        <h2>Detail Akun<span class="pull-right"><a href="#" class="fz-16">Edit Profil</a></span></h2>
+        <h2>Detail Akun
+            {#<span class="pull-right"><a href="#" class="fz-16">Edit Profil</a></span>#}
+        </h2>
         <div class="row mt-20">
             <div class="col-md-3 col-xs-3">
                 <img src="{{ asset('assets_client') }}/img/profile.jpg" alt="" class="img-responsive">
@@ -15,175 +17,24 @@
             </div>
         </div>
         <div class="profile-details mt-50">
-            <div class="row menu-top mb-50">
-                <div class="col-md-3">
-                    <a href="#" class="btn btn-lg btn-default btn-block" data-toggle="modal"
-                       data-target="#validateClient">Client Validation</a>
+            {% for msg in app.session.getFlashBag().get('message') %}
+                <div class="alert alert-info alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ msg }}
                 </div>
-                <div class="col-md-3">
-                    <a href="#" class="btn btn-lg btn-default btn-block" data-toggle="modal"
-                       data-target="#addAccount">Add Account</a>
+            {% endfor %}
+            {% for msg in app.session.getFlashBag().get('message_success') %}
+                <div class="alert alert-success alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ msg }}
                 </div>
-                <div class="col-md-3">
-                    <a href="#" class="btn btn-lg btn-default btn-block">Something</a>
+            {% endfor %}
+            {% for msg in app.session.getFlashBag().get('message_error') %}
+                <div class="alert alert-warning alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ msg }}
                 </div>
-                <div class="col-md-3">
-                    <a href="#" class="btn btn-lg btn-default btn-block">Something</a>
-                </div>
-            </div>
-            <div class="modal-container">
-                <div id="validateClient" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <form method="post">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;
-                                    </button>
-                                    <h4 class="modal-title">Client Validation</h4>
-                                </div>
-                                <div class="modal-body">
-
-                                    <div class="form-group">
-                                        <label for="v_client_name">Name:</label>
-                                        <input type="text" name="v_client_name" id="v_client_name"
-                                               class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="v_client_phone">Phone:</label>
-                                        <input type="number" name="v_client_phone" id="v_client_phone"
-                                               class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="v_client_address">Address:</label>
-                                        <input type="text" name="v_client_address" id="v_client_address"
-                                               class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="v_client_city">City:</label>
-                                        <input type="text" name="v_client_city" id="v_client_city"
-                                               class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="v_client_postal">Postal code:</label>
-                                        <input type="number" name="v_client_postal" id="v_client_postal"
-                                               class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="v_client_state">State:</label>
-                                        <input type="text" name="v_client_state" id="v_client_state"
-                                               class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="v_client_country">Country:</label>
-                                        <select name="v_client_country" id="v_client_country"
-                                                class="form-control">
-                                            <option value="ID">Indonesia</option>
-                                            <option value="MY">Malaysia</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="v_client_bank_name">Bank name:</label>
-                                        <input type="text" name="v_client_bank_name"
-                                               id="v_client_bank_name"
-                                               class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="v_client_bank_account">Bank account:</label>
-                                        <input type="number" name="v_client_bank_account"
-                                               id="v_client_bank_account"
-                                               class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="v_client_beneficiary">Bank beneficiary name:</label>
-                                        <input type="text" name="v_client_beneficiary"
-                                               id="v_client_beneficiary"
-                                               class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="v_client_file">File:</label>
-                                        <input type="file" name="v_client_file" id="v_client_file"
-                                               class="form-control" required>
-                                    </div>
-                                    <p class="spinner hide"><i class="fa fa-spinner fa-spin"></i>
-                                        Processing ...</p>
-                                    <div class="notif-wrapper alert alert-info hide" role="alert">
-                                        <span>Validation input success, quiting...</span>
-                                    </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                                        Cancel
-                                    </button>
-                                    <button type="submit" class="btn red-button"
-                                            onclick="validateClient(event)">
-                                        Validate
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-                <div id="addAccount" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <form action="post">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;
-                                    </button>
-                                    <h4 class="modal-title">Add Account</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="a_login">Login</label>
-                                        <input type="number" class="form-control" id="a_login"
-                                               name="a_login" required autocomplete="off">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="a_broker_id">Broker</label>
-                                        <select name="a_broker_id" id="a_broker_id" class="form-control">
-                                            <option value="null">-- Please select --</option>
-                                            {% for info in information.broker.data.data %}
-                                                <option value="{{ info.broker_id }}" data-buy="{{ info.buy }}" data-sell="{{ info.sell }}">{{ info.broker_name }}</option>
-                                            {% endfor %}
-                                        </select>
-                                        <div class="row mt-10">
-                                            <div class="col-md-5 col-md-offset-1">Buy : <span id="buy-value">-</span></div>
-                                            <div class="col-md-6">Sell : <span id="sell-value">-</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="a_phone_password">Phone Password</label>
-                                        <input type="password" class="form-control"
-                                               id="a_phone_password" name="a_phone_password" required autocomplete="off">
-                                    </div>
-                                    <p class="spinner hide"><i class="fa fa-spinner fa-spin"></i>
-                                        Processing ...</p>
-                                    <div class="notif-wrapper alert alert-info hide" role="alert">
-                                        <span>Add account input success, quiting...</span>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                                        Cancel
-                                    </button>
-                                    <button type="submit" class="btn red-button"
-                                            onclick="addAccount(event)">
-                                        Validate
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
             <table class="table">
                 <tr>
                     <th><span class="hidden-xs">Alamat </span>E-Mail</th>
