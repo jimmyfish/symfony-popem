@@ -56,6 +56,10 @@ class ModalEventListener implements EventSubscriberInterface
 
         $file = [];
 
+        $subMenu = [];
+
+        $test = [];
+
         $files = $yaml->parse(file_get_contents(dirname(__DIR__) . '/Resources/config/routing/admin/menu.yml'));
 
         foreach ($files as $item) {
@@ -63,12 +67,32 @@ class ModalEventListener implements EventSubscriberInterface
         }
 
         for($i=0;$i<count($arrNewFiles); $i++) {
-            $file[] = [
-                'path' => $arrNewFiles[$i]['path'],
-                'label' => $arrNewFiles[$i]['label']
+            if(isset($arrNewFiles[$i]['submenu'])) {
+                $file[] = [
+                    'path' => $arrNewFiles[$i]['path'],
+                    'label' => $arrNewFiles[$i]['label'],
+                    'submenu' => $arrNewFiles[$i]['submenu']
+                ];
+                foreach ($arrNewFiles[$i]['submenu'] as $item) {
+                    array_push($test,$item);
+                }
+            }else{
+                $file[] = [
+                    'path' => $arrNewFiles[$i]['path'],
+                    'label' => $arrNewFiles[$i]['label']
+                ];
+            }
+        }
+
+        for($j = 0; $j < count($test); $j++) {
+            $subMenu[] = [
+                'path' => $test[$j]['path'],
+                'label' => $test[$j]['label']
             ];
         }
 
-        $this->container->get('twig')->addGlobal('files', $file);
+        $this->container->get('twig')->addGlobal('submenu',$subMenu);
+
+        $this->container->get('twig')->addGlobal('files', $files);
     }
 }

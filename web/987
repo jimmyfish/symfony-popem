@@ -1,4 +1,8 @@
-
+  
+                                             
+                                             
+                                             
+                                           
 popem_admin_test:
       path: /test
       label: test
@@ -18,9 +22,6 @@ popem_admin_category:
         popem_olahraga:
           path: /olahraga
           label: submenu olahraga
-        popem_basket:
-          path: /basket
-          label: submenu basket
         
                                         
                                         
