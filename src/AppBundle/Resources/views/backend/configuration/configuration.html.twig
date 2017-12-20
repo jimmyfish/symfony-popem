@@ -43,7 +43,15 @@
 {% block customJS %}
     <script>
 
-        var editor = CodeMirror.fromTextArea(document.getElementById("code"),{});
+
+        var editor = CodeMirror.fromTextArea(document.getElementById("code"),{
+            extraKeys: {
+                Tab: function(cm) {
+                    var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
+                    cm.replaceSelection(spaces, "end", "+input");
+                }
+            }
+        });
 
         $('.select2').select2();
     </script>

@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\Post;
 use AppBundle\Controller\Api\ApiController;
@@ -116,13 +117,37 @@ class ClientController extends Controller
         ]);
     }
 
-    public function blogCategoryAction($category)
+    public function blogCategoryAction(Request $request,$category)
     {
         $manager = $this->getDoctrine()->getManager();
 
-        $query = $manager->getRepository(Post::class)->findOneBy(['categoryId' => $category]);
+        $query = $manager->getRepository(Post::class);
 
-        return var_dump($query);
+        $post = $query->createQueryBuilder('p')
+            ->where('p.categoryId = :category')
+            ->setParameter('category', $manager->getRepository(Category::class)->findOneBy(['nameCategory'=>$category]))
+            ->getQuery();
+
+        $limit = 3;
+        $news = $query->createQueryBuilder('p')
+            ->orderBy('p.publishedAt','DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+
+        $paginator = $this->get('knp_paginator');
+
+        $pagination = $paginator->paginate(
+            $post,
+            $request->query->getInt('page',1),
+            $request->query->getInt('limit',5)
+        );
+
+        return $this->render('AppBundle:Client:blog/category.html.twig',[
+            'pagination' => $pagination,
+            'latest' => $news
+        ]);
+
     }
 
     public function dashboardClientAction(Request $request)
@@ -159,32 +184,6 @@ class ClientController extends Controller
         $ready = str_replace($delimiters, $delimiters[0], $string);
         $launch = explode($delimiters[0], $ready);
         return  $launch;
-    }
-
-    public function layoutAction()
-    {
-        $yaml = new Parser();
-
-        $arrNewFiles = [];
-
-        $file = [];
-
-        $files = $yaml->parse(file_get_contents(dirname(__DIR__) . '/Resources/config/routing/admin/menu.yml'));
-
-        foreach ($files as $item) {
-            array_push($arrNewFiles,$item);
-        }
-
-        for($i=0;$i<count($arrNewFiles); $i++) {
-            $file[] = [
-                'path' => $arrNewFiles[$i]['path'],
-                'label' => $arrNewFiles[$i]['label']
-            ];
-        }
-
-        return $this->render('Client/layout.html.twig',[
-            'files' => $files
-        ]);
     }
 
     public function loginAction(Request $request)

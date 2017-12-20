@@ -1,0 +1,132 @@
+{% extends 'Client/dashboard.layout.html.twig' %}
+
+{% block content %}
+    <section id="main-content">
+        <div class="container-fluid">
+            <div class="row flex-row">
+                <div class="col-md-3 content-wrapper no-padding dark-background">
+                    <div class="login-wrapper grey-background ptb-25 plr-30">
+                        <p class="fz-19 text-sunflower">LOGIN</p>
+                        <form action="">
+                            <div class="form-group">
+                                <label for="_username" class="text-clouds iq-fw-400">Nama Pengguna :</label>
+                                <input type="text" class="form-control" id="_username" name="_username">
+                            </div>
+                            <div class="form-group">
+                                <label for="_password" class="text-clouds iq-fw-400">Kata Sandi :</label>
+                                <input type="password" class="form-control" id="_password" name="_password">
+                            </div>
+                            <div class="form-group text-right">
+                                <input type="submit" value="Masuk" class="btn red-button plr-30">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="kurs-wrapper dark-background">
+                        <span class="iq-fw-700 iq-fz-15 kurs-title">Kurs</span>
+                        <span class="right">Transaksi wajib menggunakan berita transfer</span>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>E-Currency</th>
+                                <th>Stock</th>
+                                <th>Deposit</th>
+                                <th>Withdrawal</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <img alt="" src="../web/img/img-1.png"> Firewood
+                                </td>
+                                <td>Rp 13,000</td>
+                                <td>Rp 14,000</td>
+                                <td>Rp 15,000</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img alt="" src="../web/img/img-1.png"> Firewood
+                                </td>
+                                <td>Rp 13,000</td>
+                                <td>Rp 14,000</td>
+                                <td>Rp 15,000</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="banner">
+                        <img src="http://placehold.it/640x480" alt="">
+                    </div>
+                    <div class="latest-news dark-background ptb-25 plr-30">
+                        <p class="text-sunflower fz-19">Latest News</p>
+                        <div class="row">
+                            {% for new in latest %}
+                                <div class="item">
+                                    <div class="col-xs-12">
+                                        <a href="{{ path('popem_client_detail_blog',{slug: new.slug}) }}">
+                                            <p class="news-title text-pome iq-fw-700">
+                                                {% if new.title is defined %}
+                                                    {{ new.title }}
+                                                {% endif %}
+                                            </p>
+                                        </a>
+                                        <p class="news-desc text-clouds">
+                                            {% if new.body is defined %}
+                                                {{ new.body | raw }}
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 no-padding content-wrapper">
+
+                    <div class="container">
+
+                        <div class="blog">
+
+                            <h2>Daftar Blog 2017</h2>
+                            {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam commodi dolore doloribus eligendi est illo maxime perspiciatis similique. Alias dolore eligendi eos ipsa libero necessitatibus neque non placeat velit?</p>#}
+                            <hr align="left">
+                            {% for dat in pagination %}
+                                <div class="row item">
+                                    <div class="col-md-4">
+                                        {% if dat.image is defined %}
+                                            <img src="{{ asset('uploads') }}/image/post/{{ dat.image }}" alt="" class="img-responsive">
+                                        {% else %}
+                                            <img src="https://cdns.klimg.com/merdeka.com/i/w/news/2017/12/13/918986/670x335/jalankan-gcg-bank-bjb-raih-penghargaan-dari-kpk.jpg" alt="" class="img-responsive">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p class="blog-title">
+                                            {% if dat.title is defined %}
+                                                {{ dat.title }}
+                                            {% endif %}
+                                            {#<a href="#">Jalankan GCG, bank bjb raih penghargaan dari KPK</a>#}
+                                        </p>
+                                        <p class="blog-subtitle">
+                                            {% if dat.body is defined %}
+                                                {{ dat.body | raw }}
+                                            {% endif %}
+                                            {#<strong>Merdeka.com</strong> - PT Bank Pembangunan Daerah Jawa Barat dan Banten Tbk, atau bank bjb meraih penghargaan dari Komisi Pemberantasan Korupsi (KPK) bertepatan dengan Hari Anti-Korupsi se-Dunia di Hotel Bidakara, Jakarta, Selasa (12/12/2017). Penghargaan diterima langsung Direktur Utama bank bjb Ahmad Irfan dan Direktur Kepatuhan dan Manajemen Risiko bank bjb Agus Mulyana.#}
+                                        </p>
+                                        <p class="blog-readmore">
+                                            <a href="{{ path('popem_client_detail_blog',{slug : dat.slug}) }}">Baca lebih lanjut</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                            <div class="pagination-wrapper text-center">
+                                <ul class="pagination">
+                                    <li>{{ knp_pagination_render(pagination) }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,4 +1,7 @@
-
+  
+                                             
+                                             
+                                           
 popem_admin_test:
       path: /test
       label: test
@@ -6,6 +9,21 @@ popem_admin_test:
 popem_admin_testing:
       path: /testing
       label: testing
+      
+popem_admin_blog:
+      path: /blog
+      label: blog
+
+popem_admin_category:
+      path: /blog/olahraga
+      label: olahraga
+        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
                                         
                                         
                                         
