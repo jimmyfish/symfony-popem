@@ -68,6 +68,12 @@ popem_client_validate_client:
     _controller: AppBundle:Client:validateClient
   methods: [GET, POST]
 
+popem_client_list_account:
+  path: /account
+  defaults:
+    _controller: AppBundle:Client:listAccount
+  methods: GET
+
 popem_client_add_account:
   path: /account/add
   defaults:

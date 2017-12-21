@@ -858,6 +858,7 @@ body {
 .navbar .container .navbar-nav li a {
     color: #000;
     margin-right: 10px;
+    text-transform: capitalize;
 }
 
 .navbar .container .navbar-nav li a:hover {
@@ -874,6 +875,10 @@ body {
 
 .navbar .container .navbar-nav .dropdown li a {
     padding: 5px 20px;
+}
+
+.dropdown-menu li a {
+    margin-right:0 !important;
 }
 
 .navbar-default {
@@ -1666,4 +1671,39 @@ input::-webkit-inner-spin-button {
 
 textarea {
     resize: vertical;
+}
+
+table.dataTable.no-footer {
+    border-bottom: 0;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.dataTables_wrapper .input-sm {
+    border: 1px solid #eee;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    margin: 0 5px;
+}
+
+.mdl-button {
+    background: #DE1B1B;
+    padding: 3px 6px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #fff;
+}
+
+.mdl-button[disabled] {
+    opacity: .65;
+    cursor: not-allowed;
+}
+
+.mdl-button.previous {
+    margin-right: 10px;
+}
+
+.mdl-button.next {
+    margin-left: 10px;
 }

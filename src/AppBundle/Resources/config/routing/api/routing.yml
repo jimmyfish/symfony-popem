@@ -52,6 +52,12 @@ popem_api_client_validate:
     _controller: AppBundle:Api/User:clientValidation
   methods: POST
 
+popem_api_client_list_account:
+  path: /list-account
+  defaults:
+    _controller: AppBundle:Api/User:listAccount
+  methods: GET
+
 popem_api_client_dummy:
   path: /dummy
   defaults:

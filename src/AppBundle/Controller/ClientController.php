@@ -420,6 +420,57 @@ class ClientController extends Controller
         ]);
     }
 
+    public function transferFromAccountAction(Request $request)
+    {
+        $api = new ApiController();
+
+        $options = [
+            'amount' => $request->get('transfer_from_amount'),
+            'account_id' => $request->get('transfer_from_account_id'),
+        ];
+
+        $response = $api->doRequest('POST', $this->container->getParameter('api_target').'/transfer-from-account', $options);
+
+        if ($response['status'] === true) {
+            $request->getSession()->getFlashBag()->add('message_success', 'Transaksi ke nomor akun ' . $request->get('transfer_from_account_id') . ' telah berhasil');
+        } else {
+            $request->getSession()->getFlashBag()->add('message_error', $response['data']['message']);
+        }
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    public function transferToAccountAction(Request $request)
+    {
+        $api = new ApiController();
+
+        $options = [
+            'amount' => $request->get('transfer_from_amount'),
+            'account_id' => $request->get('transfer_from_account_id'),
+        ];
+
+        $response = $api->doRequest('POST', $this->container->getParameter('api_target').'/transfer-to-account', $options);
+
+        if ($response['status'] === true) {
+            $request->getSession()->getFlashBag()->add('message_success', 'Transaksi ke nomor akun ' . $request->get('transfer_from_account_id') . ' telah berhasil');
+        } else {
+            $request->getSession()->getFlashBag()->add('message_error', $response['data']['message']);
+        }
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    public function listAccountAction()
+    {
+        $api = new ApiController();
+
+        $response = $api->doRequest('GET', $this->container->getParameter('api_target').'/list-account');
+
+        return $this->render('AppBundle:Client:member/list.account.html.twig', [
+            'data' => $response['data']['data'],
+        ]);
+    }
+
     public function dummyAction(Request $request)
     {
         $request->getSession()->getFlashBag()->add('message', 'Permintaan validasi telah terkirim');

@@ -333,4 +333,13 @@ class UserController extends Controller
         return new JsonResponse($response);
     }
 
+    public function listAccountAction()
+    {
+        $api = new ApiController();
+
+        $response = $api->doRequest('GET', $this->container->getParameter('api_target').'/list-account');
+
+        return new JsonResponse($response);
+    }
+
 }

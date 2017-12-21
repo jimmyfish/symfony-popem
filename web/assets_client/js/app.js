@@ -43,8 +43,6 @@ $(function() {
                 .attr('data-item', $(this).attr('id'));
             formWrp.find('.content-head').text(headerText);
             formWrp.find('.content-main').html(frmCont);
-            // $('<style>.ui-state-active:before { top: ' + absPos + 'px } </style>').appendTo('head');
-            // $(this).attr('class', 'item ui-state-active');
         } else {
             if (formWrp.attr('data-item') == $(this).attr('id')) {
                 $(this).attr('class', 'item');
@@ -54,15 +52,12 @@ $(function() {
                 formWrp.removeAttr('data-item');
 
                 formWrp.find('.content-main').html();
-                // $('<style>.ui-state-active:before { top: -100% } </style>').appendTo('head');
             } else {
                 $(this).attr('class', 'item ui-state-active');
                 formWrp.attr('data-item', $(this).attr('id'));
 
                 formWrp.find('.content-head').text(headerText);
                 formWrp.find('.content-main').html(frmCont);
-
-                // $('<style>.ui-state-active:before { top: ' + absPos + 'px } </style>').appendTo('head');
             }
         }
     });
