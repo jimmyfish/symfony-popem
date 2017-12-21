@@ -21,7 +21,7 @@
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <label for="body">Body</label>
-                                        <textarea name="body" id="body" class="content" cols="30" rows="10">{% if data.body is defined %}{{ data.body }}{% endif %}</textarea>
+                                        <textarea name="body" id="body" class="content" cols="30" rows="10"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -43,9 +43,10 @@
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <label for="category">Category</label>
-                                        <select name="category[]" id="category" class="form-control select2">
+                                        <select name="category" id="category" class="form-control">
+                                            <option value="">-- Pilih Kategori --</option>
                                             {% for cat in category %}
-                                                <option value="{{ cat.id }}">{{ cat.nameCategory }}</option>
+                                                <option value="{{ cat.id }}" {% if data.categoryId is defined %}selected{% endif %}>{{ cat.nameCategory }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
@@ -91,6 +92,9 @@
 {% endblock %}
 {% block customJS %}
     <script>
+
+        var txt = `{{ data.body | raw }}`;
+
         tinymce.init({
             selector:'.content',
             height:300,
@@ -98,11 +102,16 @@
             statusbar:false,
             plugins: 'code',
 //            plugins: 'image',
-            inline_styles: false
+            inline_styles: false,
+            setup: function (editor) {
+                editor.on('init', function () {
+                   this.setContent(txt);
+                });
+            }
         });
 
-       $('.select2').select2({
-          multiple: true
-       });
+        $('.select2').select2({
+            multiple: true
+        });
     </script>
 {% endblock %}

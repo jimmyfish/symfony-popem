@@ -49,10 +49,14 @@ class ClientController extends Controller
         $repository = $manager->getRepository(Post::class);
 
         $latest = $repository->createQueryBuilder('p')
+            ->where('p.status = :status')
+            ->setParameter('status',2)
             ->getQuery();
 
         $limit = 3;
         $news = $repository->createQueryBuilder('p')
+            ->where('p.status = :status')
+            ->setParameter('status',2)
             ->orderBy('p.publishedAt','DESC')
             ->setMaxResults($limit)
             ->getQuery()
@@ -125,12 +129,16 @@ class ClientController extends Controller
 
         $post = $query->createQueryBuilder('p')
             ->where('p.categoryId = :category')
+            ->where('p.status = :status')
             ->setParameter('category', $manager->getRepository(Category::class)->findOneBy(['nameCategory'=>$category]))
+            ->setParameter('status',2)
             ->getQuery();
 
         $limit = 3;
         $news = $query->createQueryBuilder('p')
+            ->where('p.status = :status')
             ->orderBy('p.publishedAt','DESC')
+            ->setParameter('status',2)
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
