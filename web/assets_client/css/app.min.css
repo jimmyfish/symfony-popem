@@ -1295,7 +1295,7 @@ hr {
 }
 
 .text-base {
-    color: #DE1B1B;
+    color: #DE1B1B !important;
 }
 
 .text-error {

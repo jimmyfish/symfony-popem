@@ -35,22 +35,22 @@ popem_client_dashboard:
   defaults:
     _controller: AppBundle:Client:dashboardClient
 
-popem_client_login_auth_legacy:
-  path: /loginauth
-  defaults:
-    _controller: AppBundle:Client:loginAuthLegacy
-  methods: [POST]
-
-popem_client_login_auth_form:
-  path: /login
-  defaults:
-    _controller: AppBundle:Client:loginAuth
-  methods: [POST]
-
 popem_client_login_warp:
   path: /login
   defaults:
     _controller: AppBundle:Client:login
+
+popem_client_forgot_password:
+  path: /forgot-password
+  defaults:
+    _controller: AppBundle:Client:forgotPassword
+  methods: [GET|POST]
+
+popem_client_reset_password:
+  path: /reset
+  defaults:
+    _controller: AppBundle:Client:resetPassword
+  methods: [GET|POST]
 
 popem_client_logout:
   path: /logout

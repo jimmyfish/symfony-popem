@@ -366,6 +366,50 @@ class ClientController extends Controller
         ]);
     }
 
+    public function forgotPasswordAction(Request $request)
+    {
+        if ($request->getMethod() === 'POST') {
+            $api = new ApiController();
+
+            $options = [
+                'username' => $request->get('username'),
+            ];
+
+            $response = $api->doRequest('POST', $this->container->getParameter('api_target').'/forgot-password', $options);
+
+            if ($response['status'] == true) {
+                $request->getSession()->getFlashBag()->add('message', 'Email konfirmasi telah dikirimkan ke email anda.');
+
+                return $this->redirectToRoute('popem_client_login_warp');
+            }
+        }
+
+        return $this->render('AppBundle:Client:defaults/forgot-password.html.twig');
+    }
+
+    public function resetPasswordAction(Request $request)
+    {
+        if ($request->getMethod() === 'POST') {
+            $api = new ApiController();
+
+            $options = [
+                'key' => $request->get('key'),
+                'password' => $request->get('password'),
+                'passconf' => $request->get('confirm-password'),
+            ];
+
+            $response = $api->doRequest('POST', $this->container->getParameter('api_target').'/reset-password', $options);
+
+            if ($response['status'] == true) {
+                $request->getSession()->getFlashBag()->add('message', 'Password telah berhasil dirubah, silahkan login menggunakan password anda yang baru.');
+
+                return $this->redirectToRoute('popem_client_login_warp');
+            }
+        }
+
+        return $this->render('AppBundle:Client:account/reset.password.html.twig', ['key' => $request->get('key')]);
+    }
+
     public function dummyAction(Request $request)
     {
         $request->getSession()->getFlashBag()->add('message', 'Permintaan validasi telah terkirim');
