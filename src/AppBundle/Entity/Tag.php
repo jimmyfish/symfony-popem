@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 /**
- * Tag
+ * Tag.
  */
 class Tag
 {
@@ -17,9 +17,8 @@ class Tag
      */
     private $nameTag;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -29,7 +28,7 @@ class Tag
     }
 
     /**
-     * Set nameTag
+     * Set nameTag.
      *
      * @param string $nameTag
      *
@@ -43,7 +42,7 @@ class Tag
     }
 
     /**
-     * Get nameTag
+     * Get nameTag.
      *
      * @return string
      */
@@ -52,4 +51,3 @@ class Tag
         return $this->nameTag;
     }
 }
-

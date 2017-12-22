@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: afif
  * Date: 22/12/2017
- * Time: 14:10
+ * Time: 14:10.
  */
 
 namespace AppBundle\Controller\Dashboard;
-
 
 use AppBundle\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,12 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PublishPageActionController extends Controller
 {
-
-    public function publishPageAction(Request $request,$id)
+    public function publishPageAction(Request $request, $id)
     {
         $session = $request->getSession();
 
-        if(!($session->has('token'))) {
+        if (!($session->has('token'))) {
             return $this->redirect($this->generateUrl('popem_admin_login'));
         }
 
@@ -34,14 +32,13 @@ class PublishPageActionController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('popem_admin_list_page'));
-
     }
 
-    public function unpublishPageAction(Request $request,$id)
+    public function unpublishPageAction(Request $request, $id)
     {
         $session = $request->getSession();
 
-        if(!($session->has('token'))) {
+        if (!($session->has('token'))) {
             return $this->redirect($this->generateUrl('popem_admin_login'));
         }
 
@@ -56,5 +53,4 @@ class PublishPageActionController extends Controller
 
         return $this->redirect($this->generateUrl('popem_admin_list_page'));
     }
-
 }

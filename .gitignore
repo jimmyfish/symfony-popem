@@ -20,3 +20,5 @@ node_modules/
 /web/uploads/image/post
 /web/uploads/image/page
 web/uploads/tmp/
+.php_cs.cache
+

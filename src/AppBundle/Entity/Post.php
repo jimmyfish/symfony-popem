@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 /**
- * Post
+ * Post.
  */
 class Post
 {
@@ -67,9 +67,8 @@ class Post
      */
     private $updatedAt;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -79,7 +78,7 @@ class Post
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
      *
@@ -93,7 +92,7 @@ class Post
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -103,7 +102,7 @@ class Post
     }
 
     /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
      *
@@ -117,7 +116,7 @@ class Post
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
      * @return string
      */
@@ -127,7 +126,7 @@ class Post
     }
 
     /**
-     * Set image
+     * Set image.
      *
      * @param string $image
      *
@@ -141,7 +140,7 @@ class Post
     }
 
     /**
-     * Get image
+     * Get image.
      *
      * @return string
      */
@@ -151,7 +150,7 @@ class Post
     }
 
     /**
-     * Set body
+     * Set body.
      *
      * @param string $body
      *
@@ -165,7 +164,7 @@ class Post
     }
 
     /**
-     * Get body
+     * Get body.
      *
      * @return string
      */
@@ -176,6 +175,7 @@ class Post
 
     /**
      * @param Category $categoryId
+     *
      * @return $this
      */
     public function setCategoryId(Category $categoryId)
@@ -211,6 +211,7 @@ class Post
 
     /**
      * @param $status
+     *
      * @return $this
      */
     public function setStatus($status)
@@ -227,6 +228,7 @@ class Post
     {
         return $this->status;
     }
+
     /**
      * @return string
      */
@@ -261,6 +263,7 @@ class Post
 
     /**
      * @param $publishedAt
+     *
      * @return $this
      */
     public function setPublishedAt($publishedAt)
@@ -280,6 +283,7 @@ class Post
 
     /**
      * @param $updatedAt
+     *
      * @return $this
      */
     public function setUpdatedAt($updatedAt)
@@ -296,7 +300,4 @@ class Post
     {
         return $this->updatedAt;
     }
-
-
 }
-

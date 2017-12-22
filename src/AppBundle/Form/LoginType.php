@@ -17,15 +17,17 @@ class LoginType extends AbstractType
             ->add('username')
             ->add('password');
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User'
-        ));
+        $resolver->setDefaults(
+            array(
+            'data_class' => 'AppBundle\Entity\User',
+            )
+        );
     }
 
     /**
@@ -35,6 +37,4 @@ class LoginType extends AbstractType
     {
         return 'appbundle_user';
     }
-
-
 }

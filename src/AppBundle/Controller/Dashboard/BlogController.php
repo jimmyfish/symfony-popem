@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: afif
  * Date: 22/12/2017
- * Time: 13:49
+ * Time: 13:49.
  */
 
 namespace AppBundle\Controller\Dashboard;
-
 
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Post;
@@ -16,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class BlogController extends Controller
 {
-
     public function blogAction(Request $request)
     {
         $manager = $this->getDoctrine()->getManager();
@@ -29,21 +27,23 @@ class BlogController extends Controller
         $news = $repository->findLatestNews($limit);
 
         /**
-         * @var $paginator \Knp\Component\Pager\Paginator
+         * @var \Knp\Component\Pager\Paginator
          */
         $paginator = $this->get('knp_paginator');
 
         $pagination = $paginator->paginate(
             $latest,
             $request->query->getInt('page', 1),
-            $request->query->getInt('limit',5)
+            $request->query->getInt('limit', 5)
         );
 
-        return $this->render('AppBundle:Client:blog/list.html.twig',[
+        return $this->render(
+            'AppBundle:Client:blog/list.html.twig',
+            [
             'pagination' => $pagination,
-            'latest' => $news
-
-        ]);
+            'latest' => $news,
+            ]
+        );
     }
 
     public function detailBlogAction($slug)
@@ -52,7 +52,7 @@ class BlogController extends Controller
 
         $repository = $manager->getRepository(Post::class);
 
-        $data = $repository->findOneBy(['slug'=>$slug]);
+        $data = $repository->findOneBy(['slug' => $slug]);
 
         $limited = 4;
         $related = $repository->findRelatedBlog($limited);
@@ -60,20 +60,23 @@ class BlogController extends Controller
         $limit = 3;
         $news = $repository->findLatestNews($limit);
 
-        return $this->render('AppBundle:Client:articles/article.html.twig',[
+        return $this->render(
+            'AppBundle:Client:articles/article.html.twig',
+            [
             'data' => $data,
             'related' => $related,
-            'latest' => $news
-        ]);
+            'latest' => $news,
+            ]
+        );
     }
 
-    public function blogCategoryAction(Request $request,$category)
+    public function blogCategoryAction(Request $request, $category)
     {
         $manager = $this->getDoctrine()->getManager();
 
         $query = $manager->getRepository(Post::class);
 
-        $data = $manager->getRepository(Category::class)->findOneBy(['nameCategory'=>$category]);
+        $data = $manager->getRepository(Category::class)->findOneBy(['nameCategory' => $category]);
 
         $post = $query->findCategoryBlog($data);
 
@@ -84,15 +87,16 @@ class BlogController extends Controller
 
         $pagination = $paginator->paginate(
             $post,
-            $request->query->getInt('page',1),
-            $request->query->getInt('limit',5)
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', 5)
         );
 
-        return $this->render('AppBundle:Client:blog/category.html.twig',[
+        return $this->render(
+            'AppBundle:Client:blog/category.html.twig',
+            [
             'pagination' => $pagination,
-            'latest' => $news
-        ]);
-
+            'latest' => $news,
+            ]
+        );
     }
-
 }

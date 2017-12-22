@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 /**
- * Category
+ * Category.
  */
 class Category
 {
@@ -17,9 +17,8 @@ class Category
      */
     private $nameCategory;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -29,7 +28,7 @@ class Category
     }
 
     /**
-     * Set nameCategory
+     * Set nameCategory.
      *
      * @param string $nameCategory
      *
@@ -43,7 +42,7 @@ class Category
     }
 
     /**
-     * Get nameCategory
+     * Get nameCategory.
      *
      * @return string
      */
@@ -52,4 +51,3 @@ class Category
         return $this->nameCategory;
     }
 }
-

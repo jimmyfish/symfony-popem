@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: jimmy
  * Date: 04/12/17
- * Time: 14:21
+ * Time: 14:21.
  */
 
 namespace AppBundle\Controller\Api;
@@ -12,8 +12,6 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\SessionCookieJar;
 use GuzzleHttp\Exception\ClientException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Cookie;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -21,9 +19,9 @@ class ApiController extends Controller
 {
     public function doRequest($method, $uri, array $data = null, $type = 'form_params')
     {
-
-        if ($method === 'GET')
+        if ('GET' === $method) {
             $type = 'query';
+        }
 
         $options[$type] = $data;
 
@@ -42,15 +40,16 @@ class ApiController extends Controller
 
         $cookieJar = new SessionCookieJar('SESSION_STORAGE', true);
 
-
         foreach ($cookieJar as $cookie) {
             $cookie->setExpires(time() + 1 * 3600);
         }
 
-        $client = new Client([
+        $client = new Client(
+            [
             'base_uri' => 'http://localhost:8000',
             'cookies' => $cookieJar,
-        ]);
+            ]
+        );
 
         $response = [];
 
@@ -62,7 +61,6 @@ class ApiController extends Controller
             $response = $e->getResponse();
             $status = false;
         }
-
 
         $return = [
             'status' => $status,

@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 /**
- * Page
+ * Page.
  */
 class Page
 {
@@ -62,9 +62,8 @@ class Page
      */
     private $updatedAt;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -74,7 +73,7 @@ class Page
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
      *
@@ -88,7 +87,7 @@ class Page
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -98,7 +97,7 @@ class Page
     }
 
     /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
      *
@@ -112,7 +111,7 @@ class Page
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
      * @return string
      */
@@ -122,7 +121,7 @@ class Page
     }
 
     /**
-     * Set image
+     * Set image.
      *
      * @param string $image
      *
@@ -136,7 +135,7 @@ class Page
     }
 
     /**
-     * Get image
+     * Get image.
      *
      * @return string
      */
@@ -146,7 +145,7 @@ class Page
     }
 
     /**
-     * Set body
+     * Set body.
      *
      * @param string $body
      *
@@ -160,7 +159,7 @@ class Page
     }
 
     /**
-     * Get body
+     * Get body.
      *
      * @return string
      */
@@ -171,6 +170,7 @@ class Page
 
     /**
      * @param $status
+     *
      * @return $this
      */
     public function setStatus($status)
@@ -189,7 +189,7 @@ class Page
     }
 
     /**
-     * Set tag
+     * Set tag.
      *
      * @param string $tag
      *
@@ -203,7 +203,7 @@ class Page
     }
 
     /**
-     * Get tag
+     * Get tag.
      *
      * @return string
      */
@@ -213,7 +213,7 @@ class Page
     }
 
     /**
-     * Set metaKeyword
+     * Set metaKeyword.
      *
      * @param string $metaKeyword
      *
@@ -227,7 +227,7 @@ class Page
     }
 
     /**
-     * Get metaKeyword
+     * Get metaKeyword.
      *
      * @return string
      */
@@ -237,7 +237,7 @@ class Page
     }
 
     /**
-     * Set metaDescription
+     * Set metaDescription.
      *
      * @param string $metaDescription
      *
@@ -251,7 +251,7 @@ class Page
     }
 
     /**
-     * Get metaDescription
+     * Get metaDescription.
      *
      * @return string
      */
@@ -262,6 +262,7 @@ class Page
 
     /**
      * @param $publishedAt
+     *
      * @return $this
      */
     public function setPublishedAt($publishedAt)
@@ -281,6 +282,7 @@ class Page
 
     /**
      * @param $updatedAt
+     *
      * @return $this
      */
     public function setUpdatedAt($updatedAt)
@@ -298,4 +300,3 @@ class Page
         return $this->updatedAt;
     }
 }
-

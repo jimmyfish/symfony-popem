@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: afif
  * Date: 22/12/2017
- * Time: 14:04
+ * Time: 14:04.
  */
 
 namespace AppBundle\Controller\Dashboard;
-
 
 use AppBundle\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,13 +18,13 @@ class CategoryController extends Controller
     {
         $session = $request->getSession();
 
-        if(!($session->has('token'))) {
+        if (!($session->has('token'))) {
             return $this->redirect($this->generateUrl('popem_admin_login'));
         }
 
         $em = $this->getDoctrine()->getManager();
 
-        if($request->getMethod() == 'POST') {
+        if ('POST' == $request->getMethod()) {
             $data = new Category();
             $data->setNameCategory($request->get('category'));
 
@@ -42,7 +41,7 @@ class CategoryController extends Controller
     {
         $session = $request->getSession();
 
-        if(!($session->has('token'))) {
+        if (!($session->has('token'))) {
             return $this->redirect($this->generateUrl('popem_admin_login'));
         }
 
@@ -50,16 +49,19 @@ class CategoryController extends Controller
 
         $data = $em->getRepository(Category::class)->findAll();
 
-        return $this->render('AppBundle:backend:category/list-category.html.twig',[
-            'data' => $data
-        ]);
+        return $this->render(
+            'AppBundle:backend:category/list-category.html.twig',
+            [
+            'data' => $data,
+            ]
+        );
     }
 
-    public function updateCategoryAction(Request $request,$id)
+    public function updateCategoryAction(Request $request, $id)
     {
         $session = $request->getSession();
 
-        if(!($session->has('token'))) {
+        if (!($session->has('token'))) {
             return $this->redirect($this->generateUrl('popem_admin_login'));
         }
 
@@ -67,8 +69,8 @@ class CategoryController extends Controller
 
         $data = $em->getRepository(Category::class)->find($id);
 
-        if($request->getMethod() == 'POST') {
-            if($data instanceof Category) {
+        if ('POST' == $request->getMethod()) {
+            if ($data instanceof Category) {
                 $data->setNameCategory($request->get('name-category'));
             }
 
@@ -78,16 +80,19 @@ class CategoryController extends Controller
             return $this->redirect($this->generateUrl('popem_admin_list_category'));
         }
 
-        return $this->render('AppBundle:backend:category/update-category.html.twig',[
-            'data' => $data
-        ]);
+        return $this->render(
+            'AppBundle:backend:category/update-category.html.twig',
+            [
+            'data' => $data,
+            ]
+        );
     }
 
     public function deleteCategoryAction(Request $request, $id)
     {
         $session = $request->getSession();
 
-        if(!($session->has('token'))) {
+        if (!($session->has('token'))) {
             return $this->redirect($this->generateUrl('popem_admin_login'));
         }
 
@@ -105,5 +110,4 @@ class CategoryController extends Controller
 
         return $this->redirect($this->generateUrl('popem_admin_list_category'));
     }
-
 }

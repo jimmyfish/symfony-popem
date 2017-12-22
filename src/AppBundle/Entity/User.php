@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 /**
- * User
+ * User.
  */
 class User
 {
@@ -27,9 +27,8 @@ class User
      */
     private $token;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -39,7 +38,7 @@ class User
     }
 
     /**
-     * Set username
+     * Set username.
      *
      * @param string $username
      *
@@ -53,7 +52,7 @@ class User
     }
 
     /**
-     * Get username
+     * Get username.
      *
      * @return string
      */
@@ -63,7 +62,7 @@ class User
     }
 
     /**
-     * Set password
+     * Set password.
      *
      * @param string $password
      *
@@ -77,7 +76,7 @@ class User
     }
 
     /**
-     * Get password
+     * Get password.
      *
      * @return string
      */
@@ -102,4 +101,3 @@ class User
         $this->token = $token;
     }
 }
-

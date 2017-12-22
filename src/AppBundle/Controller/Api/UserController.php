@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Api;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class UserController extends Controller
@@ -21,11 +20,12 @@ class UserController extends Controller
 
         $targetUrl = $this->container->getParameter('api_target');
 
-        $response = $apiCont->doRequest('GET', $targetUrl . '/user-info');
+        $response = $apiCont->doRequest('GET', $targetUrl.'/user-info');
 
-        if ($response['status'] == false) {
+        if (false == $response['status']) {
             $request->getSession()->clear();
             $this->get('session')->getFlashBag()->add('message', 'Sesi anda telah berakhir, silahkan login kembali');
+
             return $this->redirectToRoute('popem_client_login_warp');
         }
 
@@ -43,10 +43,10 @@ class UserController extends Controller
 
         $targetUrl = $this->container->getParameter('api_target');
 
-        $hasil = $response->doRequest('POST', $targetUrl . '/login', $options);
+        $hasil = $response->doRequest('POST', $targetUrl.'/login', $options);
 
-        if ($hasil['status'] == true) {
-            $dataUser = $response->doRequest('GET', $targetUrl .'/user-info');
+        if (true == $hasil['status']) {
+            $dataUser = $response->doRequest('GET', $targetUrl.'/user-info');
             $session->set('userLog', $dataUser['data']['data']['name']);
             $session->set('isLogin', true);
         }
@@ -63,7 +63,7 @@ class UserController extends Controller
             'passconf' => $request->get('passconf'),
         ];
 
-        $targetURL = $this->container->getParameter('api_target') . '/register';
+        $targetURL = $this->container->getParameter('api_target').'/register';
 
         $api = new ApiController();
 
@@ -74,16 +74,20 @@ class UserController extends Controller
 
     public function clientBalanceAction(Request $request)
     {
-        if ($request->getSession()->get('isLogin') == true) {
+        if (true == $request->getSession()->get('isLogin')) {
             $api = new ApiController();
 
-            $targetUrl = $this->container->getParameter('api_target') . '/user-balance';
+            $targetUrl = $this->container->getParameter('api_target').'/user-balance';
 
             $response = $api->doRequest($request, 'GET', $targetUrl);
 
-            if ($response['status'] == false) {
+            if (false == $response['status']) {
                 $request->getSession()->clear();
-                $this->get('session')->getFlashBag()->add('message', 'Sesi anda telah berakhir, silahkan login kembali');
+                $this->get('session')->getFlashBag()->add(
+                    'message',
+                    'Sesi anda telah berakhir, silahkan login kembali'
+                );
+
                 return $this->redirectToRoute('popem_client_login_warp');
             }
 
@@ -97,68 +101,67 @@ class UserController extends Controller
     {
         $api = new ApiController();
 
-
         $targetUrl = $this->container->getParameter('api_target');
 
         $img = $request->files->get('file');
 
-        if(!(is_dir($this->getParameter('tmp_directory')['resource']))) {
-            @mkdir($this->getParameter('tmp_directory')['resource'],0777,true);
+        if (!(is_dir($this->getParameter('tmp_directory')['resource']))) {
+            @mkdir($this->getParameter('tmp_directory')['resource'], 0777, true);
         }
 
         $dirName = $this->getParameter('tmp_directory')['resource'];
 
-        $filename = md5(uniqid()) . '.' . $img->guessExtension();
+        $filename = md5(uniqid()).'.'.$img->guessExtension();
 
         $img->move($dirName, $filename);
 
-        if (file_exists($dirName . '/' . $filename)) {
+        if (file_exists($dirName.'/'.$filename)) {
             $formData = [
                 [
                     'name' => 'broker_id',
-                    'contents' => $request->get('broker_id')
+                    'contents' => $request->get('broker_id'),
                 ],
                 [
                     'name' => 'login',
-                    'contents' => $request->get('login')
+                    'contents' => $request->get('login'),
                 ],
                 [
                     'name' => 'email',
-                    'contents' => $request->get('email')
+                    'contents' => $request->get('email'),
                 ],
                 [
                     'name' => 'phone',
-                    'contents' => $request->get('phone')
+                    'contents' => $request->get('phone'),
                 ],
                 [
                     'name' => 'bank_name',
-                    'contents' => $request->get('bank_name')
+                    'contents' => $request->get('bank_name'),
                 ],
                 [
                     'name' => 'bank_account',
-                    'contents' => $request->get('bank_account')
+                    'contents' => $request->get('bank_account'),
                 ],
                 [
                     'name' => 'bank_beneficiary_name',
-                    'contents' => $request->get('bank_beneficiary_name')
+                    'contents' => $request->get('bank_beneficiary_name'),
                 ],
                 [
                     'name' => 'bank_id',
-                    'contents' => $request->get('bank_id')
+                    'contents' => $request->get('bank_id'),
                 ],
                 [
                     'name' => 'amount',
-                    'contents' => $request->get('amount')
+                    'contents' => $request->get('amount'),
                 ],
                 [
                     'name' => 'file',
-                    'contents' => fopen($dirName . '/' . $filename, 'r'),
-                ]
+                    'contents' => fopen($dirName.'/'.$filename, 'r'),
+                ],
             ];
 
-            $response = $api->doRequest('POST', $targetUrl . '/deposit-account', $formData, 'multipart');
+            $response = $api->doRequest('POST', $targetUrl.'/deposit-account', $formData, 'multipart');
 
-            unlink($dirName . '/' . $filename);
+            unlink($dirName.'/'.$filename);
 
             return new JsonResponse($response);
         } else {
@@ -184,7 +187,7 @@ class UserController extends Controller
             'amount' => $request->get('amount'),
         ];
 
-        $response = $api->doRequest('POST', $targetUrl . '/withdrawal-account', $options);
+        $response = $api->doRequest('POST', $targetUrl.'/withdrawal-account', $options);
 
         return new JsonResponse($response);
     }
@@ -194,17 +197,17 @@ class UserController extends Controller
         $api = new ApiController();
         $img = $request->files->get('file');
 
-        if(!(is_dir($this->getParameter('tmp_directory')['resource']))) {
-            @mkdir($this->getParameter('tmp_directory')['resource'],0777,true);
+        if (!(is_dir($this->getParameter('tmp_directory')['resource']))) {
+            @mkdir($this->getParameter('tmp_directory')['resource'], 0777, true);
         }
 
         $dirName = $this->getParameter('tmp_directory')['resource'];
 
-        $filename = md5(uniqid()) . '.' . $img->guessExtension();
+        $filename = md5(uniqid()).'.'.$img->guessExtension();
 
         $img->move($dirName, $filename);
 
-        if (file_exists($dirName . '/' . $filename)) {
+        if (file_exists($dirName.'/'.$filename)) {
             $options = [
                 [
                     'name' => 'name',
@@ -236,7 +239,7 @@ class UserController extends Controller
                 ],
                 [
                     'name' => 'file',
-                    'contents' => fopen($dirName . '/' . $filename,'r'),
+                    'contents' => fopen($dirName.'/'.$filename, 'r'),
                 ],
                 [
                     'name' => 'bank_name',
@@ -249,10 +252,15 @@ class UserController extends Controller
                 [
                     'name' => 'bank_beneficiary_name',
                     'contents' => $request->get('bank_beneficiary_name'),
-                ]
+                ],
             ];
 
-            $response = $api->doRequest('POST', $this->container->getParameter('api_target').'/validation-user', $options, 'multipart');
+            $response = $api->doRequest(
+                'POST',
+                $this->container->getParameter('api_target').'/validation-user',
+                $options,
+                'multipart'
+            );
 
             return new JsonResponse($response);
         }
@@ -264,17 +272,17 @@ class UserController extends Controller
 
         $img = $request->files->get('file');
 
-        if(!(is_dir($this->getParameter('tmp_directory')['resource']))) {
-            @mkdir($this->getParameter('tmp_directory')['resource'],0777,true);
+        if (!(is_dir($this->getParameter('tmp_directory')['resource']))) {
+            @mkdir($this->getParameter('tmp_directory')['resource'], 0777, true);
         }
 
         $dirName = $this->getParameter('tmp_directory')['resource'];
 
-        $filename = md5(uniqid()) . '.' . $img->guessExtension();
+        $filename = md5(uniqid()).'.'.$img->guessExtension();
 
         $img->move($dirName, $filename);
 
-        if (file_exists($dirName . '/' . $filename)) {
+        if (file_exists($dirName.'/'.$filename)) {
             $options = [
                 [
                     'name' => 'broker_id',
@@ -294,7 +302,7 @@ class UserController extends Controller
                 ],
                 [
                     'name' => 'file',
-                    'contents' => fopen($dirName . '/' . $filename, 'r')
+                    'contents' => fopen($dirName.'/'.$filename, 'r'),
                 ],
                 [
                     'name' => 'bank_name',
@@ -310,8 +318,15 @@ class UserController extends Controller
                 ],
             ];
 
-            $response = $api->doRequest('POST', $this->container->getParameter('api_target').'/validation_account', $options, 'multipart');
-            unlink($dirName . '/' . $filename);
+            $response = $api->doRequest(
+                'POST',
+                $this->container->getParameter('api_target').'/validation_account',
+                $options,
+                'multipart'
+            );
+
+            unlink($dirName.'/'.$filename);
+
             return new JsonResponse($response);
         } else {
             return new JsonResponse('Image upload not successful');
@@ -341,5 +356,4 @@ class UserController extends Controller
 
         return new JsonResponse($response);
     }
-
 }

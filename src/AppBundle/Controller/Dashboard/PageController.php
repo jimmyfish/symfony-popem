@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: afif
  * Date: 22/12/2017
- * Time: 14:12
+ * Time: 14:12.
  */
 
 namespace AppBundle\Controller\Dashboard;
-
 
 use AppBundle\Entity\ImageResize;
 use AppBundle\Entity\Page;
@@ -20,11 +19,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PageController extends Controller
 {
-
-    public function newPageAction(Request $request,$id=0)
+    public function newPageAction(Request $request, $id = 0)
     {
         $session = $request->getSession();
-        if(!($session->has('token'))) {
+        if (!($session->has('token'))) {
             return $this->redirect($this->generateUrl('popem_admin_login'));
         }
 
@@ -38,31 +36,31 @@ class PageController extends Controller
 
         $newData = [];
 
-        if($request->getMethod() == 'POST') {
+        if ('POST' == $request->getMethod()) {
             $data = new Page();
             $data->setTitle($request->get('title'));
             $data->setSlug($slugify->slugify($request->get('title')));
             $data->setBody($request->get('body'));
             $data->setStatus(0);
 
-            if(!is_dir($this->getParameter('page_directory')['resource'])) {
-                @mkdir($this->getParameter('page_directory')['resource'],0777,true);
+            if (!is_dir($this->getParameter('page_directory')['resource'])) {
+                @mkdir($this->getParameter('page_directory')['resource'], 0777, true);
             }
 
-            if(!(empty($request->files->get('image')))) {
+            if (!(empty($request->files->get('image')))) {
                 $file = $request->files->get('image');
-                $name1 = md5(uniqid()) . '.' . $file->guessExtension();
-                $exAllowed = array('jpg','png','jpeg','svg');
+                $name1 = md5(uniqid()).'.'.$file->guessExtension();
+                $exAllowed = array('jpg', 'png', 'jpeg', 'svg');
                 $ex = pathinfo($name1, PATHINFO_EXTENSION);
-                if(in_array($ex,$exAllowed)) {
-                    if($file instanceof UploadedFile) {
-                        if(!($file->getClientSize() > (1024 * 1024 * 1))) {
+                if (in_array($ex, $exAllowed)) {
+                    if ($file instanceof UploadedFile) {
+                        if (!($file->getClientSize() > (1024 * 1024 * 1))) {
                             ImageResize::createFromFile(
                                 $request->files->get('image')->getPathName()
-                            )->saveTo($this->getParameter('page_directory')['resource'] . '/' . $name1,20,true);
+                            )->saveTo($this->getParameter('page_directory')['resource'].'/'.$name1, 20, true);
 //                            move_uploaded_file($name1,$this->getParameter('post_directory')['resource']);
                             $data->setImage($name1);
-                        }else {
+                        } else {
                             $this->get('session')->getFlashBag()->add(
                                 'message_error',
                                 'ukuran file tidak boleh lebih dari 1 mb'
@@ -71,7 +69,7 @@ class PageController extends Controller
                             return $this->redirect($this->generateUrl('popem_admin_new_page'));
                         }
                     }
-                }else{
+                } else {
                     $this->get('session')->getFlashBag()->add(
                         'message_error',
                         'extension file harus .jpg, .png , .svg , .jpeg'
@@ -79,7 +77,7 @@ class PageController extends Controller
 
                     return $this->redirect($this->generateUrl('popem_admin_new_page'));
                 }
-            }else {
+            } else {
                 $this->get('session')->getFlashBag()->add(
                     'message_error',
                     'file gambar belum dimasukkan'
@@ -98,12 +96,12 @@ class PageController extends Controller
             $data->setMetaKeyword($request->get('meta-keyword'));
             $data->setMetaDescription($request->get('meta-description'));
 
-            array_push($newData,$data);
+            array_push($newData, $data);
 
             foreach ($newData as $key => $item) {
                 foreach ($page as $keyPage => $itemPage) {
-                    if($itemPage->getSlug() === $item->getSlug()) {
-                        $item->setSlug($slugify->slugify($request->get('title')) . '-' . $itemPage->getId());
+                    if ($itemPage->getSlug() === $item->getSlug()) {
+                        $item->setSlug($slugify->slugify($request->get('title')).'-'.$itemPage->getId());
                     }
                 }
             }
@@ -119,7 +117,7 @@ class PageController extends Controller
                     'message_success',
                     'data berhasil disimpan'
                 );
-            }catch (UniqueConstraintViolationException $e) {
+            } catch (UniqueConstraintViolationException $e) {
                 $this->get('session')->getFlashBag()->add(
                     'message_error',
                     'data tidak berhasil disimpan'
@@ -127,21 +125,23 @@ class PageController extends Controller
             }
 
             return $this->redirect($this->generateUrl('popem_admin_list_page'));
-
         }
 
-        return $this->render('AppBundle:backend:page/new-page.html.twig' , [
-            'tag' =>$tag
-        ]);
+        return $this->render(
+            'AppBundle:backend:page/new-page.html.twig',
+            [
+            'tag' => $tag,
+            ]
+        );
     }
 
-    public function updatePageAction(Request $request,$id)
+    public function updatePageAction(Request $request, $id)
     {
         $session = $request->getSession();
 
         $slugify = new Slugify();
 
-        if(!($session->has('token'))) {
+        if (!($session->has('token'))) {
             return $this->redirect($this->generateUrl('popem_admin_login'));
         }
 
@@ -155,40 +155,40 @@ class PageController extends Controller
 
         $newData = [];
 
-        if($request->getMethod() == 'POST') {
+        if ('POST' == $request->getMethod()) {
             $data->setTitle($request->get('title'));
             $data->setSlug($slugify->slugify($request->get('title')));
             $data->setBody($request->get('body'));
-            if(!(empty($request->files->get('image')))) {
+            if (!(empty($request->files->get('image')))) {
                 $file = $request->files->get('image');
-                $name1 = md5(uniqid()) . '.' . $file->guessExtension();
-                $exAllowed = array('jpg','png','jpeg','svg');
+                $name1 = md5(uniqid()).'.'.$file->guessExtension();
+                $exAllowed = array('jpg', 'png', 'jpeg', 'svg');
                 $ex = pathinfo($file, PATHINFO_EXTENSION);
 
-                if(in_array($ex,$exAllowed)) {
-                    if($file instanceof UploadedFile) {
-                        if(!($file->getClientSize() > (1024 * 1024 * 1))) {
+                if (in_array($ex, $exAllowed)) {
+                    if ($file instanceof UploadedFile) {
+                        if (!($file->getClientSize() > (1024 * 1024 * 1))) {
                             ImageResize::createFromFile(
                                 $request->files->get('image')->getPathName()
-                            )->saveTo($this->getParameter('page_directory')['resource'] . '/' . $name1,30,true);
+                            )->saveTo($this->getParameter('page_directory')['resource'].'/'.$name1, 30, true);
                             $data->setImage($name1);
 //                            $data->setImage($this->getParameter('page_directory')['resource'] . '/' . $name1);
-                        }else {
+                        } else {
                             $this->get('session')->getFlashBag()->add(
                                 'message_error',
                                 'file tidak boleh lebih dari 1 mb'
                             );
 
-                            return $this->redirect($this->generateUrl('popem_admin_update_page',['id'=>$data->getId()]));
+                            return $this->redirect($this->generateUrl('popem_admin_update_page', ['id' => $data->getId()]));
                         }
                     }
-                }else {
+                } else {
                     $this->get('session')->getFlashBag()->add(
                         'message_error',
                         'extension file harus .jpg, .jpeg, .png, .svg'
                     );
 
-                    return $this->redirect($this->generateUrl('popem_admin_update_page',['id'=>$data->getId()]));
+                    return $this->redirect($this->generateUrl('popem_admin_update_page', ['id' => $data->getId()]));
                 }
             }
 
@@ -204,12 +204,12 @@ class PageController extends Controller
             $data->setMetaDescription($request->get('meta-description'));
             $data->setStatus($request->get('status'));
 
-            array_push($newData,$data);
+            array_push($newData, $data);
 
             foreach ($newData as $key => $item) {
                 foreach ($page as $keyPage => $itemPage) {
-                    if($itemPage->getSlug() == $item->getSlug()) {
-                        $item->setSlug($slugify->slugify($request->get('title')) . '-' . $itemPage->getId());
+                    if ($itemPage->getSlug() == $item->getSlug()) {
+                        $item->setSlug($slugify->slugify($request->get('title')).'-'.$itemPage->getId());
                     }
                 }
             }
@@ -225,7 +225,7 @@ class PageController extends Controller
                     'message_success',
                     'data berhasil di update'
                 );
-            }catch (UniqueConstraintViolationException $e) {
+            } catch (UniqueConstraintViolationException $e) {
                 $this->get('session')->getFlashBag()->add(
                     'message_error',
                     'data tidak boleh sama'
@@ -235,16 +235,19 @@ class PageController extends Controller
             return $this->redirect($this->generateUrl('popem_admin_list_page'));
         }
 
-        return $this->render('AppBundle:backend:page/update-page.html.twig',[
-            'data'=>$data,
-            'tag' => $tag
-        ]);
+        return $this->render(
+            'AppBundle:backend:page/update-page.html.twig',
+            [
+            'data' => $data,
+            'tag' => $tag,
+            ]
+        );
     }
 
     public function listPageAction(Request $request)
     {
         $session = $request->getSession();
-        if(!($session->has('token'))) {
+        if (!($session->has('token'))) {
             return $this->redirect($this->generateUrl('popem_admin_login'));
         }
 
@@ -252,7 +255,6 @@ class PageController extends Controller
 
         $data = $em->getRepository(Page::class)->findAll();
 
-        return $this->render('AppBundle:backend:page/list-page.html.twig',['data'=>$data]);
+        return $this->render('AppBundle:backend:page/list-page.html.twig', ['data' => $data]);
     }
-
 }

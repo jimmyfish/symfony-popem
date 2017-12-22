@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: afif
  * Date: 22/12/2017
- * Time: 13:54
+ * Time: 13:54.
  */
 
 namespace AppBundle\Controller\Dashboard;
-
 
 use AppBundle\Entity\Category;
 use AppBundle\Entity\ImageResize;
@@ -25,7 +24,7 @@ class PostController extends Controller
     {
         $session = $request->getSession();
 
-        if(!($session->has('token'))) {
+        if (!($session->has('token'))) {
             return $this->redirect($this->generateUrl('popem_admin_login'));
         }
 
@@ -41,32 +40,32 @@ class PostController extends Controller
 
         $newData = [];
 
-        if($request->getMethod() == 'POST') {
+        if ('POST' == $request->getMethod()) {
             $data = new Post();
             $data->setTitle($request->get('title'));
             $data->setSlug($slugify->slugify($request->get('title')));
             $data->setBody($request->get('body'));
             $data->setStatus(0);
 
-            if(!(is_dir($this->getParameter('post_directory')['resource']))) {
-                @mkdir($this->getParameter('post_directory')['resource'],0777,true);
+            if (!(is_dir($this->getParameter('post_directory')['resource']))) {
+                @mkdir($this->getParameter('post_directory')['resource'], 0777, true);
             }
 
-            if(!(empty($request->files->get('image')))) {
+            if (!(empty($request->files->get('image')))) {
                 $file = $request->files->get('image');
-                $nama1 = md5(uniqid()) . '.' . $file->guessExtension();
-                $exAllowed = array('jpg','png','jpeg','svg');
-                $ex = pathinfo($nama1,PATHINFO_EXTENSION);
+                $nama1 = md5(uniqid()).'.'.$file->guessExtension();
+                $exAllowed = array('jpg', 'png', 'jpeg', 'svg');
+                $ex = pathinfo($nama1, PATHINFO_EXTENSION);
 
-                if(in_array($ex,$exAllowed)) {
-                    if($file instanceof UploadedFile) {
-                        if(!($file->getClientSize() > (1024 * 1024 * 1))) {
+                if (in_array($ex, $exAllowed)) {
+                    if ($file instanceof UploadedFile) {
+                        if (!($file->getClientSize() > (1024 * 1024 * 1))) {
                             ImageResize::createFromFile(
                                 $request->files->get('image')->getPathName()
-                            )->saveTo($this->getParameter('post_directory')['resource'] . '/' . $nama1,30,true);
+                            )->saveTo($this->getParameter('post_directory')['resource'].'/'.$nama1, 30, true);
                             $data->setImage($nama1);
 //                            $data->setImage($this->getParameter('post_directory')['resource'] . '/' . $nama1);
-                        }else {
+                        } else {
                             $this->get('session')->getFlashBag()->add(
                                 'message_error',
                                 'ukuran file tidak boleh lebih dari 1 mb'
@@ -75,7 +74,7 @@ class PostController extends Controller
                             return $this->redirect($this->generateUrl('popem_admin_new_post'));
                         }
                     }
-                }else {
+                } else {
                     $this->get('session')->getFlashBag()->add(
                         'message_error',
                         'file harus berextensi .jpg, .jpeg, .png, .svg'
@@ -94,12 +93,12 @@ class PostController extends Controller
             $data->setPublishedAt(new \DateTime());
             $data->setUpdatedAt(new \DateTime());
 
-            array_push($newData,$data);
+            array_push($newData, $data);
 
             foreach ($newData as $key => $item) {
                 foreach ($post as $keyPost => $itemPost) {
-                    if($itemPost->getSlug() === $item->getSlug()) {
-                        $item->setSlug($slugify->slugify($request->get('title')) . '-' . $itemPost->getId());
+                    if ($itemPost->getSlug() === $item->getSlug()) {
+                        $item->setSlug($slugify->slugify($request->get('title')).'-'.$itemPost->getId());
                     }
                 }
             }
@@ -115,7 +114,7 @@ class PostController extends Controller
                     'message_success',
                     'data berhasil disimpan'
                 );
-            }catch (UniqueConstraintViolationException $e) {
+            } catch (UniqueConstraintViolationException $e) {
                 $this->get('session')->getFlashBag()->add(
                     'message_error',
                     'data tidak berhasil disimpan'
@@ -125,17 +124,20 @@ class PostController extends Controller
             return $this->redirect($this->generateUrl('popem_admin_list_post'));
         }
 
-        return $this->render('AppBundle:backend:post/new-post.html.twig',[
+        return $this->render(
+            'AppBundle:backend:post/new-post.html.twig',
+            [
             'tag' => $tag,
-            'category' => $category
-        ]);
+            'category' => $category,
+            ]
+        );
     }
 
     public function listPostAction(Request $request)
     {
         $session = $request->getSession();
 
-        if(!($session->has('token'))) {
+        if (!($session->has('token'))) {
             return $this->redirect($this->generateUrl('popem_admin_login'));
         }
 
@@ -143,12 +145,15 @@ class PostController extends Controller
 
         $data = $em->getRepository(Post::class)->findAll();
 
-        return $this->render('AppBundle:backend:post/list-post.html.twig',[
-            'data' => $data
-        ]);
+        return $this->render(
+            'AppBundle:backend:post/list-post.html.twig',
+            [
+            'data' => $data,
+            ]
+        );
     }
 
-    public function updatePostAction(Request $request,$id)
+    public function updatePostAction(Request $request, $id)
     {
         $session = $request->getSession();
 
@@ -156,7 +161,7 @@ class PostController extends Controller
 
         $slugify = new Slugify();
 
-        if(!($session->has('token'))) {
+        if (!($session->has('token'))) {
             return $this->redirect($this->generateUrl('popem_admin_login'));
         }
 
@@ -170,39 +175,40 @@ class PostController extends Controller
 
         $newData = [];
 
-        if($request->getMethod() == 'POST') {
+        if ('POST' == $request->getMethod()) {
             $data->setTitle($request->get('title'));
             $data->setSlug($slugify->slugify($request->get('title')));
             $data->setBody($request->get('body'));
 
-            if(!(empty($request->files->get('image')))) {
+            if (!(empty($request->files->get('image')))) {
                 $file = $request->files->get('image');
-                $name1 = md5(uniqid()) . '.' . $file->guessExtension();
-                $exAllowed = array('jpg','png','jpeg','svg');
-                $ex = pathinfo($file,PATHINFO_EXTENSION);
+                $name1 = md5(uniqid()).'.'.$file->guessExtension();
+                $exAllowed = array('jpg', 'png', 'jpeg', 'svg');
+                $ex = pathinfo($file, PATHINFO_EXTENSION);
 
-                if(in_array($ex,$exAllowed)) {
-                    if($file instanceof UploadedFile) {
-                        if(!($file->getClientSize() > (1024 * 1024 * 1))) {
+                if (in_array($ex, $exAllowed)) {
+                    if ($file instanceof UploadedFile) {
+                        if (!($file->getClientSize() > (1024 * 1024 * 1))) {
                             ImageResize::createFromFile(
                                 $request->files->get('image')->getPathName()
-                            )->saveTo($this->getParameter('post_directory')['resource'] . '/' . $name1,30,true);
+                            )->saveTo($this->getParameter('post_directory')['resource'].'/'.$name1, 30, true);
                             $data->setImage($name1);
-                        }else {
+                        } else {
                             $this->get('session')->getFlashBag()->add(
                                 'message_error',
                                 'file tidak boleh lebih dari 1 mb'
                             );
-                            return $this->redirect($this->generateUrl('popem_admin_update_post',['id'=>$data->getId]));
+
+                            return $this->redirect($this->generateUrl('popem_admin_update_post', ['id' => $data->getId]));
                         }
                     }
-                }else {
+                } else {
                     $this->get('session')->getFlashBag()->add(
                         'message_error',
                         'extension file harus .jpg, .png, .jpeg, .svg'
                     );
 
-                    return $this->redirect($this->generateUrl('popem_admin_update_post',['id'=>$data->getId()]));
+                    return $this->redirect($this->generateUrl('popem_admin_update_post', ['id' => $data->getId()]));
                 }
             }
 
@@ -227,12 +233,12 @@ class PostController extends Controller
             $data->setStatus($request->get('status'));
             $data->setUpdatedAt(new \DateTime());
 
-            array_push($newData,$data);
+            array_push($newData, $data);
 
             foreach ($newData as $key => $item) {
                 foreach ($post as $keyPost => $itemPost) {
-                    if($itemPost->getSlug() === $item->getSlug()) {
-                        $item->setSlug($slugify->slugify($request->get('title')) . '-' . $itemPost->getId());
+                    if ($itemPost->getSlug() === $item->getSlug()) {
+                        $item->setSlug($slugify->slugify($request->get('title')).'-'.$itemPost->getId());
                     }
                 }
             }
@@ -248,7 +254,7 @@ class PostController extends Controller
                     'message_success',
                     'data berhasil disimpan'
                 );
-            }catch (UniqueConstraintViolationException $e) {
+            } catch (UniqueConstraintViolationException $e) {
                 $this->get('session')->getFlashBag()->add(
                     'message_error',
                     'data tidak boleh sama'
@@ -257,11 +263,14 @@ class PostController extends Controller
 
             return $this->redirect($this->generateUrl('popem_admin_list_post'));
         }
-        return $this->render('AppBundle:backend:post/update-post.html.twig',[
+
+        return $this->render(
+            'AppBundle:backend:post/update-post.html.twig',
+            [
             'data' => $data,
             'tag' => $tag,
-            'category' => $category
-        ]);
+            'category' => $category,
+            ]
+        );
     }
-
 }

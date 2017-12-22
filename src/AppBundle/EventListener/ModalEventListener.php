@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: afif
  * Date: 20/12/2017
- * Time: 15:27
+ * Time: 15:27.
  */
 
 namespace AppBundle\EventListener;
-
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -17,7 +16,6 @@ use Symfony\Component\Yaml\Parser;
 
 class ModalEventListener implements EventSubscriberInterface
 {
-
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -44,7 +42,7 @@ class ModalEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(KernelEvents::CONTROLLER => array(
-            array('doTwig',0)
+            array('doTwig', 0),
         ));
     }
 
@@ -60,38 +58,38 @@ class ModalEventListener implements EventSubscriberInterface
 
         $test = [];
 
-        $files = $yaml->parse(file_get_contents(dirname(__DIR__) . '/Resources/config/routing/admin/menu.yml'));
+        $files = $yaml->parse(file_get_contents(dirname(__DIR__).'/Resources/config/routing/admin/menu.yml'));
 
         foreach ($files as $item) {
-            array_push($arrNewFiles,$item);
+            array_push($arrNewFiles, $item);
         }
 
-        for($i=0;$i<count($arrNewFiles); $i++) {
-            if(isset($arrNewFiles[$i]['submenu'])) {
+        for ($i = 0; $i < count($arrNewFiles); ++$i) {
+            if (isset($arrNewFiles[$i]['submenu'])) {
                 $file[] = [
                     'path' => $arrNewFiles[$i]['path'],
                     'label' => $arrNewFiles[$i]['label'],
-                    'submenu' => $arrNewFiles[$i]['submenu']
+                    'submenu' => $arrNewFiles[$i]['submenu'],
                 ];
                 foreach ($arrNewFiles[$i]['submenu'] as $item) {
-                    array_push($test,$item);
+                    array_push($test, $item);
                 }
-            }else{
+            } else {
                 $file[] = [
                     'path' => $arrNewFiles[$i]['path'],
-                    'label' => $arrNewFiles[$i]['label']
+                    'label' => $arrNewFiles[$i]['label'],
                 ];
             }
         }
 
-        for($j = 0; $j < count($test); $j++) {
+        for ($j = 0; $j < count($test); ++$j) {
             $subMenu[] = [
                 'path' => $test[$j]['path'],
-                'label' => $test[$j]['label']
+                'label' => $test[$j]['label'],
             ];
         }
 
-        $this->container->get('twig')->addGlobal('submenu',$subMenu);
+        $this->container->get('twig')->addGlobal('submenu', $subMenu);
 
         $this->container->get('twig')->addGlobal('files', $files);
     }

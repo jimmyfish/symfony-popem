@@ -33,7 +33,7 @@ popem_client_category:
 popem_client_dashboard:
   path: /client/dashboard
   defaults:
-    _controller: AppBundle:Client:dashboardClient
+    _controller: AppBundle:Client/ClientDashboard:index
 
 popem_client_login_warp:
   path: /login
@@ -43,13 +43,13 @@ popem_client_login_warp:
 popem_client_forgot_password:
   path: /forgot-password
   defaults:
-    _controller: AppBundle:Client:forgotPassword
+    _controller: AppBundle:Client/passwordForgot:passwordForgot
   methods: [GET|POST]
 
 popem_client_reset_password:
   path: /reset
   defaults:
-    _controller: AppBundle:Client:resetPassword
+    _controller: AppBundle:Client/passwordReset:passwordReset
   methods: [GET|POST]
 
 popem_client_setting_password:
@@ -71,41 +71,41 @@ popem_client_activate:
 popem_client_validate_client:
   path: /client/validate
   defaults:
-    _controller: AppBundle:Client:validateClient
+    _controller: AppBundle:Client/ClientValidate:index
   methods: [GET, POST]
 
 popem_client_list_account:
   path: /account
   defaults:
-    _controller: AppBundle:Client:listAccount
+    _controller: AppBundle:Client/AccountList:index
   methods: GET
 
 popem_client_add_account:
   path: /account/add
   defaults:
-    _controller: AppBundle:Client:addAccount
+    _controller: AppBundle:Client/AccountAdd:index
 
 popem_client_validate_account:
   path: /account/validate
   defaults:
-    _controller: AppBundle:Client:validateAccount
+    _controller: AppBundle:Client/AccountValidate:index
 
 popem_client_transfer_account:
   path: /account/transfer
   defaults:
-    _controller: AppBundle:Client:transferAccount
+    _controller: AppBundle:Client/TransferAccount:transferAccount
   methods: GET
 
 popem_client_transfer_from:
   path: /account/transfer-from
   defaults:
-    _controller: AppBundle:Client:transferFromAccount
+    _controller: AppBundle:Client/TransferAccount:transferFromAccount
   methods: POST
 
 popem_client_transfer_to:
   path: /account/transfer-to
   defaults:
-    _controller: AppBundle:Client:transferToAccount
+    _controller: AppBundle:Client/TransferAccount:transferToAccount
   methods: POST
 
 popem_client_dummy_form:
