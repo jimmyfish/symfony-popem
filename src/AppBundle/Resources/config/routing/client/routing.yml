@@ -52,6 +52,12 @@ popem_client_reset_password:
     _controller: AppBundle:Client:resetPassword
   methods: [GET|POST]
 
+popem_client_setting_password:
+  path: /setting-password
+  defaults:
+    _controller: AppBundle:SettingPasswordAction:index
+  methods: [GET|POST]
+
 popem_client_logout:
   path: /logout
   defaults:
