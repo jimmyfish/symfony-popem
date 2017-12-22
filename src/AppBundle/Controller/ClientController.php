@@ -48,19 +48,10 @@ class ClientController extends Controller
 
         $repository = $manager->getRepository(Post::class);
 
-        $latest = $repository->createQueryBuilder('p')
-            ->where('p.status = :status')
-            ->setParameter('status',2)
-            ->getQuery();
+        $latest = $repository->findPaginationBlog();
 
         $limit = 3;
-        $news = $repository->createQueryBuilder('p')
-            ->where('p.status = :status')
-            ->setParameter('status',2)
-            ->orderBy('p.publishedAt','DESC')
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult();
+        $news = $repository->findLatestNews($limit);
 
         /**
          * @var $paginator \Knp\Component\Pager\Paginator
@@ -89,19 +80,10 @@ class ClientController extends Controller
         $data = $repository->findOneBy(['slug'=>$slug]);
 
         $limited = 4;
-        $related = $repository->createQueryBuilder('p')
-            ->orderBy('p.publishedAt','DESC')
-            ->setMaxResults($limited)
-            ->getQuery()
-            ->getResult();
+        $related = $repository->findRelatedBlog($limited);
 
         $limit = 3;
-        $latest = $repository->createQueryBuilder('p')
-            ->orderBy('p.publishedAt','DESC')
-            ->setMaxResults($limit)
-            ->getQuery();
-
-        $news = $latest->getResult();
+        $news = $repository->findLatestNews($limit);
 
         return $this->render('AppBundle:Client:articles/article.html.twig',[
             'data' => $data,
@@ -127,21 +109,12 @@ class ClientController extends Controller
 
         $query = $manager->getRepository(Post::class);
 
-        $post = $query->createQueryBuilder('p')
-            ->where('p.categoryId = :category')
-            ->where('p.status = :status')
-            ->setParameter('category', $manager->getRepository(Category::class)->findOneBy(['nameCategory'=>$category]))
-            ->setParameter('status',2)
-            ->getQuery();
+        $data = $manager->getRepository(Category::class)->findOneBy(['nameCategory'=>$category]);
+
+        $post = $query->findCategoryBlog($data);
 
         $limit = 3;
-        $news = $query->createQueryBuilder('p')
-            ->where('p.status = :status')
-            ->orderBy('p.publishedAt','DESC')
-            ->setParameter('status',2)
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult();
+        $news = $query->findLatestNews($limit);
 
         $paginator = $this->get('knp_paginator');
 

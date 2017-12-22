@@ -10,4 +10,44 @@ namespace AppBundle\Repository;
  */
 class PostRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function findLatestNews($limit)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.status = :status')
+            ->setParameter('status',2)
+            ->orderBy('p.publishedAt','DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findPaginationBlog()
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.status = :status')
+            ->setParameter('status',2)
+            ->getQuery();
+    }
+
+    public function findRelatedBlog($limited)
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.publishedAt','DESC')
+            ->setMaxResults($limited)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findCategoryBlog($data)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.categoryId = :category')
+            ->andwhere('p.status = :status')
+            ->setParameter('category', $data)
+            ->setParameter('status',2)
+            ->getQuery();
+    }
+
+
 }
