@@ -6,7 +6,7 @@ popem_client_index:
 popem_client_blog:
   path: /blog
   defaults:
-    _controller: AppBundle:Blog:blog
+    _controller: AppBundle:Dashboard/Blog:blog
 
 popem_client_testing:
   path: /testing
@@ -16,7 +16,7 @@ popem_client_testing:
 popem_client_detail_blog:
   path: /blog/{slug}
   defaults:
-    _controller:  AppBundle:Blog:detailBlog
+    _controller:  AppBundle:Dashboard/Blog:detailBlog
   methods:  [GET]
 
 popem_client_article:
@@ -28,7 +28,7 @@ popem_client_article:
 popem_client_category:
   path: /category/{category}
   defaults:
-    _controller:  AppBundle:Blog:blogCategory
+    _controller:  AppBundle:Dashboard/Blog:blogCategory
 
 popem_client_dashboard:
   path: /client/dashboard

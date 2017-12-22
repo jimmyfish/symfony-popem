@@ -3,20 +3,19 @@
  * Created by PhpStorm.
  * User: afif
  * Date: 22/12/2017
- * Time: 14:08
+ * Time: 14:04
  */
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Dashboard;
 
 
-use AppBundle\Entity\Tag;
+use AppBundle\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class TagController extends Controller
+class CategoryController extends Controller
 {
-
-    public function newTagAction(Request $request)
+    public function newCategoryAction(Request $request)
     {
         $session = $request->getSession();
 
@@ -27,19 +26,19 @@ class TagController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if($request->getMethod() == 'POST') {
-            $data = new Tag();
-            $data->setNameTag($request->get('name-tag'));
+            $data = new Category();
+            $data->setNameCategory($request->get('category'));
 
             $em->persist($data);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('popem_admin_list_tag'));
+            return $this->redirect($this->generateUrl('popem_admin_list_category'));
         }
 
-        return $this->render('AppBundle:backend:tag/new-tag.html.twig');
+        return $this->render('AppBundle:backend:category/new-category.html.twig');
     }
 
-    public function listTagAction(Request $request)
+    public function listCategoryAction(Request $request)
     {
         $session = $request->getSession();
 
@@ -49,14 +48,14 @@ class TagController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $data = $em->getRepository(Tag::class)->findAll();
+        $data = $em->getRepository(Category::class)->findAll();
 
-        return $this->render('AppBundle:backend:tag/list-tag.html.twig',[
+        return $this->render('AppBundle:backend:category/list-category.html.twig',[
             'data' => $data
         ]);
     }
 
-    public function updateTagAction(Request $request, $id)
+    public function updateCategoryAction(Request $request,$id)
     {
         $session = $request->getSession();
 
@@ -66,25 +65,25 @@ class TagController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $data = $em->getRepository(Tag::class)->find($id);
+        $data = $em->getRepository(Category::class)->find($id);
 
         if($request->getMethod() == 'POST') {
-            if($data instanceof Tag) {
-                $data->setNameTag($request->get('name-tag'));
+            if($data instanceof Category) {
+                $data->setNameCategory($request->get('name-category'));
             }
 
             $em->persist($data);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('popem_admin_list_tag'));
+            return $this->redirect($this->generateUrl('popem_admin_list_category'));
         }
 
-        return $this->render('AppBundle:backend:tag/update-tag.html.twig',[
+        return $this->render('AppBundle:backend:category/update-category.html.twig',[
             'data' => $data
         ]);
     }
 
-    public function deleteTagAction(Request $request,$id)
+    public function deleteCategoryAction(Request $request, $id)
     {
         $session = $request->getSession();
 
@@ -94,7 +93,7 @@ class TagController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $data = $em->getRepository(Tag::class)->find($id);
+        $data = $em->getRepository(Category::class)->find($id);
 
         $em->remove($data);
         $em->flush();
@@ -104,7 +103,7 @@ class TagController extends Controller
             'data berhasil dihapus'
         );
 
-        return $this->redirect($this->generateUrl('popem_admin_list_tag'));
+        return $this->redirect($this->generateUrl('popem_admin_list_category'));
     }
 
 }

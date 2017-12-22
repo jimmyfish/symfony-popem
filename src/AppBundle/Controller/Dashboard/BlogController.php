@@ -6,7 +6,7 @@
  * Time: 13:49
  */
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Dashboard;
 
 
 use AppBundle\Entity\Category;

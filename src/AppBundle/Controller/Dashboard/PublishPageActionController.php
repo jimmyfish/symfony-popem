@@ -3,20 +3,20 @@
  * Created by PhpStorm.
  * User: afif
  * Date: 22/12/2017
- * Time: 13:58
+ * Time: 14:10
  */
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Dashboard;
 
 
-use AppBundle\Entity\Post;
+use AppBundle\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class PublishActionController extends Controller
+class PublishPageActionController extends Controller
 {
 
-    public function publishPostAction(Request $request,$id)
+    public function publishPageAction(Request $request,$id)
     {
         $session = $request->getSession();
 
@@ -26,19 +26,18 @@ class PublishActionController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $data = $em->getRepository(Post::class)->find($id);
+        $data = $em->getRepository(Page::class)->find($id);
 
-        if($data instanceof Post) {
-            $data->setStatus(2);
-        }
+        $data->setStatus(2);
 
         $em->persist($data);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('popem_admin_list_post'));
+        return $this->redirect($this->generateUrl('popem_admin_list_page'));
+
     }
 
-    public function unpublishPostAction(Request $request,$id)
+    public function unpublishPageAction(Request $request,$id)
     {
         $session = $request->getSession();
 
@@ -48,14 +47,14 @@ class PublishActionController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $data = $em->getRepository(Post::class)->find($id);
+        $data = $em->getRepository(Page::class)->find($id);
 
         $data->setStatus(1);
 
         $em->persist($data);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('popem_admin_list_post'));
+        return $this->redirect($this->generateUrl('popem_admin_list_page'));
     }
 
 }

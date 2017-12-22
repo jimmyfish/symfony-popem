@@ -6,7 +6,7 @@
  * Time: 14:14
  */
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Dashboard;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
