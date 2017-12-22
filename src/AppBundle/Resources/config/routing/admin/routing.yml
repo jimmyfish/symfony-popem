@@ -25,115 +25,115 @@ popem_admin_home:
 popem_admin_new_page:
     path: /new-page
     defaults:
-      _controller:  AppBundle:Admin:newPage
+      _controller:  AppBundle:Page:newPage
     methods:  [GET,POST]
 
 popem_admin_list_page:
     path: /list-page
     defaults:
-      _controller:  AppBundle:Admin:listPage
+      _controller:  AppBundle:Page:listPage
     methods:  [GET]
 
 popem_admin_update_page:
     path: /update-page/{id}
     defaults:
-      _controller:  AppBundle:Admin:updatePage
+      _controller:  AppBundle:Page:updatePage
     methods:  [GET,POST]
 
 popem_admin_publish_page:
     path: /publish-page/{id}
     defaults:
-      _controller:  AppBundle:Admin:publishPage
+      _controller:  AppBundle:PublishPageAction:publishPage
     methods: [GET,POST]  
 
 popem_admin_unpublish_page:
     path: /unpublish-page/{id}
     defaults:
-      _controller:  AppBundle:Admin:unpublishPage
+      _controller:  AppBundle:PublishPageAction:unpublishPage
     methods: [GET]  
 
 popem_admin_new_category:
     path: /category
     defaults:
-      _controller:  AppBundle:Admin:newCategory
+      _controller:  AppBundle:Category:newCategory
     methods:  [GET,POST]
 
 popem_admin_list_category:
     path: /list-category
     defaults:
-      _controller:  AppBundle:Admin:listCategory
+      _controller:  AppBundle:Category:listCategory
     methods:  [GET]
 
 popem_admin_update_category:
     path: /update-category
     defaults:
-      _controller:  AppBundle:Admin:updateCategory
+      _controller:  AppBundle:Category:updateCategory
     methods:  [GET,POST]
 
 popem_admin_delete_category:
     path: /delete-category/{id}
     defaults:
-      _controller:  AppBundle:Admin:deleteCategory
+      _controller:  AppBundle:Category:deleteCategory
     methods:  [GET]
 
 popem_admin_new_post:
     path: /new-post
     defaults:
-      _controller:  AppBundle:Admin:newPost
+      _controller:  AppBundle:Post:newPost
     methods:  [GET,POST]
 
 popem_admin_list_post:
     path: /list-post
     defaults:
-      _controller:  AppBundle:Admin:listPost
+      _controller:  AppBundle:Post:listPost
     methods:  [GET]
 
 popem_admin_update_post:
     path: /update-post/{id}
     defaults:
-        _controller:  AppBundle:Admin:updatePost
+        _controller:  AppBundle:Post:updatePost
     methods:  [GET,POST]
 
 popem_admin_publish_post:
     path: /publish-post/{id}
     defaults:
-        _controller:  AppBundle:Admin:publishPost
+        _controller:  AppBundle:PublishAction:publishPost
     methods: [GET,POST]    
 
 popem_admin_unpublish_post:
     path: /unpublish-post/{id}
     defaults:
-       _controller: AppBundle:Admin:unpublishPost
+       _controller: AppBundle:PublishAction:unpublishPost
     methods: [GET]   
 
 popem_admin_new_tag:
     path: /new-tag
     defaults:
-      _controller:  AppBundle:Admin:newTag
+      _controller:  AppBundle:Tag:newTag
     methods:  [GET,POST]
 
 popem_admin_list_tag:
     path: /list-tag
     defaults:
-      _controller:  AppBundle:Admin:listTag
+      _controller:  AppBundle:Tag:listTag
     methods:  [GET]
 
 popem_admin_update_tag:
     path: /update-tag/{id}
     defaults:
-      _controller:  AppBundle:Admin:updateTag
+      _controller:  AppBundle:Tag:updateTag
     methods:  [GET,POST]
 
 popem_admin_delete_tag:
     path: /delete-tag/{id}
     defaults:
-      _controller:  AppBundle:Admin:deleteTag
+      _controller:  AppBundle:Tag:deleteTag
     methods:  [GET]
 
 popem_admin_configuration:
     path: /configuration
     defaults:
-      _controller:  AppBundle:Admin:configuration
+      _controller:  AppBundle:Configuration:configuration
     methods:  [GET,POST]
 
 popem_admin_message:
