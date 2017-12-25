@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ClientLoginController extends Controller
 {
-    public function loginAction(Request $request)
+    public function indexAction(Request $request)
     {
         if (true == $request->getSession()->get('isLogin')) {
             return $this->redirectToRoute('popem_client_dashboard');

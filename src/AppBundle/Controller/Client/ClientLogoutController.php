@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class ClientLogoutController extends Controller
 {
-    public function logoutAction(Request $request, Session $session)
+    public function indexAction(Request $request, Session $session)
     {
         $session->clear();
 

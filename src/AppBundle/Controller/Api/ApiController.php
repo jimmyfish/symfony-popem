@@ -71,4 +71,54 @@ class ApiController extends Controller
 
         return $return;
     }
+
+    public function doRequestDataOnly($method, $uri, array $data = null, $type = 'form_params')
+    {
+        if ('GET' === $method) {
+            $type = 'query';
+        }
+
+        $options[$type] = $data;
+
+        $httpResponse = new Response();
+
+        $request = new Request();
+
+        $session = $request->getSession();
+
+        $options['auth'] = ['popem_auth', 'Blink182'];
+
+        $options['headers'] = [
+            'User-Agent' => $request->headers->get('User-Agent'),
+            'Accept' => 'application/json',
+        ];
+
+        $cookieJar = new SessionCookieJar('SESSION_STORAGE', true);
+
+        foreach ($cookieJar as $cookie) {
+            $cookie->setExpires(time() + 1 * 3600);
+        }
+
+        $client = new Client(
+            [
+                'base_uri' => 'http://localhost:8000',
+                'cookies' => $cookieJar,
+            ]
+        );
+
+        $response = [];
+
+        $status = true;
+
+        try {
+            $response = $client->request($method, $uri, $options);
+        } catch (ClientException $e) {
+            $response = $e->getResponse();
+            $status = false;
+        }
+
+        $return = \GuzzleHttp\json_decode($response->getBody(), true);
+
+        return $return;
+    }
 }

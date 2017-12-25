@@ -17,6 +17,9 @@ parameters:
     tmp_directory:
         resource: './uploads/tmp'
 
+    client_host:
+        resource: 'http://localhost:8000'
+
 framework:
     #esi: ~
     translator: { fallbacks: ['%locale%'] }
