@@ -54,8 +54,10 @@ class BlogController extends Controller
 
         $data = $repository->findOneBy(['slug' => $slug]);
 
+        $tag = $data->getTag();
+
         $limited = 4;
-        $related = $repository->findRelatedBlog($limited);
+        $related = $repository->findRelatedBlog($limited,$tag);
 
         $limit = 3;
         $news = $repository->findLatestNews($limit);

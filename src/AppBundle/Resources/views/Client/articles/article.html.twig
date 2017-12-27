@@ -129,16 +129,14 @@
                             <p><strong>Baca Juga</strong></p>
                             <div class="row">
                                 {% for rela in related %}
-                                    {% if data.tag == rela.tag %}
-                                        <div class="col-md-3 col-sm-6">
-                                            {% if rela.image is defined %}
-                                                <img src="{{ asset('uploads') }}/image/post/{{ rela.image }}" alt="" class="img-responsive mb-10">
-                                            {% else %}
-                                                <img src="http://placehold.it/640x480" alt="" class="img-responsive mb-10">
-                                            {% endif %}
-                                            <p><a href="{{ path('popem_client_detail_blog',{slug: rela.slug}) }}">{{ rela.title }}</a></p>
-                                        </div>
-                                    {% endif %}
+                                    <div class="col-md-3 col-sm-6">
+                                        {% if rela.image is defined %}
+                                            <img src="{{ asset('uploads') }}/image/post/{{ rela.image }}" alt="" class="img-responsive mb-10">
+                                        {% else %}
+                                            <img src="http://placehold.it/640x480" alt="" class="img-responsive mb-10">
+                                        {% endif %}
+                                        <p><a href="{{ path('popem_client_detail_blog',{slug: rela.slug}) }}">{{ rela.title }}</a></p>
+                                    </div>
                                 {% endfor %}
                             </div>
                         </div>

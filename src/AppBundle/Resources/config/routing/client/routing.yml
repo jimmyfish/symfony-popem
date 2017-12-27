@@ -43,13 +43,13 @@ popem_client_login_warp:
 popem_client_forgot_password:
   path: /forgot-password
   defaults:
-    _controller: AppBundle:Client/passwordForgot:passwordForgot
+    _controller: AppBundle:Client/PasswordForgot:passwordForgot
   methods: [GET|POST]
 
 popem_client_reset_password:
   path: /reset
   defaults:
-    _controller: AppBundle:Client/passwordReset:passwordReset
+    _controller: AppBundle:Client/PasswordReset:passwordReset
   methods: [GET|POST]
 
 popem_client_setting_password:
