@@ -77,8 +77,8 @@ class TransferAccountController extends Controller
         $api = new ApiController();
 
         $options = [
-            'amount' => $request->get('transfer_from_amount'),
-            'account_id' => $request->get('transfer_from_account_id'),
+            'amount' => $request->get('transfer_to_amount'),
+            'account_id' => $request->get('transfer_to_account_id'),
         ];
 
         $response = $api->doRequest(
@@ -90,7 +90,7 @@ class TransferAccountController extends Controller
         if (true === $response['status']) {
             $request->getSession()->getFlashBag()->add(
                 'message_success',
-                'Transaksi ke nomor akun '.$request->get('transfer_from_account_id').' telah berhasil'
+                'Transaksi ke nomor akun '.$request->get('transfer_to_account_id').' telah berhasil'
             );
         } else {
             $request->getSession()->getFlashBag()->add('message_error', $response['data']['message']);

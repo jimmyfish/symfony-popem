@@ -60,7 +60,7 @@ class ClientController extends Controller
 
             $options = ['key' => $request->get('key')];
 
-            $response = $api->doRequest($request, 'GET', $targetUrl, $options);
+            $response = $api->doRequest('GET', $targetUrl, $options);
 
             if (true == $response['status']) {
                 return $this->redirectToRoute('popem_client_login_warp');

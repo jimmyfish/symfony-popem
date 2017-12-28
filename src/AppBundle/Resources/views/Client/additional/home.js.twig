@@ -11,19 +11,29 @@ function registerAction(e) {
         },
         sourcePath = "{{ path('popem_api_client_register') }}";
 
-    container.find('button').val('Memproses ...');
-    container.find('input, button').prop('disabled', true);
-    container.find('.spinner').removeClass('hide');
-
     $.ajax({
         type: 'POST',
         url: sourcePath,
         data: sendInfo,
+        beforeSend: function () {
+            container.find('button').val('Memproses ...');
+            container.find('input, button').prop('disabled', true);
+            container.find('.spinner').removeClass('hide');
+        },
         success: function (msg) {
             if (msg.status === true) {
                 wrapper.find('.success-notification').removeClass('hide');
                 wrapper.find('form').hide();
+            }else{
+                wrapper.find('.error-notification').removeClass('hide');
+                wrapper.find('.error-notification').find('.error-notif').text(msg.data.message);
+                {#container.reset();#}
+                {#wrapper.find('form').hide();#}
             }
+        },
+        complete: function() {
+            container.find('input, button').prop('disabled',false);
+            container.find('.spinner').addClass('hide');
         }
     });
 }
@@ -69,6 +79,10 @@ function depositAction(e) {
                 sucWrapper.find('.ticket').text(data.data.ticket_number);
                 container.hide();
                 sucWrapper.removeClass('hide');
+            }else {
+                wrapper.find('.error-notification').removeClass('hide');
+                wrapper.find('.error-notification').find('.error-notif-deposit').text(data.data.message);
+                container.hide();
             }
         },
         error: function (e) {
@@ -113,7 +127,9 @@ function withdrawalAccount(e) {
                 container.hide();
                 sucWrapper.removeClass('hide');
             } else {
-                console.log(data);
+                wrapper.find('.error-notification').removeClass('hide');
+                wrapper.find('.error-notification').find('.error-notif-withdrawal').text(data.data.message);
+                container.hide();
             }
         },
         error: function (err) {

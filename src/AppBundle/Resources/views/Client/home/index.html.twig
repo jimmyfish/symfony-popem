@@ -25,6 +25,16 @@
                                 {#<p><a href="#" class="btn btn-success btn-block">Kembali</a></p>#}
                             </div>
                         </div>
+                        <div class="error-notification hide">
+                            <div class="text-center text">
+                                <span class="fa-stack fa-lg error">
+                                     <i class="fa fa-circle fa-stack-2x text-emerald"></i>
+                                    <i class="fa fa-close fa-stack-1x fa-inverse"></i>
+                                </span>
+                                <br>
+                                <p class="mt-20 mb-20"><span class="error-notif"></span></p>
+                            </div>
+                        </div>
                         <form action="" style="padding-right: 12px;">
                             <div class="form-group">
                                 <label for="username">Username :</label>
@@ -74,6 +84,16 @@
                                 </span>
                                 <br>
                                 <p class="mt-20 mb-20">Terima kasih, Deposit berjumlah Rp. <span class="dept_amount">20000</span> dengan nomor tiket <span class="ticket">10000</span> telah berhasil diproses.</p>
+                            </div>
+                        </div>
+                        <div class="error-notification mt-50">
+                            <div class="text-center text">
+                                <span class="fa-stack fa-lg error">
+                                     <i class="fa fa-circle fa-stack-2x text-emerald"></i>
+                                    <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                                </span>
+                                <br>
+                                <p class="mt-20 mb-20"><span class="error-notif-deposit"></span></p>
                             </div>
                         </div>
                         <form enctype="multipart/form-data">
@@ -163,6 +183,16 @@
                                 <br>
                                 <p class="mt-20 mb-20">Terima kasih, Withdrawal berjumlah Rp. <span class="dept_amount">20000</span> dengan nomor tiket <span class="ticket">10000</span> telah berhasil diproses.</p>
                             </div>
+                            <div class="error-notification hide mt-50">
+                                <div class="text-center text">
+                                    <span class="fa-stack fa-lg error">
+                                         <i class="fa fa-circle fa-stack-2x text-emerald"></i>
+                                         <i class="fa fa-close fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <br>
+                                    <p class="mt-20 mb-20"><span class="error-notif-withdrawal"></span></p>
+                                </div>
+                            </div>
                         </div>
                         <form action="">
                             <div class="form-group">
@@ -229,29 +259,29 @@
                     <div class="content-form">
                         <form action="" method="post" style="padding-right: 12px;">
                             <div class="form-group">
-                                <label for="">Broker :</label>
-                                <select class="form-control" id="" name="">
-                                    <option value="">Item</option>
-                                    <option value="">Item</option>
-                                    <option value="">Item</option>
+                                <label for="report_broker_id">Broker :</label>
+                                <select class="form-control" id="report_broker_id" name="report_broker_id">
+                                    {% for info in information.broker.data.data %}
+                                        <option value="{{ info.broker_id }}">{{ info.broker_name }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="">Login :</label>
-                                <input class="form-control" id="" name="" type="text">
+                                <label for="report_login">Login :</label>
+                                <input class="form-control" id="report_login" name="report_login" type="text">
                             </div>
                             <div class="form-group">
-                                <label for="">Phone Password :</label>
-                                <input class="form-control" id="" name="" type="text">
+                                <label for="report_phone_password">Phone Password :</label>
+                                <input class="form-control" id="report_phone_password" name="report_phone_password" type="text">
                             </div>
                             <p for="">Tipe :</p>
                             <div class="form-group">
-                                <label class="radio-inline" for="">
-                                    <input id="" name="opt1" type="radio">
+                                <label class="radio-inline" for="report_type_finance">
+                                    <input id="report_type_finance" name="opt1" type="radio">
                                     Finance
                                 </label>
-                                <label class="radio-inline" for="">
-                                    <input id="" name="opt1" type="radio">
+                                <label class="radio-inline" for="report_type_rebate">
+                                    <input id="report_type_rebate" name="opt1" type="radio">
                                     Rebate
                                 </label>
                             </div>

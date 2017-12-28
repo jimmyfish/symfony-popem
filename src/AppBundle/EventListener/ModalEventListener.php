@@ -8,13 +8,16 @@
 
 namespace AppBundle\EventListener;
 
+use AppBundle\AppBundle;
+use AppBundle\Entity\Post;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Yaml\Parser;
 
-class ModalEventListener implements EventSubscriberInterface
+class ModalEventListener extends Controller implements EventSubscriberInterface
 {
     public function __construct(ContainerInterface $container)
     {
@@ -88,6 +91,15 @@ class ModalEventListener implements EventSubscriberInterface
                 'label' => $test[$j]['label'],
             ];
         }
+
+        $manager = $this->getDoctrine()->getManager();
+
+        $repository = $manager->getRepository(Post::class);
+
+        $limit = 3;
+        $latest = $repository->findLatestNews($limit);
+
+        $this->container->get('twig')->addGlobal('latest',$latest);
 
         $this->container->get('twig')->addGlobal('submenu', $subMenu);
 
