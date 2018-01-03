@@ -1,5 +1,7 @@
 {% extends 'Client/layout.html.twig' %}
 
+{% block title %}Member Area{% endblock %}
+
 {% block content %}
     <section id="main-content">
         <div class="container-fluid">
@@ -23,6 +25,7 @@
                             <a href="{{ path('popem_client_dashboard') }}">Dashboard</a>
                             <a href="{{ path('popem_client_validate_client') }}">Validate Client</a>
                             <a href="{{ path('popem_client_withdrawal_client') }}">Withdrawal</a>
+                            <a href="{{ path('popem_client_deposit_client') }}">Deposit</a>
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingTwo">
                                     <h4 class="panel-title">

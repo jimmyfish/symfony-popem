@@ -8,16 +8,12 @@
 
 namespace AppBundle\EventListener;
 
-use Doctrine\Common\Util\Debug;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Routing\Route;
-use Symfony\Component\Routing\RouteCollection;
 
 class AuthEventListener implements EventSubscriberInterface
 {
@@ -46,6 +42,7 @@ class AuthEventListener implements EventSubscriberInterface
             'popem_client_validate_client',
             'popem_client_withdrawal_client',
             'popem_client_withdrawal_client_post',
+            'popem_client_deposit_client',
         ];
 
         $url = $this->container->get('router')->generate($route);
@@ -67,7 +64,6 @@ class AuthEventListener implements EventSubscriberInterface
         }
 
         return;
-
     }
 
     public static function getSubscribedEvents()

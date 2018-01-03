@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: jimmy
  * Date: 03/01/18
- * Time: 17:36
+ * Time: 17:36.
  */
 
 namespace AppBundle\Controller\Client;

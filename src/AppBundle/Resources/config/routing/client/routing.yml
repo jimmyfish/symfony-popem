@@ -132,6 +132,12 @@ popem_client_withdrawal_client_post:
     _controller: AppBundle:Client/ClientWithdrawal:post
   methods: POST
 
+popem_client_deposit_client:
+  path: /client/deposit
+  defaults:
+    _controller: AppBundle:Client/ClientDeposit:index
+  methods: GET|POST
+
 popem_client_dummy_form:
   path: /dummy
   defaults:
