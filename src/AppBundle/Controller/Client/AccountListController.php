@@ -21,15 +21,21 @@ class AccountListController extends Controller
 
         $response = $api->doRequest('GET', $this->container->getParameter('api_target').'/list-account');
 
-        if(false === $response['data']['status']) {
+        $data = [];
+
+//        return new JsonResponse($response);
+
+        if ($response['data']['status'] === false) {
             $request->getSession()->getFlashBag()->add(
                 'message_error',
                 $response['data']['message']
             );
+        } else {
+            $data = $response['data']['data'];
         }
 
         return $this->render('AppBundle:Client:member/list.account.html.twig', [
-            'data' => $response['data']['data'],
+            'data' => $data,
         ]);
     }
 }

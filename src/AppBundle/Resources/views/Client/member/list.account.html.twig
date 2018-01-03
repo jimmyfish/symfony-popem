@@ -8,7 +8,7 @@
             <div class="col-md-12">
                 {% for msg in app.session.getFlashBag().get('message_error') %}
                     <div class="alert alert-danger">
-                        msg
+                        {{ msg }}
                     </div>
                 {% endfor %}
                 <table class="table table-hover table-responsive">

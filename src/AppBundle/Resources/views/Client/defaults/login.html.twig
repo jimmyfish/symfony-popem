@@ -10,6 +10,11 @@
                             <strong>Pemberitahuan !</strong> {{ msg }}
                         </div>
                     {% endfor %}
+                    {% for msg in app.session.getFlashBag.get('auth_error') %}
+                        <div class="alert alert-warning">
+                            <strong>Pemberitahuan !</strong> {{ msg }}
+                        </div>
+                    {% endfor %}
                     <form action="">
                         <div class="form-group">
                             <label for="username">Username :</label>

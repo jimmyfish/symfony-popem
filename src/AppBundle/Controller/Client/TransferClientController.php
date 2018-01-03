@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: afif
  * Date: 28/12/2017
- * Time: 15:16
+ * Time: 15:16.
  */
 
 namespace AppBundle\Controller\Client;
-
 
 use AppBundle\Controller\Api\ApiController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TransferClientController extends Controller
 {
-
     public function indexAction()
     {
         return $this->render('AppBundle:Client:member/transfer.client.html.twig');
@@ -27,7 +25,7 @@ class TransferClientController extends Controller
 
         $options = [
             'amount' => $request->get('transfer_client_amount'),
-            'username' => $request->get('transfer_client_username')
+            'username' => $request->get('transfer_client_username'),
         ];
 
         $response = $api->doRequest(
@@ -36,12 +34,12 @@ class TransferClientController extends Controller
             $options
         );
 
-        if(true == $response['status']) {
+        if (true == $response['status']) {
             $request->getSession()->getFlashBag()->add(
                 'message_success',
                 'transfer telah berhasil'
             );
-        }else{
+        } else {
             $request->getSession()->getFlashBag()->add(
                 'message_error',
                 $response['data']['message']
@@ -50,5 +48,4 @@ class TransferClientController extends Controller
 
         return $this->redirect($request->headers->get('referer'));
     }
-
 }

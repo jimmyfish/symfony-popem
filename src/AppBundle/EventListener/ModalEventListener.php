@@ -8,7 +8,6 @@
 
 namespace AppBundle\EventListener;
 
-use AppBundle\AppBundle;
 use AppBundle\Entity\Post;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -99,7 +98,7 @@ class ModalEventListener extends Controller implements EventSubscriberInterface
         $limit = 3;
         $latest = $repository->findLatestNews($limit);
 
-        $this->container->get('twig')->addGlobal('latest',$latest);
+        $this->container->get('twig')->addGlobal('latest', $latest);
 
         $this->container->get('twig')->addGlobal('submenu', $subMenu);
 

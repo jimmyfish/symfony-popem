@@ -7,6 +7,11 @@
 
         <div class="row">
             <div class="col-md-8">
+                {% for msg in app.session.getFlashBag().get('message_error') %}
+                    <div class="alert alert-danger">
+                        {{ msg }}
+                    </div>
+                {% endfor %}
                 <form action="{{ path('popem_client_add_account') }}" method="post">
                     <div class="form-group">
                         <label for="a_login">Login</label>

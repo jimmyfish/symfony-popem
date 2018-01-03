@@ -29,11 +29,11 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery();
     }
 
-    public function findRelatedBlog($limited,$tag)
+    public function findRelatedBlog($limited, $tag)
     {
         return $this->createQueryBuilder('p')
             ->where('p.tag = :tag')
-            ->setParameter('tag',$tag)
+            ->setParameter('tag', $tag)
             ->orderBy('p.publishedAt', 'DESC')
             ->setMaxResults($limited)
             ->getQuery()
