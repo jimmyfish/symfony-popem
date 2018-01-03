@@ -43,16 +43,14 @@ class ClientDepositController extends Controller
                     'message',
                     'Deposit Sukses'
                 );
-
-                return $this->redirect($request->headers->get('referer'));
             } else {
                 $request->getSession()->getFlashBag()->add(
                     'message_error',
                     $request['data']['message']
                 );
-
-                return $this->redirect($request->headers->get('referer'));
             }
+
+            return $this->redirect($request->headers->get('referer'));
         }
 
         return $this->render('AppBundle:Client:member/client.deposit.html.twig', [
