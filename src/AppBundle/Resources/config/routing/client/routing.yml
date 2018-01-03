@@ -108,6 +108,18 @@ popem_client_transfer_to:
     _controller: AppBundle:Client/TransferAccount:transferToAccount
   methods: POST
 
+popem_client_transfer:
+  path: /transfer
+  defaults:
+    _controller:  AppBundle:Client/TransferClient:index
+  methods:  GET
+
+popem_client_transfer_client:
+  path: /transfer/transfer-client
+  defaults:
+    _controller:  AppBundle:Client/TransferClient:transferClient
+  methods:  POST
+
 popem_client_withdrawal_client:
   path: /client/withdrawal
   defaults:

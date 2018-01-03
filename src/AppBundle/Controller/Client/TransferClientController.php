@@ -16,13 +16,18 @@ use Symfony\Component\HttpFoundation\Request;
 class TransferClientController extends Controller
 {
 
+    public function indexAction()
+    {
+        return $this->render('AppBundle:Client:member/transfer.client.html.twig');
+    }
+
     public function transferClientAction(Request $request)
     {
         $api = new ApiController();
 
         $options = [
             'amount' => $request->get('transfer_client_amount'),
-            'user_id' => $request->get('transfer_client_user_id')
+            'username' => $request->get('transfer_client_username')
         ];
 
         $response = $api->doRequest(
