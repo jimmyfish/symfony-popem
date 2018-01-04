@@ -1707,3 +1707,7 @@ table.dataTable.no-footer {
 .mdl-button.next {
     margin-left: 10px;
 }
+
+.text-left {
+    text-align: left !important;
+}

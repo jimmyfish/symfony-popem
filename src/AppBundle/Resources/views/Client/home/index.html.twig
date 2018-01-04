@@ -1,5 +1,7 @@
 {% extends 'Client/layout.html.twig' %}
 
+{% block title %}Home{% endblock %}
+
 {% block content %}
     <section id="sidebar">
         <div class="yellow-background content">
@@ -410,22 +412,16 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                {% for key, value in kurs %}
                                 <tr>
-                                    <td>
-                                        <img alt="" src="{{ asset('assets_client') }}/img/img-1.png"> Firewood
+                                    <td class="text-left">
+                                        <img alt="" src="{{ asset('assets_client') }}/img/img-1.png"> {{ key }}
                                     </td>
-                                    <td>Rp 13,000</td>
-                                    <td>Rp 14,000</td>
-                                    <td>Rp 15,000</td>
+                                    {% for data in value %}
+                                    <td>{{ data }}</td>
+                                    {% endfor %}
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <img alt="" src="{{ asset('assets_client') }}/img/img-1.png"> Firewood
-                                    </td>
-                                    <td>Rp 13,000</td>
-                                    <td>Rp 14,000</td>
-                                    <td>Rp 15,000</td>
-                                </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>

@@ -1,7 +1,7 @@
 popem_client_index:
   path: /
   defaults:
-    _controller: AppBundle:Client:home
+    _controller: AppBundle:Client/ClientHome:index
 
 popem_client_blog:
   path: /blog

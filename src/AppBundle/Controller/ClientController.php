@@ -15,20 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ClientController extends Controller
 {
-    public function homeAction(Request $request)
-    {
-        $api = new ApiController();
-
-        $targetUrl = $this->container->getParameter('api_target');
-
-        $information['broker'] = $api->doRequest('GET', $targetUrl.'/broker-list');
-        $information['bank'] = $api->doRequest('GET', $targetUrl.'/bank-list');
-
-        return $this->render('AppBundle:Client:home/index.html.twig', [
-            'information' => $information,
-        ]);
-    }
-
     public function articleAction()
     {
         $manager = $this->getDoctrine()->getManager();
