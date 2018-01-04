@@ -19,8 +19,7 @@ class TransferAccountController extends Controller
 {
     /**
      * @param Request $request
-     *
-     * @return mixed
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function transferAccountAction(Request $request)
     {
@@ -34,8 +33,7 @@ class TransferAccountController extends Controller
 
     /**
      * @param Request $request
-     *
-     * @return mixed
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function transferFromAccountAction(Request $request)
     {
@@ -69,8 +67,7 @@ class TransferAccountController extends Controller
 
     /**
      * @param Request $request
-     *
-     * @return mixed
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function transferToAccountAction(Request $request)
     {
