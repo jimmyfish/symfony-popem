@@ -6,10 +6,15 @@
 
         <div class="row">
             <div class="col-md-8">
-                <form action="{{ path('popem_client_validate_account') }}">
+                {% for msg in app.session.getFlashBag().get('message_error') %}
+                    <div class="alert alert-danger">
+                        {{ msg }}
+                    </div>
+                {% endfor %}
+                <form action="{{ path('popem_client_validate_account') }}" method="post" enctype="multipart/form-data" autocomplete="on">
                     <div class="form-group">
                         <label for="broker_id">Broker</label>
-                        <select name="broker_id" id="broker_id" class="form-control">
+                        <select name="broker_id" id="broker_id" class="form-control" required>
                             {% for info in information.broker.data.data %}
                                 <option value="{{ info.broker_id }}">{{ info.broker_name }}</option>
                             {% endfor %}
@@ -17,31 +22,35 @@
                     </div>
                     <div class="form-group">
                         <label for="login">Login</label>
-                        <input type="number" name="login" id="login" class="form-control">
+                        <input type="number" name="login" id="login" class="form-control" value="{{ app.request.request.get('login') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="phone_password">Phone Password</label>
-                        <input type="password" name="phone_password" id="phone_password" class="form-control">
+                        <input type="password" name="phone_password" id="phone_password" value="{{ app.request.request.get('phone_password') }}" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" name="email" id="email" class="form-control">
+                        <input type="email" name="email" id="email" class="form-control" value="{{ app.request.request.get('email') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="file">File</label>
                         <input type="file" name="file" id="file" class="form-control">
+                        {% for msg in app.session.getFlashBag().get('file_error') %}
+                            <p class="text text-danger">{{ msg }}</p>
+                        {% endfor %}
+
                     </div>
                     <div class="form-group">
                         <label for="bank_name">Bank Name</label>
-                        <input type="text" class="form-control" id="bank_name" name="bank_name">
+                        <input type="text" class="form-control" id="bank_name" name="bank_name" value="{{ app.request.request.get('bank_name') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="bank_account">Bank Account</label>
-                        <input type="number" name="bank_account" id="bank_account" class="form-control">
+                        <input type="number" name="bank_account" id="bank_account" class="form-control" value="{{ app.request.request.get('bank_account') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="bank_beneficiary_name">Bank Beneficiary Name</label>
-                        <input type="text" name="bank_beneficiary_name" id="bank_beneficiary_name" class="form-control">
+                        <input type="text" name="bank_beneficiary_name" id="bank_beneficiary_name" class="form-control" value="{{ app.request.request.get('bank_beneficiary_name') }}" required>
                     </div>
                     <div class="form-group text-right">
                         <input type="submit" value="Validasi" class="btn red-button">

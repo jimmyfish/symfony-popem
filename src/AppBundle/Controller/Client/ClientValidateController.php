@@ -20,11 +20,11 @@ class ClientValidateController extends Controller
             $api = new ApiController();
             $img = $request->files->get('v_client_file');
 
-            if (!(is_dir($this->getParameter('tmp_directory')['resource']))) {
-                @mkdir($this->getParameter('tmp_directory')['resource'], 0777, true);
-            }
-
             $dirName = $this->getParameter('tmp_directory')['resource'];
+
+            if (!(is_dir($dirName))) {
+                @mkdir($dirName, 0777, true);
+            }
 
             $filename = md5(uniqid()).'.'.$img->guessExtension();
 
@@ -86,13 +86,19 @@ class ClientValidateController extends Controller
                 );
 
                 if (true == $response['status']) {
-                    $request->getSession()->getFlashBag()->add('message', 'Permintaan validasi telah terkirim');
+                    $request->getSession()->getFlashBag()->add(
+                        'message',
+                        'Permintaan validasi telah terkirim'
+                    );
 
                     return $this->redirectToRoute('popem_client_dashboard');
                 } else {
-                    $request->getSession()->getFlashBag()->add('message_error', $response['data']);
+                    $request->getSession()->getFlashBag()->add(
+                        'message_error',
+                        $response['data']['message']
+                    );
 
-                    return false;
+                    return $this->redirect($request->headers->get('referer'));
                 }
             }
         }

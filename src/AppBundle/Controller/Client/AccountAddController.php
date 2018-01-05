@@ -10,7 +10,6 @@ namespace AppBundle\Controller\Client;
 
 use AppBundle\Controller\Api\ApiController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class AccountAddController extends Controller
@@ -39,8 +38,6 @@ class AccountAddController extends Controller
                 $this->container->getParameter('api_target').'/account-add',
                 $options
             );
-
-            return new JsonResponse($response);
 
             if (true == $response['status']) {
                 $request->getSession()->getFlashBag()->add(

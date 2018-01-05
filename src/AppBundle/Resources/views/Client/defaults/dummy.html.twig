@@ -1,11 +1,34 @@
-{% extends 'Client/layout.html.twig' %}
+{% extends 'Client/dashboard.layout.html.twig' %}
 
-{% block content %}
-    {% for info in data %}
-        <a href="{{ info. }}"></a>
-    {% endfor %}
-{% endblock %}
+{% block mainContent %}
+    <div class="container">
+        <h2 class="mb-20">Validasi Akun</h2>
 
-{% block customJS %}
-
+        <div class="row">
+            <div class="col-md-8">
+                {% for msg in app.session.getFlashBag().get('message_error') %}
+                    <div class="alert alert-danger">
+                        {{ msg }}
+                    </div>
+                {% endfor %}
+                {#{% for msg in app.session.getFlashBag().get('form_data') %}#}
+                {#<div class="alert alert-danger">#}
+                {#{{ msg }}#}
+                {#</div>#}
+                {#{% endfor %}#}
+                {{ form_start(form) }}
+                {% for frm in form %}
+                    <div class="form-group">
+                        {{ form_row(frm,
+                            {
+                                'attr': {'class': 'form-control'},
+                                'value': app.session.getFlashBag().get(frm.vars.id)
+                            }
+                        ) }}
+                    </div>
+                {% endfor %}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

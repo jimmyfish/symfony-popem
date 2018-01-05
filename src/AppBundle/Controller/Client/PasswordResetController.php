@@ -33,11 +33,18 @@ class PasswordResetController extends Controller
 
             if (true == $response['status']) {
                 $request->getSession()->getFlashBag()->add(
-                    'message',
+                    'message_success',
                     'Password telah berhasil dirubah, silahkan login menggunakan password anda yang baru.'
                 );
 
                 return $this->redirectToRoute('popem_client_login_warp');
+            } else {
+                $request->getSession()->getFlashBag()->add(
+                    'message_error',
+                    $response['data']['message']
+                );
+
+                return $this->redirect($request->headers->get('referer'));
             }
         }
 
