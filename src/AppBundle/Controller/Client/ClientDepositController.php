@@ -11,6 +11,7 @@ namespace AppBundle\Controller\Client;
 use AppBundle\Controller\Api\ApiController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Respect\Validation\Validator as v;
 
 class ClientDepositController extends Controller
 {
@@ -23,20 +24,63 @@ class ClientDepositController extends Controller
             $this->container->getParameter('api_target').'/bank-list'
         );
 
+        $amount = v::numeric()->validate($request->get('amount'));
+        $bankAccount = v::numeric()->validate($request->get('bank_account'));
+        $bankName = v::alnum()->validate($request->get('bank_name'));
+        $bankBeneficiary = v::alnum()->validate($request->get('bank_beneficiary_name'));
+
         if ('POST' === $request->getMethod()) {
             $options = [
                 'bank_id' => $request->get('bank_id'),
-                'amount' => (int) $request->get('amount'),
-                'bank_name' => $request->get('bank_name'),
-                'bank_account' => (int) $request->get('bank_account'),
-                'bank_beneficiary_name' => $request->get('bank_beneficiary_name'),
+                'amount' => $amount,
+                'bank_name' => $bankName,
+                'bank_account' => $bankAccount,
+                'bank_beneficiary_name' => $bankBeneficiary,
             ];
 
-            $response = $api->doRequest(
-                'POST',
-                $this->container->getParameter('api_target').'/deposit-balance',
-                $options
-            );
+            if(true === $amount && $bankAccount && $bankName && $bankBeneficiary) {
+                $response = $api->doRequest(
+                    'POST',
+                    $this->container->getParameter('api_target').'/deposit-balance',
+                    $options
+                );
+            }
+
+            if(false === $amount) {
+                $request->getSession()->getFlashBag()->add(
+                    'message_error',
+                    'masukkan angka dengan benar'
+                );
+
+                return $this->redirect($request->headers->get('referer'));
+            }
+
+            if(false === $bankAccount) {
+                $request->getSession()->getFlashBag()->add(
+                    'message_error',
+                    'masukkan angka dengan benar'
+                );
+
+                return $this->redirect($request->headers->get('referer'));
+            }
+
+            if(false === $bankName) {
+                $request->getSession()->getFlashBag()->add(
+                    'message_error',
+                    'masukkan nama bank dengan benar'
+                );
+
+                return $this->redirect($request->headers->get('referer'));
+            }
+
+            if(false === $bankBeneficiary) {
+                $request->getSession()->getFlashBag()->add(
+                    'message_error',
+                    'masukkan nama Pemilik bank dengan benar'
+                );
+
+                return $this->redirect($request->headers->get('referer'));
+            }
 
             if (true === $response['status']) {
                 $request->getSession()->getFlashBag()->add(

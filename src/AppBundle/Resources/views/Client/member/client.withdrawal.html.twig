@@ -6,11 +6,25 @@
             <div class="col-md-8">
                 <h2 class="mb-20 mt-20">Withdrawal Balance</h2>
 
+                {% for msg in app.session.getFlashBag().get('message_success') %}
+                    <div class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Sukses!</strong> {{ msg }}
+                    </div>
+                {% endfor %}
+
+                {% for msg in app.session.getFlashBag().get('message_error') %}
+                    <div class="alert alert-warning alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Oops!</strong> {{ msg }}
+                    </div>
+                {% endfor %}
+
                 <form action="{{ path('popem_client_withdrawal_client_post') }}" method="post">
                     <p>Balance <strong>(Rp.)</strong> : <span><strong>{{ balance.balance_string }}</strong></span></p>
                     <div class="form-group">
                         <label for="withdrawal-amount">Amount :</label>
-                        <input type="number" name="withdrawal-amount" id="withdrawal-amount" class="form-control">
+                        <input type="text" name="withdrawal-amount" id="withdrawal-amount" class="form-control">
                     </div>
                     <div class="form-group text-right">
                         <input type="submit" value="Withdraw" class="btn red-button">

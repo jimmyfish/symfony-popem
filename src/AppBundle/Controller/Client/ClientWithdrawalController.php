@@ -9,6 +9,7 @@
 namespace AppBundle\Controller\Client;
 
 use AppBundle\Controller\Api\ApiController;
+use Respect\Validation\Exceptions\ValidationException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,20 +37,43 @@ class ClientWithdrawalController extends Controller
 
     public function postAction(Request $request)
     {
-        $message = '';
-
         $api = new ApiController();
 
-        $options = [];
+        $amount = v::numeric()->validate($request->get('withdrawal-amount'));
 
-        $valid = v::numeric()->validate($request->get('withdrawal-amount'));
+        $options = [
+            'amount' => $amount
+        ];
 
-        return new JsonResponse($valid);
+        if(true === $amount) {
+            $response = $api->doRequest(
+                'POST',
+                $this->container->getParameter('api_target').'/withdrawal-balance',
+                $options
+            );
+        }
 
-        $response = $api->doRequest(
-            'POST',
-            $this->container->getParameter('api_target').'/withdrawal-balance',
-            $options
-        );
+        if(false === $amount) {
+            $request->getSession()->getFlashBag()->add(
+                'message_error',
+                'masukkan angka dengan benar'
+
+            );
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        if(true === $response['status']) {
+                $request->getSession()->getFlashBag()->add(
+                    'message_success',
+                    'withdrawal telah berhasil'
+                );
+        }else{
+                $request->getSession()->getFlashBag()->add(
+                    'message_error',
+                    $response['data']['message']
+                );
+        }
+
+        return $this->redirect($request->headers->get('referer'));
     }
 }
