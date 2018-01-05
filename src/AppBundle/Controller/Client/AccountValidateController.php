@@ -92,32 +92,32 @@ class AccountValidateController extends Controller
                 ],
             ];
 
+            $response = $api->doRequest(
+                'POST',
+                $this->container->getParameter('api_target').'/validation-account',
+                $options,
+                'multipart'
+            );
+
+            if (false == $response['status']) {
+                $this->addFlash(
+                    'message_error',
+                    $response['data']['message']
+                );
+
+                $status = false;
+            }
+
+            $this->addFlash(
+                'message_success',
+                'Pengajuan validasi akun telah berhasil ditambahkan.'
+            );
+
             if (false == $status) {
                 return $this->render('AppBundle:Client:member/validate.account.html.twig', [
                     'information' => $information,
                 ]);
             } else {
-                $response = $api->doRequest(
-                    'POST',
-                    $this->container->getParameter('api_target').'/validation-account',
-                    $options,
-                    'multipart'
-                );
-
-                if ('false' == $response['status']) {
-                    $this->addFlash(
-                        'message_error',
-                        $response['data']['message']
-                    );
-
-                    return $this->redirect($request->headers->get('referer'));
-                }
-
-                $request->getSession()->getFlashBag()->add(
-                    'message_success',
-                    'Pengajuan validasi akun telah berhasil ditambahkan.'
-                );
-
                 return $this->redirectToRoute('popem_client_dashboard');
             }
         }
