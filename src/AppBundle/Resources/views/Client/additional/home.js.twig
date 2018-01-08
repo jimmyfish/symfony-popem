@@ -1,148 +1,72 @@
-// BINDING REGISTER FUNCTION
-function registerAction(e) {
-    e.preventDefault();
-    var wrapper = jQuery('.content-main'),
-        container = wrapper.find('form'),
-        sendInfo = {
-            "username": container.find('#username').val(),
-            "email": container.find('#email').val(),
-            "password": container.find('#password').val(),
-            "passconf": container.find('#password-confirm').val()
-        },
-        sourcePath = "{{ path('popem_api_client_register') }}";
-
+function registerAction(n) {
+    n.preventDefault();
+    var i = jQuery(".content-main"), a = i.find("form"), e = {
+        username: a.find("#username").val(),
+        email: a.find("#email").val(),
+        password: a.find("#password").val(),
+        passconf: a.find("#password-confirm").val()
+    };
     $.ajax({
-        type: 'POST',
-        url: sourcePath,
-        data: sendInfo,
-        beforeSend: function () {
-            container.find('button').val('Memproses ...');
-            container.find('input, button').prop('disabled', true);
-            container.find('.spinner').removeClass('hide');
-        },
-        success: function (msg) {
-            if (msg.status === true) {
-                wrapper.find('.success-notification').removeClass('hide');
-                wrapper.find('.error-notification').hide();
-                wrapper.find('form').hide();
-            }else{
-                wrapper.find('.error-notification').removeClass('hide');
-                wrapper.find('.error-notification').find('.error-notif').text(msg.data.message);
-            }
-        },
-        complete: function() {
-            container.find('input, button').prop('disabled',false);
-            container.find('.spinner').addClass('hide');
+        type: "POST", url: "{{ path('popem_api_client_register') }}", data: e, beforeSend: function () {
+            a.find("button").val("Memproses ..."), a.find("input, button").prop("disabled", !0), a.find(".spinner").removeClass("hide")
+        }, success: function (n) {
+            !0 === n.status ? (i.find(".success-notification").removeClass("hide"), i.find(".error-notification").hide(), i.find("form").hide()) : (i.find(".error-notification").removeClass("hide"), i.find(".error-notification").find(".error-notif").text(n.data.message))
+        }, complete: function () {
+            a.find("input, button").prop("disabled", !1), a.find(".spinner").addClass("hide")
         }
-    });
-}
-
-// BINDING DEPOSIT TO ACCOUNT FUNCTION
-function depositAction(e) {
-    e.preventDefault();
-    var wrapper = $('.content-main'),
-        container = wrapper.find('form'),
-        sourcePath = "{{ path('popem_api_client_deposit_account') }}",
-        formData = new FormData();
-
-    formData.append("broker_id", parseInt(container.find('#deposit__broker').val()));
-    formData.append("login", parseInt(container.find('#login').val()));
-    formData.append("email", container.find('#deposit_email').val());
-    formData.append("phone", container.find('#phone').val());
-    formData.append("bank_name", container.find('#bank_name').val());
-    formData.append("bank_account", parseInt(container.find('#bank_account').val()));
-    formData.append("bank_beneficiary_name", container.find('#bank_beneficiary_name').val());
-    formData.append("bank_id", parseInt(container.find('#bank_id').val()));
-    formData.append("amount", parseInt(container.find('#amount').val()));
-    formData.append("file", container.find('#file')[0].files[0]);
-
-    $.ajax({
-        type: 'POST',
-        url: sourcePath,
-        data: formData,
-        contentType: false,
-        processData: false,
-        cache: false,
-        dataType: 'json',
+    })
+}function depositAction(n) {
+    n.preventDefault();
+    var i = $(".content-main"), a = i.find("form"), e = new FormData;
+    e.append("broker_id", parseInt(a.find("#deposit__broker").val())), e.append("login", parseInt(a.find("#login").val())), e.append("email", a.find("#deposit_email").val()), e.append("phone", a.find("#phone").val()), e.append("bank_name", a.find("#bank_name").val()), e.append("bank_account", parseInt(a.find("#bank_account").val())), e.append("bank_beneficiary_name", a.find("#bank_beneficiary_name").val()), e.append("bank_id", parseInt(a.find("#bank_id").val())), e.append("amount", parseInt(a.find("#amount").val())), e.append("file", a.find("#file")[0].files[0]), $.ajax({
+        type: "POST",
+        url: "{{ path('popem_api_client_deposit_account') }}",
+        data: e,
+        contentType: !1,
+        processData: !1,
+        cache: !1,
+        dataType: "json",
         beforeSend: function () {
-            wrapper.find('input').prop('disabled', true);
-            wrapper.find('button').prop('disabled', true);
-            wrapper.find('.caption').text('Memproses');
-            wrapper.find('.spinner').removeClass('hide');
+            i.find("input").prop("disabled", !0), i.find("button").prop("disabled", !0), i.find(".caption").text("Memproses"), i.find(".spinner").removeClass("hide")
         },
-        success: function (data) {
-            if (data.data.status == true) {
-                var sucWrapper = wrapper.find('.success-notification'),
-                    balance = parseInt(data.data.amount_transfer).toLocaleString();
-                sucWrapper.find('.dept_amount').text(balance);
-                sucWrapper.find('.ticket').text(data.data.ticket_number);
-                container.hide();
-                wrapper.find('.error-notification-depost').hide();
-                sucWrapper.removeClass('hide');
-            }else {
-                wrapper.find('.error-notification-deposit').removeClass('hide');
-                wrapper.find('.error-notification-deposit').find('.error-notif-deposit').text(data.data.message);
-                container.hide();
-            }
+        success: function (n) {
+            if (1 == n.data.status) {
+                var e = i.find(".success-notification"), t = parseInt(n.data.amount_transfer).toLocaleString();
+                e.find(".dept_amount").text(t), e.find(".ticket").text(n.data.ticket_number), a.hide(), i.find(".error-notification-depost").hide(), e.removeClass("hide")
+            } else i.find(".error-notification-deposit").removeClass("hide"), i.find(".error-notification-deposit").find(".error-notif-deposit").text(n.data.message), a.hide()
         },
         complete: function () {
-            container.find('input, button').prop('disabled',false);
-            container.find('.spinner').addClass('hide');
+            a.find("input, button").prop("disabled", !1), a.find(".spinner").addClass("hide")
         },
-        error: function (e) {
-            console.log(e);
+        error: function (n) {
+            console.log(n)
         }
-    });
-}
-
-function withdrawalAccount(e) {
-    e.preventDefault();
-
-    var wrapper = jQuery('.content-main'),
-        container = wrapper.find('form'),
-        sourcePath = "{{ path('popem_api_client_withdrawal_account') }}",
-        sendInfo = {
-            'broker_id': parseInt(container.find('#withdrawal_broker_id').val()),
-            'login': parseInt(container.find('#withdrawal_login').val()),
-            'phone_password': container.find('#withdrawal_phone_password').val(),
-            'email': container.find('#withdrawal_email').val(),
-            'phone': container.find('#withdrawal_phone').val(),
-            'bank_name': container.find('#withdrawal_bank_name').val(),
-            'bank_account': container.find('#withdrawal_bank_account').val(),
-            'bank_beneficiary_name': container.find('#withdrawal_bank_beneficiary_name').val(),
-            'amount': parseInt(container.find('#withdrawal_amount').val()),
-        };
-
-
+    })
+}function withdrawalAccount(n) {
+    n.preventDefault();
+    var i = jQuery(".content-main"), a = i.find("form"), e = {
+        broker_id: parseInt(a.find("#withdrawal_broker_id").val()),
+        login: parseInt(a.find("#withdrawal_login").val()),
+        phone_password: a.find("#withdrawal_phone_password").val(),
+        email: a.find("#withdrawal_email").val(),
+        phone: a.find("#withdrawal_phone").val(),
+        bank_name: a.find("#withdrawal_bank_name").val(),
+        bank_account: a.find("#withdrawal_bank_account").val(),
+        bank_beneficiary_name: a.find("#withdrawal_bank_beneficiary_name").val(),
+        amount: parseInt(a.find("#withdrawal_amount").val())
+    };
     $.ajax({
-        type: 'POST',
-        url: sourcePath,
-        data: sendInfo,
-        beforeSend: function () {
-            wrapper.find('input').prop('disabled', true);
-            wrapper.find('button').prop('disabled', true);
-            wrapper.find('.caption').text('Memproses');
-            wrapper.find('.spinner').removeClass('hide');
-        },
-        success: function (data) {
-            if (data.data.status == true) {
-                var sucWrapper = wrapper.find('.success-notification');
-                sucWrapper.find('.ticket').text(data.data.ticket_number);
-                container.hide();
-                wrapper.find('.error-notification-withdrawal').hide();
-                sucWrapper.removeClass('hide');
-            } else {
-                wrapper.find('.error-notification-withdrawal').removeClass('hide');
-                wrapper.find('.error-notification-withdrawal').find('.error-notif-withdrawal').text(data.data.message);
-                container.hide();
-            }
-        },
-        complete: function () {
-            container.find('input, button').prop('disabled',false);
-            container.find('.spinner').addClass('hide');
-        },
-        error: function (err) {
-            console.log(err);
+        type: "POST", url: "{{ path('popem_api_client_withdrawal_account') }}", data: e, beforeSend: function () {
+            i.find("input").prop("disabled", !0), i.find("button").prop("disabled", !0), i.find(".caption").text("Memproses"), i.find(".spinner").removeClass("hide")
+        }, success: function (n) {
+            if (1 == n.data.status) {
+                var e = i.find(".success-notification");
+                e.find(".ticket").text(n.data.ticket_number), a.hide(), i.find(".error-notification-withdrawal").hide(), e.removeClass("hide")
+            } else i.find(".error-notification-withdrawal").removeClass("hide"), i.find(".error-notification-withdrawal").find(".error-notif-withdrawal").text(n.data.message), a.hide()
+        }, complete: function () {
+            a.find("input, button").prop("disabled", !1), a.find(".spinner").addClass("hide")
+        }, error: function (n) {
+            console.log(n)
         }
-    });
+    })
 }

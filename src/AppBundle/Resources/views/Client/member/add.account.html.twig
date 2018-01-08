@@ -17,28 +17,49 @@
                         <label for="a_login">Login</label>
                         <input type="number" class="form-control" id="a_login"
                                name="a_login" required autocomplete="off">
+                        <span class="text-danger login-error"></span>
                     </div>
                     <div class="form-group">
                         <label for="a_broker_id">Broker</label>
                         <select name="a_broker_id" id="a_broker_id" class="form-control">
-                            <option value="null">-- Please select --</option>
                             {% for info in information.broker.data.data %}
-                                <option value="{{ info.broker_id }}" data-buy="{{ info.buy }}" data-sell="{{ info.sell }}">{{ info.broker_name }}</option>
+                                <option value="{{ info.broker_id }}" data-buy="{{ info.buy }}"
+                                        data-sell="{{ info.sell }}">{{ info.broker_name }}</option>
                             {% endfor %}
                         </select>
-                        <div class="row mt-10">
-                            <div class="col-md-5 col-md-offset-1">Buy : <span id="buy-value">-</span></div>
-                            <div class="col-md-6">Sell : <span id="sell-value">-</span></div>
-                        </div>
                     </div>
                     <div class="form-group">
                         <label for="a_phone_password">Phone Password</label>
                         <input type="password" class="form-control"
                                id="a_phone_password" name="a_phone_password" required autocomplete="off">
                     </div>
-                    <div class="form-group text-right"><input type="submit" value="Add Account" class="btn red-button"></div>
+                    <div class="form-group text-right"><input type="submit" value="Add Account" class="btn red-button">
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block innerJS %}
+    <script>
+        $(function () {
+            $("form").submit(function (a) {
+                let n = {login: $("#a_login").val()}, o = {
+                    login: {
+                        length: {
+                            minimum: 6,
+                            maximum: 8,
+                            tooShort: "harus lebih dari 6 angka",
+                            tooLong: "harus kurang dari 8 angka"
+                        }
+                    }
+                };
+                if (!validate(n, o)) return !0;
+                a.preventDefault();
+                let t = validate(n, o);
+                $(".login-error").text(t.login[0])
+            })
+        });
+    </script>
 {% endblock %}

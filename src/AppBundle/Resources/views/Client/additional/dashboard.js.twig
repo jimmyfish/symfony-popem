@@ -1,93 +1,34 @@
-$(function () {
-    $('#history-table').DataTable({
-        columnDefs: [
-            {
-                targets: [0, 1, 2],
-                className: 'mdl-data-table__cell--non-numeric'
-            }
-        ]
-    });
-
-    var balanceText = $('#balance'),
-        num = parseInt(balanceText.text()),
-        balance = num.toLocaleString();
-
-    balanceText.text(balance);
-
-    $('#a_broker_id').change(function (e) {
-        var buy = $(this).find(':selected').attr('data-buy'),
-            sell = $(this).find(':selected').attr('data-sell');
-
-        $('#buy-value').text(buy);
-        $('#sell-value').text(sell);
+function validateAccount(n) {
+    n.preventDefault();
+    $("#validateAccount")
+}function validateClient(n) {
+    n.preventDefault();
+    var a = $("#validateClient form"), e = new FormData;
+    e.append("name", a.find("#v_client_name").val()), e.append("phone", parseInt(a.find("#v_client_phone").val())), e.append("address", a.find("#v_client_address").val()), e.append("city", a.find("#v_client_city").val()), e.append("postal_code", parseInt(a.find("#v_client_postal").val())), e.append("state", a.find("#v_client_state").val()), e.append("country", a.find("#v_client_country").val()), e.append("bank_name", a.find("#v_client_bank_name").val()), e.append("bank_account", parseInt(a.find("#v_client_bank_account").val())), e.append("bank_beneficiary_name", a.find("#v_client_beneficiary").val()), e.append("file", a.find("#v_client_file")[0].files[0]), $.ajax({
+        type: "POST",
+        url: "{{ path('popem_api_client_validate') }}",
+        data: e,
+        processData: !1,
+        dataType: "json",
+        contentType: !1,
+        beforeSend: function () {
+            a.find("input").prop("disabled", !0), a.find(".spinner").removeClass("hide")
+        },
+        success: function (n) {
+            1 == n.status && setTimeout(function () {
+                a.find(".notif-wrapper").removeClass("hide"), location.reload()
+            }, 2e3)
+        }
     })
+}function addAccount(n) {
+    n.preventDefault();
+    var a = $("#addAccount");
+    parseInt(a.find("#a_login").val()), parseInt(a.find("#a_broker_id").val()), a.find("#a_phone_password").val();
+    $.ajax({
+        type: "POST", url: "{{ path('popem_api_client_add_account') }}", beforeSend: function () {
+        }, success: function (n) {
+        }
+    })
+}$(function () {
+    $("#history-table").DataTable({columnDefs: [{targets: [0, 1, 2], className: "mdl-data-table__cell--non-numeric"}]})
 });
-
-function validateAccount(e) {
-    e.preventDefault();
-    var wrapper = $('#validateAccount');
-
-}
-
-function validateClient(e) {
-    e.preventDefault();
-    var wrapper = $('#validateClient form'),
-        sourcePath = "{{ path('popem_api_client_validate') }}",
-        formData = new FormData();
-
-    formData.append("name", wrapper.find('#v_client_name').val());
-    formData.append("phone", parseInt(wrapper.find('#v_client_phone').val()));
-    formData.append("address", wrapper.find('#v_client_address').val());
-    formData.append("city", wrapper.find('#v_client_city').val());
-    formData.append("postal_code", parseInt(wrapper.find('#v_client_postal').val()));
-    formData.append("state", wrapper.find('#v_client_state').val());
-    formData.append("country", wrapper.find('#v_client_country').val());
-    formData.append("bank_name", wrapper.find('#v_client_bank_name').val());
-    formData.append("bank_account", parseInt(wrapper.find('#v_client_bank_account').val()));
-    formData.append("bank_beneficiary_name", wrapper.find('#v_client_beneficiary').val());
-    formData.append("file", wrapper.find('#v_client_file')[0].files[0]);
-
-    $.ajax({
-        type: 'POST',
-        url: sourcePath,
-        data: formData,
-        processData: false,
-        dataType: 'json',
-        contentType: false,
-        beforeSend: function () {
-            wrapper.find('input').prop('disabled', true);
-            wrapper.find('.spinner').removeClass('hide');
-        },
-        success: function (data) {
-            if (data.status == true) {
-                setTimeout(function () {
-                    wrapper.find('.notif-wrapper').removeClass('hide');
-                    location.reload();
-                }, 2000);
-            }
-        }
-    });
-}
-
-function addAccount(e) {
-    e.preventDefault();
-
-    var wrapper = $('#addAccount'),
-        sourcePath = "{{ path('popem_api_client_add_account') }}",
-        sendInfo = {
-            'login': parseInt(wrapper.find('#a_login').val()),
-            'broker_id': parseInt(wrapper.find('#a_broker_id').val()),
-            'phone_password': wrapper.find('#a_phone_password').val()
-        };
-
-    $.ajax({
-        type: 'POST',
-        url: sourcePath,
-        beforeSend: function () {
-
-        },
-        success: function (data) {
-
-        }
-    });
-}
