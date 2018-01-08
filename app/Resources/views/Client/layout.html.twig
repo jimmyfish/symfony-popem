@@ -62,8 +62,8 @@
                                 <input type="password" class="form-control" name="_password" id="_password">
                             </div>
                             <div class="form-group">
+                                <p class="notification"><label for="" class="process-text text-capitalize" style="font-size: 13px;">&nbsp;</label></p>
                                 <span><a href="{{ path('popem_client_forgot_password') }}" class="text-base">Forgot password</a></span>
-                                <label for="" class="process-text text-capitalize">&nbsp;</label>
                                 <input type="submit" value="LOGIN" class="btn red-button plr-30 pull-right">
                             </div>
                         </form>
@@ -221,6 +221,7 @@
 
 <script>
     $(function () {
+        $('.notification').find('.process-text').addClass('hide');
 
         $(document).on('submit', '.popover #login-form', function (event) {
             event.preventDefault();
@@ -232,6 +233,7 @@
                 input = $(this).find('input');
 
             input.prop('disabled', true);
+            $('.notification').find('.process-text').removeClass('hide');
             $(this).find('.process-text').text('Processing ...').removeClass('text-danger');
 
             $.ajax({
@@ -243,7 +245,8 @@
                         location.href = destPath
                     } else {
                         input.prop('disabled', false);
-                        $('.process-text').text(msg.data.message).addClass('text-danger');
+                        $('.notification').find('.process-text').removeClass('hide');
+                        $('.notification').find('.process-text').text(msg.data.message).addClass('text-danger');
                     }
                 }
             });
