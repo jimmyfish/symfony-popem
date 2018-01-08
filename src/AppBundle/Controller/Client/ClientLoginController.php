@@ -11,10 +11,11 @@ namespace AppBundle\Controller\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\Api\ApiController;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ClientLoginController extends Controller
 {
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, Session $session)
     {
         if (true == $request->getSession()->get('isLogin')) {
             return $this->redirectToRoute('popem_client_dashboard');
@@ -33,7 +34,8 @@ class ClientLoginController extends Controller
         		$options
         	);
 
-        	if(true === $response['status']) {
+        	if(true == $response['status']) {
+        		 $session->set('isLogin', true);
         		return $this->redirectToRoute('popem_client_dashboard');
         	}else{
         		$request->getSession()->getFlashBag()->add(
