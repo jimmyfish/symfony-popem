@@ -22,7 +22,8 @@
                             <strong>Pemberitahuan !</strong> {{ msg }}
                         </div>
                     {% endfor %}
-                    <form action="">
+                    <label class="process-text"></label>
+                    <form action="" method="post">
                         <div class="form-group">
                             <label for="username">Username :</label>
                             <input type="text" name="username" id="username" class="form-control">
@@ -40,32 +41,4 @@
             </div>
         </div>
     </section>
-{% endblock %}
-
-{% block customJS %}
-    <script>
-        $(function () {
-            $('form').submit(function(e) {
-                e.preventDefault();
-                var username = $('#username').val(),
-                    password = $('#password').val(),
-                    sendInfo = {"username": username, "password": password},
-                    sourcePath = "{{ path('popem_api_client_login') }}",
-                    destPath = "{{ path('popem_client_dashboard') }}",
-                    input = $(this).find('input');
-
-                input.prop('disabled', true);
-                $(this).find('.process-text').text('Processing ...');
-
-                $.ajax({
-                    type: 'POST',
-                    url: sourcePath,
-                    data: sendInfo,
-                    success: function (msg) {
-                        if (msg.data.status === true) location.href = destPath
-                    }
-                });
-            });
-        });
-    </script>
 {% endblock %}
