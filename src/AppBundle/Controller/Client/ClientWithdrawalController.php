@@ -9,9 +9,7 @@
 namespace AppBundle\Controller\Client;
 
 use AppBundle\Controller\Api\ApiController;
-use Respect\Validation\Exceptions\ValidationException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Respect\Validation\Validator as v;
 
@@ -42,10 +40,10 @@ class ClientWithdrawalController extends Controller
         $amount = v::numeric()->validate($request->get('withdrawal-amount'));
 
         $options = [
-            'amount' => $amount
+            'amount' => $amount,
         ];
 
-        if(true === $amount) {
+        if (true === $amount) {
             $response = $api->doRequest(
                 'POST',
                 $this->container->getParameter('api_target').'/withdrawal-balance',
@@ -53,25 +51,25 @@ class ClientWithdrawalController extends Controller
             );
         }
 
-        if(false === $amount) {
+        if (false === $amount) {
             $request->getSession()->getFlashBag()->add(
                 'message_error',
                 'masukkan angka dengan benar'
-
             );
+
             return $this->redirect($request->headers->get('referer'));
         }
 
-        if(true === $response['status']) {
-                $request->getSession()->getFlashBag()->add(
-                    'message_success',
-                    'withdrawal telah berhasil'
-                );
-        }else{
-                $request->getSession()->getFlashBag()->add(
-                    'message_error',
-                    $response['data']['message']
-                );
+        if (true === $response['status']) {
+            $request->getSession()->getFlashBag()->add(
+                'message_success',
+                'withdrawal telah berhasil'
+            );
+        } else {
+            $request->getSession()->getFlashBag()->add(
+                'message_error',
+                $response['data']['message']
+            );
         }
 
         return $this->redirect($request->headers->get('referer'));

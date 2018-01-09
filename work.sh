@@ -17,6 +17,7 @@ case $choice in
 2)
     echo input commit message
     read msg
+    ./autofix.sh
     git add .
     git commit -m "$msg"
     git pull --rebase
@@ -24,6 +25,7 @@ case $choice in
     echo Ok you\'re ready to go!
     ;;
 3)
+    ./autofix.sh
     git add .
     git commit -m date -u
     git pull --rebase

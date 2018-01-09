@@ -10,7 +10,6 @@ namespace AppBundle\Controller\Client;
 
 use AppBundle\Controller\Api\ApiController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class PasswordForgotController extends Controller
@@ -37,7 +36,7 @@ class PasswordForgotController extends Controller
                 );
 
                 return $this->redirectToRoute('popem_client_login_warp');
-            }else{
+            } else {
                 $request->getSession()->getFlashBag()->add(
                     'message_error',
                     $response['data']['message']

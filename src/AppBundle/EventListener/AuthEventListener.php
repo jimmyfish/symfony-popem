@@ -48,11 +48,11 @@ class AuthEventListener implements EventSubscriberInterface
         $url = $this->container->get('router')->generate($route);
 
         foreach ($exception as $value) {
-            if ($value != $event->getRequest()->get('_route')) {
+            if ($url == $event->getRequest()->get('_route')) {
                 return;
             }
 
-            if (false == $this->session->get('isLogin')) {
+            if ($value == $event->getRequest()->get('_route') && null === $this->session->get('isLogin')) {
                 $this->session->getFlashBag()->add(
                     'auth_error',
                     'Anda harus masuk untuk mengakses halaman tersebut'

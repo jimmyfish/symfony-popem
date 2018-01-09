@@ -21,30 +21,31 @@ class ClientLoginController extends Controller
             return $this->redirectToRoute('popem_client_dashboard');
         }
 
-        if('POST' == $request->getMethod()) {
-        	$api = new ApiController();
-        	$options = [
-        		'username' => $request->get('username'),
-        		'password' => $request->get('password'),
-        	];
+        if ('POST' == $request->getMethod()) {
+            $api = new ApiController();
+            $options = [
+                'username' => $request->get('username'),
+                'password' => $request->get('password'),
+            ];
 
-        	$response = $api->doRequest(
-        		'POST',
-        		$this->container->getParameter('api_target').'/login',
-        		$options
-        	);
+            $response = $api->doRequest(
+                'POST',
+                $this->container->getParameter('api_target').'/login',
+                $options
+            );
 
-        	if(true == $response['status']) {
-        		 $session->set('isLogin', true);
-        		return $this->redirectToRoute('popem_client_dashboard');
-        	}else{
-        		$request->getSession()->getFlashBag()->add(
-        			'message',
-        			$response['data']['message']
-        		);
+            if (true == $response['status']) {
+                $session->set('isLogin', true);
 
-        		return $this->redirect($request->headers->get('referer'));
-        	}
+                return $this->redirectToRoute('popem_client_dashboard');
+            } else {
+                $request->getSession()->getFlashBag()->add(
+                    'message',
+                    $response['data']['message']
+                );
+
+                return $this->redirect($request->headers->get('referer'));
+            }
         }
 
         return $this->render('AppBundle:Client:defaults/login.html.twig');

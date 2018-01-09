@@ -38,7 +38,7 @@ class ClientDepositController extends Controller
                 'bank_beneficiary_name' => $bankBeneficiary,
             ];
 
-            if(true === $amount && $bankAccount && $bankName && $bankBeneficiary) {
+            if (true === $amount && $bankAccount && $bankName && $bankBeneficiary) {
                 $response = $api->doRequest(
                     'POST',
                     $this->container->getParameter('api_target').'/deposit-balance',
@@ -46,7 +46,7 @@ class ClientDepositController extends Controller
                 );
             }
 
-            if(false === $amount) {
+            if (false === $amount) {
                 $request->getSession()->getFlashBag()->add(
                     'message_error',
                     'masukkan angka dengan benar'
@@ -55,7 +55,7 @@ class ClientDepositController extends Controller
                 return $this->redirect($request->headers->get('referer'));
             }
 
-            if(false === $bankAccount) {
+            if (false === $bankAccount) {
                 $request->getSession()->getFlashBag()->add(
                     'message_error',
                     'masukkan angka dengan benar'
@@ -64,7 +64,7 @@ class ClientDepositController extends Controller
                 return $this->redirect($request->headers->get('referer'));
             }
 
-            if(false === $bankName) {
+            if (false === $bankName) {
                 $request->getSession()->getFlashBag()->add(
                     'message_error',
                     'masukkan nama bank dengan benar'
@@ -73,7 +73,7 @@ class ClientDepositController extends Controller
                 return $this->redirect($request->headers->get('referer'));
             }
 
-            if(false === $bankBeneficiary) {
+            if (false === $bankBeneficiary) {
                 $request->getSession()->getFlashBag()->add(
                     'message_error',
                     'masukkan nama Pemilik bank dengan benar'

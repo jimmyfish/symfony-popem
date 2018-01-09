@@ -27,7 +27,6 @@ class AccountValidateController extends Controller
         );
 
         if ('POST' === $request->getMethod()) {
-
             return new Response('Should be here');
             $img = $request->files->get('file');
 

@@ -902,6 +902,10 @@ body {
     background: #f1c40f;
 }
 
+#sidebar .text-danger {
+    color: #DE1B1B !important;
+}
+
 .strong-type {
     font-weight: 700;
 }
@@ -1579,6 +1583,9 @@ input::-webkit-inner-spin-button {
 }
 
 /* NEW SETTING FOR SIDEBAR */
+.success-notification {
+    margin-right: 20px;
+}
 
 .success-notification .success {
     font-size: 4em;
