@@ -23,18 +23,21 @@
                                 <div class="col-md-12">
                                     <label for="title">Title</label>
                                     <input type="text" name="title" id="title" class="form-control">
+                                    <span class="text-danger" id="title_page_error"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label for="body">Body</label>
                                     <textarea name="body" id="body" class="content" cols="30" rows="10"></textarea>
+                                    <span class="text-danger" id="body_page_error"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label for="image">Image</label>
                                     <input type="file" name="image" id="image" class="form-control">
+                                    <span class="text-danger" id="image_page_error"></span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -51,17 +54,19 @@
                                 <div class="col-md-12">
                                     <label for="meta-keyword">Meta Keyword</label>
                                     <input type="text" name="meta-keyword" id="meta-keyword" class="form-control">
+                                    <span class="text-danger" id="meta_keyword_page_error"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label for="meta-description">Meta Description</label>
                                     <input type="text" name="meta-description" id="meta-description" class="form-control">
+                                    <span class="text-danger" id="meta_description_page_error"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <button class="btn btn-primary btn-flat pull-right">submit</button>
+                                    <button class="btn btn-primary btn-flat pull-right" onclick="pageAction(event);">submit</button>
                                 </div>
                             </div>
                         </form>
@@ -90,5 +95,6 @@
         $('#select2').select2({
             multiple : true
         });
+        {% include '@main_template/Client/additional/page.js.twig' %}
     </script>
 {% endblock %}

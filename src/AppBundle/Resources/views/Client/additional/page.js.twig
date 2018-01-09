@@ -1,0 +1,79 @@
+function pageAction(e) {
+	e.preventDefault();
+	var a = jQuery('form'),
+	titleInput = a.find('#title').val(),
+	bodyInput = a.find('#body').val(),
+	imageInput = a.find('#image').val(),
+	metaKeywordInput = a.find('#meta-keyword').val(),
+	metaDescriptionInput = a.find('#meta-description').val(),
+	titleError = a.find('#title_page_error'),
+	bodyError = a.find('#body_page_error'),
+	imageError = a.find('#image_page_error'),
+	metaKeywordError = a.find('#meta_keyword_page_error'),
+	metaDescriptionError = a.find('#meta_description_page_error'),
+
+	inputVal = {
+		title: titleInput,
+		body: bodyInput,
+		image: imageInput,
+		metaKeyword: metaKeywordInput,
+		metaDescription: metaDescriptionInput
+	},
+	constraints = {
+		title : {
+			presence: {
+				allowEmpty: false,
+				message: "dibutuhkan"
+			}
+		},
+		body: {
+			presence: {
+				allowEmpty: false,
+				message: "dibutuhkan"
+			}
+		},
+		image: {
+			presence: {
+				allowEmpty: false,
+				message: "dibutuhkan"
+			}
+		},
+		metaKeyword: {
+			presence: {
+				allowEmpty: false,
+				message: "dibutuhkan"
+			}	
+		},
+		metaDescription: {
+			presence: {
+				allowEmpty: false,
+				message: "dibutuhkan"
+			}
+		}
+	},
+	validateResponse = validate(inputVal, constraints);
+
+	$("[id*=_error]").text("");
+
+	if(validateResponse) {
+		if(validateResponse.title !== null) {
+			titleError.text(validateResponse.title[0]);
+		}
+
+		if(validateResponse.body !== null) {
+			bodyError.text(validateResponse.body[0]);
+		}
+
+		if(validateResponse.image !== null) {
+			imageError.text(validateResponse.image[0]);
+		}
+
+		if(validateResponse.metaKeyword !== null){
+			metaKeywordError.text(validateResponse.metaKeyword[0]);
+		}
+
+		if(validateResponse.metaDescription !== null) {
+			metaDescriptionError.text(validateResponse.metaDescription[0]);
+		}
+	}
+}
