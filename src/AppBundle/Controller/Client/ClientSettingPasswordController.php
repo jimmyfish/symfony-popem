@@ -6,15 +6,15 @@
  * Time: 18:40.
  */
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Client;
 
 use AppBundle\Controller\Api\ApiController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class SettingPasswordActionController extends Controller
+class ClientSettingPasswordController extends Controller
 {
-    public function index(Request $request)
+    public function indexAction(Request $request)
     {
         if ('POST' === $request->getMethod()) {
             $api = new ApiController();
