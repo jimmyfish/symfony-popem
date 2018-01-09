@@ -9,7 +9,7 @@
                 <div class="col-md-3 content-wrapper no-padding dark-background">
                     <div id="account-summary" class="dark-background ptb-25 plr-30">
                         <div class="text-center">
-                            <img src="{{ asset('assets_client') }}/img/profile.jpg" alt="" class="img-dashboard"
+                            <img src="{{ asset('assets_client/img/profile.jpg') }}" alt="" class="img-dashboard"
                                  height="100">
                             <p class="text-sunflower fz-19 mt-20">Jimmy Fish</p>
                             <p class="text-clouds">$ <span id="balance">12000</span></p>
@@ -26,6 +26,7 @@
                             <a href="{{ path('popem_client_validate_client') }}">Validate Client</a>
                             <a href="{{ path('popem_client_withdrawal_client') }}">Withdrawal</a>
                             <a href="{{ path('popem_client_deposit_client') }}">Deposit</a>
+                            <a href="{{ path('popem_client_transfer') }}">Transfer Client</a>
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingTwo">
                                     <h4 class="panel-title">
@@ -45,26 +46,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{ path('popem_client_transfer') }}">Transfer Client</a>
-                            {#<div class="panel panel-default">#}
-                                {#<div class="panel-heading" role="tab" id="headingThree">#}
-                                    {#<h4 class="panel-title">#}
-                                        {#<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">#}
-                                            {#Account#}
-                                        {#</a>#}
-                                    {#</h4>#}
-                                {#</div>#}
-                                {#<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">#}
-                                    {#<div class="panel-body">#}
-                                        {#<ul class="nav">#}
-                                            {#<li><a href="#">item 1</a></li>#}
-                                            {#<li><a href="#">item 2</a></li>#}
-                                            {#<li><a href="#">item 3</a></li>#}
-                                            {#<li><a href="#">item 4</a></li>#}
-                                        {#</ul>#}
-                                    {#</div>#}
-                                {#</div>#}
-                            {#</div>#}
                         </div>
                     </div>
                     <div class="latest-news dark-background ptb-25 plr-30">

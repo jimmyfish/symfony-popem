@@ -6,14 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     {% block meta %}{% endblock %}
     <title>Welcome - {% block title %}{% endblock %}</title>
-    <!--
-    <link href="{{ asset('assets_client') }}/vendor/lato.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets_client') }}/fonts/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ asset('assets_client') }}/vendor/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets_client') }}/vendor/slick.min.css" />
-    <link rel="stylesheet" href="{{ asset('assets_client') }}/vendor/slick-theme.min.css">
-    <link href="{{ asset('assets_client') }}/vendor/select2.min.css" rel="stylesheet" />
-    -->
+
     <!-- USING CDN -->
     <link href="https://fonts.googleapis.com/css?family=Barlow:300,400,700" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -27,8 +20,8 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/css/jquery.dataTables.min.css">
 
     <!-- END OF USING CDN -->
-    <link href="{{ asset('assets_client') }}/fonts/styles.css" rel="stylesheet">
-    <link href="{{ asset('assets_client') }}/css/app.min.css" rel="stylesheet">
+    <link href="{{ asset('assets_client/fonts/styles.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets_client/css/app.min.css') }}" rel="stylesheet">
     <script charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
@@ -88,7 +81,7 @@
             <div class="navbar-header">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{{ path('popem_client_index') }}">
-                        <img alt="" src="{{ asset('assets_client') }}/img/logo.png">
+                        <img alt="" src="{{ asset('assets_client/img/logo.png') }}">
                     </a>
                 </div>
                 <button aria-expanded="false" class="navbar-toggle collapsed"
@@ -131,16 +124,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <img alt="" src="{{ asset('assets_client') }}/img/logo.png">
+                <img alt="" src="{{ asset('assets_client/img/logo.png') }}">
                 <p></p>
                 <div class="col-xs-4">
-                    <img alt="" class="img-responsive" src="{{ asset('assets_client') }}/img/payments/bca.gif">
+                    <img alt="" class="img-responsive" src="{{ asset('assets_client/img/payments/bca.gif') }}">
                 </div>
                 <div class="col-xs-4">
-                    <img alt="" class="img-responsive" src="{{ asset('assets_client') }}/img/payments/mandiri.png">
+                    <img alt="" class="img-responsive" src="{{ asset('assets_client/img/payments/mandiri.png') }}">
                 </div>
                 <div class="col-xs-4">
-                    <img alt="" class="img-responsive" src="{{ asset('assets_client') }}/img/payments/bni.png">
+                    <img alt="" class="img-responsive" src="{{ asset('assets_client/img/payments/bni.png') }}">
                 </div>
             </div>
             <div class="col-md-3">
@@ -219,41 +212,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.8.0/parsley.min.js"></script>
 
 {% block vendorJS %}{% endblock %}
-<script charset="utf-8" src="{{ asset('assets_client') }}/js/app.min.js"></script>
+<script charset="utf-8" src="{{ asset('assets_client/js/app.min.js') }}"></script>
 
 <script>
-    $(function () {
-        $('.notification').find('.process-text').addClass('hide');
-
-        $(document).on('submit', '.popover #login-form', function (event) {
-            event.preventDefault();
-            var username = $('#_username').val(),
-                password = $('#_password').val(),
-                sendInfo = {"username": username, "password": password},
-                sourcePath = "{{ path('popem_api_client_login') }}",
-                destPath = "{{ path('popem_client_dashboard') }}",
-                input = $(this).find('input');
-
-            input.prop('disabled', true);
-            $('.notification').find('.process-text').removeClass('hide');
-            $(this).find('.process-text').text('Processing ...').removeClass('text-danger');
-
-            $.ajax({
-                type: 'POST',
-                url: sourcePath,
-                data: sendInfo,
-                success: function (msg) {
-                    if (msg.data.status === true) {
-                        location.href = destPath
-                    } else {
-                        input.prop('disabled', false);
-                        $('.notification').find('.process-text').removeClass('hide');
-                        $('.notification').find('.process-text').text(msg.data.message).addClass('text-danger');
-                    }
-                }
-            });
-        });
-    });
+    $(function(){$(".notification").find(".process-text").addClass("hide"),$(document).on("submit",".popover #login-form",function(t){t.preventDefault();var e={username:$("#_username").val(),password:$("#_password").val()},s=$(this).find("input");s.prop("disabled",!0),$(".notification").find(".process-text").removeClass("hide"),$(this).find(".process-text").text("Processing ...").removeClass("text-danger"),$.ajax({type:"POST",url:"{{ path('popem_api_client_login') }}",data:e,success:function(t){!0===t.data.status?location.href="{{ path('popem_client_dashboard') }}":(s.prop("disabled",!1),$(".notification").find(".process-text").removeClass("hide"),$(".notification").find(".process-text").text(t.data.message).addClass("text-danger"))}})})});
 </script>
 
 {% block customJS %}{% endblock %}
