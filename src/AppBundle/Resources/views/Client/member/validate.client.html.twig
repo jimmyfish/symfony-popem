@@ -22,6 +22,7 @@
                         <label for="v_client_phone">Phone:</label>
                         <input type="number" name="v_client_phone" id="v_client_phone"
                                class="form-control" required>
+                        <span class="text-danger" id="phone_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="v_client_address">Address:</label>
@@ -36,6 +37,7 @@
                         <label for="v_client_postal">Postal code:</label>
                         <input type="number" name="v_client_postal" id="v_client_postal"
                                class="form-control" required>
+                        <span class="text-danger" id="postal_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="v_client_state">State:</label>
@@ -62,6 +64,7 @@
                         <input type="number" name="v_client_bank_account"
                                id="v_client_bank_account"
                                class="form-control" required>
+                        <span class="text-danger" id="akun_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="v_client_beneficiary">Bank beneficiary name:</label>
@@ -82,4 +85,10 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block innerJS %}
+    <script>
+        $(function(){$("form").submit(function(a){var n=$(this),t=n.find("#v_client_phone"),e=n.find("#v_client_postal"),r=n.find("#v_client_bank_account"),o=n.find("#phone_error"),i=n.find("#postal_error"),l=n.find("#akun_error"),u={phone:t.val(),postal:e.val(),akun:r.val()},p=validate(u,{phone:{numeraticaly:!0,length:{minimum:5,maximum:20,tooShort:"harus lebih dari 5 karakter",tooLong:"harus kurang dari 20 karakter"}},postal:{numeraticaly:!0},akun:{numeraticaly:!0}});$("[id*=_error]").text(""),p&&(a.preventDefault(),p.phone&&o.text(p.phone[0]),p.postal&&i.text(p.postal[0]),p.akun&&l.text(p.akun[0]))})});
+    </script>
 {% endblock %}

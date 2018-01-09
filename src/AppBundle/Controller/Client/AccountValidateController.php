@@ -12,7 +12,6 @@ use AppBundle\Controller\Api\ApiController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class AccountValidateController extends Controller
 {
@@ -27,7 +26,6 @@ class AccountValidateController extends Controller
         );
 
         if ('POST' === $request->getMethod()) {
-            return new Response('Should be here');
             $img = $request->files->get('file');
 
             $data = $request->request->get('login');

@@ -16,10 +16,6 @@ class AccountAddController extends Controller
 {
     public function indexAction(Request $request)
     {
-        if (!1 == $request->getSession()->get('isLogin')) {
-            return $this->redirectToRoute('popem_client_login_warp');
-        }
-
         $api = new ApiController();
         $information['broker'] = $api->doRequest(
             'GET',

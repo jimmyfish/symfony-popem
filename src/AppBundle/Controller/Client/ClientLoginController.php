@@ -36,16 +36,14 @@ class ClientLoginController extends Controller
 
             if (true == $response['status']) {
                 $session->set('isLogin', true);
-
-                return $this->redirectToRoute('popem_client_dashboard');
             } else {
-                $request->getSession()->getFlashBag()->add(
-                    'message',
-                    $response['data']['message']
+                $this->addFlash(
+                    'auth_error',
+                    ucwords($response['data']['message'])
                 );
-
-                return $this->redirect($request->headers->get('referer'));
             }
+
+            return $this->redirect($request->headers->get('referer'));
         }
 
         return $this->render('AppBundle:Client:defaults/login.html.twig');
