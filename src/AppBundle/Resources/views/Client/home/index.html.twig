@@ -425,14 +425,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for key, value in kurs %}
+                                {% for data in information.broker.data.data %}
                                 <tr>
                                     <td class="text-left">
-                                        <img alt="" src="{{ asset('assets_client') }}/img/img-1.png"> {{ key }}
+                                        <img alt="" src="{{ asset('assets_client') }}/img/img-1.png"> {{ data.broker_name }}
                                     </td>
-                                    {% for data in value %}
-                                    <td>{{ data }}</td>
-                                    {% endfor %}
+                                    <td>{{ data.stock }}</td>
+                                    <td>{{ data.buy }}</td>
+                                    <td>{{ data.sell }}</td>
                                 </tr>
                                 {% endfor %}
                                 </tbody>
