@@ -66,7 +66,8 @@ popem_client_logout:
 popem_client_activate:
   path: /activate
   defaults:
-    _controller: AppBundle:Client:activate
+    _controller: AppBundle:Client/ClientActivate:activate
+  methods: GET
 
 popem_client_validate_client:
   path: /client/validate

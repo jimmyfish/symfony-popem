@@ -9,7 +9,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Post;
-use AppBundle\Controller\Api\ApiController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -36,24 +35,6 @@ class ClientController extends Controller
         $launch = explode($delimiters[0], $ready);
 
         return  $launch;
-    }
-
-    public function activateAction(Request $request)
-    {
-        if ('POST' === $request->getMethod()) {
-            $api = new ApiController();
-            $targetUrl = $this->container->getParameter('api_target').'/activate';
-
-            $options = ['key' => $request->get('key')];
-
-            $response = $api->doRequest('GET', $targetUrl, $options);
-
-            if (true == $response['status']) {
-                return $this->redirectToRoute('popem_client_login_warp');
-            }
-        }
-
-        return $this->render('AppBundle:Client:defaults/activate.html.twig');
     }
 
     public function dummyAction(Request $request)
