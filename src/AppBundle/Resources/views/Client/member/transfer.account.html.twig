@@ -27,8 +27,8 @@
                 <div class="form-group">
                     <label for="transfer_type">Tipe Transfer</label>
                     <select name="transfer_type" id="transfer_type" class="form-control">
-                        <option value="from">Transfer from Account</option>
-                        <option value="to">Transfer to Account</option>
+                        <option value="from">Transfer dari Akun</option>
+                        <option value="to">Transfer ke Akun</option>
                     </select>
                 </div>
             </div>
@@ -37,11 +37,11 @@
             <div class="col-md-8">
                 <form action="{{ path('popem_client_transfer_from') }}" id="transfer-from" method="post">
                     <div class="form-group">
-                        <label for="transfer_from_amount">Amount</label>
+                        <label for="transfer_from_amount">Jumlah</label>
                         <input type="number" name="transfer_from_amount" id="transfer_from_amount" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="transfer_from_account_id">Account ID</label>
+                        <label for="transfer_from_account_id">ID Akun</label>
                         <input type="number" name="transfer_from_account_id" id="transfer_from_account_id"
                                class="form-control">
                     </div>
@@ -51,11 +51,11 @@
                 </form>
                 <form action="{{ path('popem_client_transfer_to') }}" id="transfer-to" method="post" style="display: none;">
                     <div class="form-group">
-                        <label for="transfer_to_amount">Amount</label>
+                        <label for="transfer_to_amount">Jumlah</label>
                         <input type="number" name="transfer_to_amount" id="transfer_to_amount" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="transfer_to_account_id">Account ID</label>
+                        <label for="transfer_to_account_id">ID Akun</label>
                         <input type="number" class="form-control" id="transfer_to_account_id"
                                name="transfer_to_account_id">
                     </div>

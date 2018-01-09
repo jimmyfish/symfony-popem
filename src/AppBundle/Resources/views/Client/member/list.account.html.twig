@@ -16,7 +16,7 @@
                     <tr>
                         <th>No.</th>
                         <th>Login</th>
-                        <th>Broker Name</th>
+                        <th>Nama Broker</th>
                         <th>Validated</th>
                     </tr>
                     </thead>
@@ -30,9 +30,9 @@
                                 <td>{{ item.broker_name }}</td>
                                 <td>
                                     {% if item.is_validated == 1 %}
-                                        <span class="label label-success">Validated</span>
+                                        <span class="label label-success">Tervalidasi</span>
                                     {% else %}
-                                        <span class="label label-warning">Not Validated</span>
+                                        <span class="label label-warning">Belum tervalidasi</span>
                                     {% endif %}
                                 </td>
                             </tr>
