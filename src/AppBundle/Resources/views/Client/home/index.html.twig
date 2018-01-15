@@ -811,6 +811,25 @@
                         <div class="header">
                             <h1>Latest News</h1>
                         </div>
+                        {% if latest is not defined %}
+                            {% for news in latest %}
+                            <div class="row item">
+                                 <div class="col-xs-3">
+                                    {% if news.image is defined %}
+                                        <img src="{{ asset('uploads') }}/image/post/{{ news.image }}">
+                                    {% else %}    
+                                    <img alt="" class="img-responsive" src="{{ asset('assets_client/vendor/240x240') }}">
+                                    {% endif %}    
+                                </div>
+                                <div class="col-xs-9">
+                                <p class="news-date">
+                                    <i class="fa fa-clock-o"></i>  {{ news.publishedAt is empty ? "" : news.publishedAt|date('d M Y') }}
+                                </p>
+                                <a class="news-title" href="{{ path('popem_client_detail_blog',{slug: news.slug }) }}">{{ news.title }}</a>
+                                </div>
+                            </div>
+                            {% endfor %}    
+                        {% else %}
                         <div class="row item">
                             <div class="col-xs-3">
                                 <img alt="" class="img-responsive" src="{{ asset('assets_client/vendor/240x240') }}">
@@ -845,12 +864,23 @@
                                 </p>
                                 <a class="news-title" href="#">My Parents’ Country, in the Grip of the Shabab</a>
                             </div>
-                        </div>
+                        </div>    
+                        {% endif %}    
                     </div>
                     <div class="col-md-6">
                         <div class="header">
                             <h1>Testimonials</h1>
                         </div>
+                        {% if app.session.get('isLogin') %}
+                            <form method="post" action="{{ path('popem_client_testimonial') }}" class="form-horizontal">
+                                <div class="form-group">
+                                    <textarea rows="5" cols="50" name="testimonial" class="form-control"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="submit" class="btn btn-primary pull-right">
+                                </div>
+                            </form>
+                        {% else %}    
                         <div class="testimonial-wrapper">
                             <span>
                                 <i class="fa fa-quote-right fa-3x"></i>
@@ -916,7 +946,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- DO NOT EDIT OR LOOP CODE BELOW THIS -->
                         <div class="testimonial-identity">
                             <div class="col-xs-3 img-cont">
                                 <img alt="" src="{{ asset('assets_client/vendor/240x240') }}">
@@ -927,6 +956,9 @@
                                 <p class="name">Loading Name ...</p>
                             </div>
                         </div>
+                        {% endif %}    
+                        <!-- DO NOT EDIT OR LOOP CODE BELOW THIS -->
+                        
                         <!-- END OF WARNING -->
                     </div>
                 </div>

@@ -30,6 +30,11 @@ popem_client_category:
   defaults:
     _controller:  AppBundle:Dashboard/Blog:blogCategory
 
+popem_client_testimonial:
+  path: /testimonial
+  defaults:
+    _controller: AppBundle:Client/ClientTestimonial:testimonial    
+
 popem_client_dashboard:
   path: /client/dashboard
   defaults:

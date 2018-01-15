@@ -1,0 +1,21 @@
+AppBundle\Entity\Testimonial:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\TestimonialRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        nameTestimonial:
+            type: string
+            length: 255
+            column: name_testimonial
+        status:
+            type: integer    
+    lifecycleCallbacks: {  }
