@@ -40,6 +40,22 @@ popem_admin_update_page:
       _controller:  AppBundle:Dashboard/Page:updatePage
     methods:  [GET,POST]
 
+popem_admin_list_testimonial:
+    path: /list-testimonial
+    defaults:
+      _controller: AppBundle:Client/ClientTestimonial:testimonialList
+    methods: [GET]
+
+popem_admin_reject_testimonial:
+    path: /reject-testimonial/{id}
+    defaults:
+      _controller: AppBundle:Client/ClientTestimonial:rejectTestimonial  
+
+popem_admin_success_testimonial:
+    path: /success-testimonial/{id}
+    defaults:
+      _controller: AppBundle:Client/ClientTestimonial:successTestimonial
+      
 popem_admin_publish_page:
     path: /publish-page/{id}
     defaults:

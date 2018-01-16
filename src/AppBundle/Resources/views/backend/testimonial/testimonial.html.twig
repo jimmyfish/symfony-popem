@@ -1,0 +1,75 @@
+{% extends 'backend/layouts.html.twig' %}
+
+{% block content %}
+	<section class="table-layout animated fadeIn borderedBackground">
+		<div class="container-fluid">
+			<br>
+			<div class="row">
+				<div class="col-md-11 center-block">
+					<div class="col-md-12">
+						<div class="f-center">
+							 <i class="fa fa-list-alt" style="font-size: 48px;"></i>
+                            <h1>Daftar Testimonial</h1>
+						</div>
+						 <div style="padding:30px 10px 10px 10px;background-color: #fff;margin-top: 10px;border:6px solid rgba(204, 204, 204,0.5)">
+						 	<div class="panel panel-visible" id="spy2">
+						 		<div class="panel-body pn">
+						 			<table class="table table-stripped table-bordered table-responsive" id="datatable2" cellspacing="0" width="100%">
+						 				<thead>
+						 					<tr>
+						 						<th>No.</th>
+						 						<th>Name</th>
+						 						<th>Testimonial</th>
+						 						<th>Status</th>
+						 						<th>Aksi</th>
+						 					</tr>
+						 				</thead>
+						 				<tbody>
+											{% if data|length > 0 %}
+												{% set i = 1 %}
+												{% for dat in data %}
+													<tr>
+														<td>{{ i }}</td>
+														<td>{{ dat.name }}</td>
+														<td>{{ dat.nameTestimonial }}</td>
+														{% if dat.status == 0  %}
+															<td>
+																<span class="label label-warning">Pending</span>
+															</td>
+														{% elseif dat.status == 1 %}
+															<td>
+																<span class="label label-danger">Reject</span>
+															</td>
+														{% else %}
+															<td>
+																<span class="label label-success">Success</span>
+															</td>		
+														{% endif %}
+														<td>
+															<a href="{{ path('popem_admin_reject_testimonial',{id: dat.id}) }}" onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger btn-xs">REJECT</a>
+															<a href="{{ path('popem_admin_success_testimonial',{id: dat.id}) }}" onclick="return confirm('Apakah anda yakin?')" class="btn btn-success btn-xs">SUCCESS</a>
+														</td>
+													</tr>
+													{% set i = i + 1 %}
+												{% endfor %}	
+											{% else %}
+												<tr>
+													<td colspan="3">Data tidak ada</td>
+												</tr>
+											{% endif %}	
+						 				</tbody>
+						 			</table>
+						 		</div>
+						 	</div>
+						 </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+{% block customJS %}
+	<script>
+		$('datatable2').DataTable({});
+	</script>
+{% endblock %}
