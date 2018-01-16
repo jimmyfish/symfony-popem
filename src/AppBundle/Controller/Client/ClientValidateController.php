@@ -10,14 +10,16 @@ namespace AppBundle\Controller\Client;
 
 use AppBundle\Controller\Api\ApiController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class ClientValidateController extends Controller
 {
     public function indexAction(Request $request)
     {
+        $api = new ApiController();
+
         if ('POST' === $request->getMethod()) {
-            $api = new ApiController();
             $img = $request->files->get('v_client_file');
 
             $dirName = $this->getParameter('tmp_directory')['resource'];
@@ -103,6 +105,18 @@ class ClientValidateController extends Controller
             }
         }
 
-        return $this->render('AppBundle:Client:member/validate.client.html.twig');
+        $options['history']['order'] = [['field' => 'created_at', 'value' => 'desc']];
+
+        $information['history'] = $api->doRequest(
+            'GET',
+            $this->container->getParameter('api_target').'/validation-history?order='.
+            urlencode(serialize($options['history']['order']))
+        );
+
+        return new JsonResponse(var_dump($information['history']));
+
+        return $this->render('AppBundle:Client:member/validate.client.html.twig', [
+            'info' => $information,
+        ]);
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AppBundle\Controller\Client;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -8,34 +7,29 @@ use AppBundle\Controller\Api\ApiController;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Testimonial;
 
-class ClientTestimonialController extends Controller 
+class ClientTestimonialController extends Controller
 {
-	public function testimonialAction(Request $request)
-	{
-		$api = new ApiController();
+    public function testimonialAction(Request $request)
+    {
+        $api = new ApiController();
 
-		$manager = $this->getDoctrine()->getManager();
+        $manager = $this->getDoctrine()->getManager();
 
-		$targetUrl = $this->container->getParameter('api_target');
+        $targetUrl = $this->container->getParameter('api_target');
 
-		$response = $api->doRequest('GET', $targetUrl. '/user-info');
+        $response = $api->doRequest('GET', $targetUrl.'/user-info');
 
-		// return var_dump($response['data']['data']['username']);
+        // return var_dump($response['data']['data']['username']);
 
-		if('POST' == $request->getMethod())
-		{
-			$testimonial = new Testimonial();
-			$testimonial->setName($response['data']['data']['username']);
-			$testimonial->setNameTestimonial($request->get('testimonial'));
+        if ('POST' == $request->getMethod()) {
+            $testimonial = new Testimonial();
+            $testimonial->setName($response['data']['data']['username']);
+            $testimonial->setNameTestimonial($request->get('testimonial'));
 
-			$manager->persist($testimonial);
-			$manager->flush();
+            $manager->persist($testimonial);
+            $manager->flush();
 
-			return $this->redirect($request->headers->get('referer'));
-
-		}
-
-	}
-
-
+            return $this->redirect($request->headers->get('referer'));
+        }
+    }
 }

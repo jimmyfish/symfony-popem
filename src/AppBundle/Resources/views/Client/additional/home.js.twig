@@ -1,1 +1,316 @@
-function registerAction(a){a.preventDefault();var n=jQuery(".content-main"),e=n.find("form"),i=e.find("#username").val(),t=e.find("#email").val(),r=e.find("#password").val(),o=e.find("#password-confirm").val(),d=e.find("#register_username_error"),l=e.find("#register_password_error"),s=e.find("#register_email_error"),f=e.find("#register_passconf_error"),u={username:i,email:t,password:r,passconf:o},p=validate({username:i,email:t,password:o},{username:{presence:{allowEmpty:!1,message:"dibutuhkan"},length:{minimum:5,tooShort:"harus lebih dari 5 huruf"}},email:{presence:{allowEmpty:!1,message:"dibutuhkan"},email:!0},password:{presence:{allowEmpty:!1,message:"dibutuhkan"}}});$("[id*=_error]").text(""),p?(status=!1,null!=p.username&&d.text(p.username[0]),null!=p.email&&s.text(p.email[0]),null!=p.password&&l.text(p.password[0])):o!==r?f.text("Kata sandi tidak cocok"):"1"!=e.find("#register_checkbox:checked").val()?e.find("#register_agree_error").text("Anda harus menyetujui kebijakan yang ada"):$.ajax({type:"POST",url:"{{ path('popem_api_client_register') }}",data:u,beforeSend:function(){e.find("button").val("Memproses ..."),e.find("input, button").prop("disabled",!0),e.find(".spinner").removeClass("hide")},success:function(a){!0===a.status?(n.find(".success-notification").removeClass("hide"),n.find(".error-notification").hide(),n.find("form").hide()):(n.find(".error-notification").removeClass("hide"),n.find(".error-notification").find(".error-notif").text(a.data.message))},complete:function(){e.find("input, button").prop("disabled",!1),e.find(".spinner").addClass("hide")}})}function depositAction(a){a.preventDefault();var n=$(".content-main"),e=n.find("form"),i={login:e.find("#login").val(),email:e.find("#deposit_email").val(),bankAccount:e.find("#bank_account").val(),amount:e.find("#amount").val()},t=new FormData,r=validate(i,{login:{length:{minimum:6,maximum:8,tooShort:"harus lebih dari 6 karakter",tooLong:"harus kurang dari 8 karakter"},numericality:!0},email:{presence:{allowEmpty:!1},email:!0},bankAccount:{numericality:!0},amount:{numericality:!0}});$("[id*=_error]").text(""),r?(null!=r.login&&e.find("#deposit_login_error").text(r.login[0]),null!=r.email&&e.find("#deposit_email_error").text(r.email[0]),null!=r.bankAccount&&e.find("#deposit_akun_error").text(r.bankAccount[0]),null!=r.amount&&e.find("#deposit_amount_error").text(r.amount[0])):(t.append("broker_id",parseInt(e.find("#deposit__broker").val())),t.append("login",parseInt(e.find("#login").val())),t.append("email",e.find("#deposit_email").val()),t.append("phone",e.find("#phone").val()),t.append("bank_name",e.find("#bank_name").val()),t.append("bank_account",parseInt(e.find("#bank_account").val())),t.append("bank_beneficiary_name",e.find("#bank_beneficiary_name").val()),t.append("bank_id",parseInt(e.find("#bank_id").val())),t.append("amount",parseInt(e.find("#amount").val())),t.append("file",e.find("#file")[0].files[0]),$.ajax({type:"POST",url:"{{ path('popem_api_client_deposit_account') }}",data:t,contentType:!1,processData:!1,cache:!1,dataType:"json",beforeSend:function(){n.find("input").prop("disabled",!0),n.find("button").prop("disabled",!0),n.find(".caption").text("Memproses"),n.find(".spinner").removeClass("hide")},success:function(a){if(1==a.data.status){var i=n.find(".success-notification"),t=parseInt(a.data.amount_transfer).toLocaleString();i.find(".dept_amount").text(t),i.find(".ticket").text(a.data.ticket_number),e.hide(),n.find(".error-notification-depost").hide(),i.removeClass("hide")}else n.find(".error-notification-deposit").removeClass("hide"),n.find(".error-notification-deposit").find(".error-notif-deposit").text(a.data.message),e.hide()},complete:function(){e.find("input, button").prop("disabled",!1),e.find(".spinner").addClass("hide")},error:function(a){console.log(a)}}))}function withdrawalAccount(a){a.preventDefault();var n=jQuery(".content-main"),e=n.find("form"),i={login:e.find("#withdrawal_login").val(),email:e.find("#withdrawal_email").val(),bankAccount:e.find("#withdrawal_bank_account").val(),amount:e.find("#withdrawal_amount").val()},t={broker_id:parseInt(e.find("#withdrawal_broker_id").val()),login:parseInt(e.find("#withdrawal_login").val()),phone_password:e.find("#withdrawal_phone_password").val(),email:e.find("#withdrawal_email").val(),phone:e.find("#withdrawal_phone").val(),bank_name:e.find("#withdrawal_bank_name").val(),bank_account:e.find("#withdrawal_bank_account").val(),bank_beneficiary_name:e.find("#withdrawal_bank_beneficiary_name").val(),amount:parseInt(e.find("#withdrawal_amount").val())},r=validate(i,{login:{length:{minimum:6,maximum:8,tooShort:"harus lebih dari 6 karakter",tooLong:"harus kurang dari 8 karakter"},numericality:!0},email:{presence:{allowEmpty:!1},email:!0},bankAccount:{numericality:!0},amount:{numericality:!0}});$("[id*=_error]").text(""),r?(null!=r.login&&e.find("#withdrawal_login_error").text(r.login[0]),null!=r.email&&e.find("#withdrawal_email_error").text(r.email[0]),null!=r.bankAccount&&e.find("#withdrawal_akun_error").text(r.bankAccount[0]),null!=r.amount&&e.find("#withdrawal_amount_error").text(r.amount[0])):$.ajax({type:"POST",url:"{{ path('popem_api_client_withdrawal_account') }}",data:t,beforeSend:function(){n.find("input").prop("disabled",!0),n.find("button").prop("disabled",!0),n.find(".caption").text("Memproses"),n.find(".spinner").removeClass("hide")},success:function(a){if(1==a.data.status){var i=n.find(".success-notification");i.find(".ticket").text(a.data.ticket_number),e.hide(),n.find(".error-notification-withdrawal").hide(),i.removeClass("hide")}else n.find(".error-notification-withdrawal").removeClass("hide"),n.find(".error-notification-withdrawal").find(".error-notif-withdrawal").text(a.data.message),e.hide()},complete:function(){e.find("input, button").prop("disabled",!1),e.find(".spinner").addClass("hide")},error:function(a){console.log(a)}})}
+function registerAction(n) {
+    n.preventDefault();
+    var i = jQuery(".content-main"), a = i.find("form"),
+        usernameInput = a.find("#username").val(),
+        emailInput = a.find("#email").val(),
+        passwordInput = a.find("#password").val(),
+        passconfInput = a.find("#password-confirm").val(),
+        usernameError = a.find('#register_username_error'),
+        passwordError = a.find('#register_password_error'),
+        emailError = a.find('#register_email_error'),
+        passconfError = a.find('#register_passconf_error'),
+        e = {
+            username: usernameInput,
+            email: emailInput,
+            password: passwordInput,
+            passconf: passconfInput
+        },
+        inputVal = {
+            username: usernameInput,
+            email: emailInput,
+            password: passconfInput
+        },
+        constraints = {
+            username: {
+                presence: {
+                    allowEmpty: false,
+                    message: "dibutuhkan"
+                },
+                length: {
+                    minimum: 5,
+                    tooShort: "harus lebih dari 5 huruf"
+                }
+            },
+            email: {
+                presence: {
+                    allowEmpty: false,
+                    message: "dibutuhkan"
+                },
+                email: true
+            },
+            password: {
+                presence: {
+                    allowEmpty: false,
+                    message: "dibutuhkan"
+                }
+            }
+        },
+        validateResponse = validate(inputVal, constraints);
+
+    $("[id*=_error]").text("");
+
+    if (validateResponse) {
+        status = false
+
+        if (validateResponse.username != null) {
+            usernameError.text(validateResponse.username[0]);
+        }
+
+        if (validateResponse.email != null) {
+            emailError.text(validateResponse.email[0]);
+        }
+
+        if (validateResponse.password != null) {
+            passwordError.text(validateResponse.password[0]);
+        }
+
+    } else if (passconfInput !== passwordInput) {
+        passconfError.text('Kata sandi tidak cocok');
+    } else if (a.find('#register_checkbox:checked').val() != "1") {
+        a.find('#register_agree_error').text('Anda harus menyetujui kebijakan yang ada');
+    } else {
+        $.ajax({
+            type: "POST", url: "{{ path('popem_api_client_register') }}", data: e, beforeSend: function () {
+                a.find("button").val("Memproses ..."), a.find("input, button").prop("disabled", !0), a.find(".spinner").removeClass("hide")
+            }, success: function (n) {
+                !0 === n.status ? (i.find(".success-notification").removeClass("hide"), i.find(".error-notification").hide(), i.find("form").hide()) : (i.find(".error-notification").removeClass("hide"), i.find(".error-notification").find(".error-notif").text(n.data.message))
+            }, complete: function () {
+                a.find("input, button").prop("disabled", !1), a.find(".spinner").addClass("hide")
+            }
+        })
+    }
+
+}function depositAction(n) {
+    n.preventDefault();
+    var i = $(".content-main"), a = i.find("form"),
+        inputVal = {
+            login: a.find('#login').val(),
+            email: a.find('#deposit_email').val(),
+            bankAccount: a.find('#bank_account').val(),
+            amount: a.find('#amount').val()
+        },
+        constraints = {
+            login: {
+                length: {
+                    minimum: 6,
+                    maximum: 8,
+                    tooShort: 'harus lebih dari 6 karakter',
+                    tooLong: 'harus kurang dari 8 karakter'
+                },
+                numericality: true
+            },
+            email: {
+                presence: {
+                    allowEmpty: false
+                },
+                email: true
+            },
+            bankAccount: {
+                numericality: true
+            },
+            amount: {
+                numericality: true
+            }
+        },
+        e = new FormData,
+        validateInput = validate(inputVal, constraints);
+
+    $("[id*=_error]").text('');
+
+    if (validateInput) {
+        if (validateInput.login != null) {
+            a.find('#deposit_login_error').text(validateInput.login[0]);
+        }
+
+        if (validateInput.email != null) {
+            a.find('#deposit_email_error').text(validateInput.email[0]);
+        }
+
+        if (validateInput.bankAccount != null) {
+            a.find('#deposit_akun_error').text(validateInput.bankAccount[0]);
+        }
+
+        if (validateInput.amount != null) {
+            a.find('#deposit_amount_error').text(validateInput.amount[0]);
+        }
+
+    } else {
+        e.append("broker_id", parseInt(a.find("#deposit__broker").val())), e.append("login", parseInt(a.find("#login").val())), e.append("email", a.find("#deposit_email").val()), e.append("phone", a.find("#phone").val()), e.append("bank_name", a.find("#bank_name").val()), e.append("bank_account", parseInt(a.find("#bank_account").val())), e.append("bank_beneficiary_name", a.find("#bank_beneficiary_name").val()), e.append("bank_id", parseInt(a.find("#bank_id").val())), e.append("amount", parseInt(a.find("#amount").val())), e.append("file", a.find("#file")[0].files[0]), $.ajax({
+            type: "POST",
+            url: "{{ path('popem_api_client_deposit_account') }}",
+            data: e,
+            contentType: !1,
+            processData: !1,
+            cache: !1,
+            dataType: "json",
+            beforeSend: function () {
+                i.find("input").prop("disabled", !0), i.find("button").prop("disabled", !0), i.find(".caption").text("Memproses"), i.find(".spinner").removeClass("hide")
+            },
+            success: function (n) {
+                if (1 == n.data.status) {
+                    var e = i.find(".success-notification"), t = parseInt(n.data.amount_transfer).toLocaleString();
+                    e.find(".dept_amount").text(t), e.find(".ticket").text(n.data.ticket_number), a.hide(), i.find(".error-notification-depost").hide(), e.removeClass("hide")
+                } else i.find(".error-notification-deposit").removeClass("hide"), i.find(".error-notification-deposit").find(".error-notif-deposit").text(n.data.message), a.hide()
+            },
+            complete: function () {
+                a.find("input, button").prop("disabled", !1), a.find(".spinner").addClass("hide")
+            },
+            error: function (n) {
+                console.log(n)
+            }
+        })
+    }
+
+}function withdrawalAccount(n) {
+    n.preventDefault();
+    var i = jQuery(".content-main"), a = i.find("form"),
+        inputVal = {
+            login: a.find('#withdrawal_login').val(),
+            email: a.find('#withdrawal_email').val(),
+            bankAccount: a.find('#withdrawal_bank_account').val(),
+            amount: a.find('#withdrawal_amount').val()
+        },
+        constraints = {
+            login: {
+                length: {
+                    minimum: 6,
+                    maximum: 8,
+                    tooShort: 'harus lebih dari 6 karakter',
+                    tooLong: 'harus kurang dari 8 karakter'
+                },
+                numericality: true
+            },
+            email: {
+                presence: {
+                    allowEmpty: false
+                },
+                email: true
+            },
+            bankAccount: {
+                numericality: true
+            },
+            amount: {
+                numericality: true
+            }
+        },
+        e = {
+            broker_id: parseInt(a.find("#withdrawal_broker_id").val()),
+            login: parseInt(a.find("#withdrawal_login").val()),
+            phone_password: a.find("#withdrawal_phone_password").val(),
+            email: a.find("#withdrawal_email").val(),
+            phone: a.find("#withdrawal_phone").val(),
+            bank_name: a.find("#withdrawal_bank_name").val(),
+            bank_account: a.find("#withdrawal_bank_account").val(),
+            bank_beneficiary_name: a.find("#withdrawal_bank_beneficiary_name").val(),
+            amount: parseInt(a.find("#withdrawal_amount").val())
+        },
+        validateInput = validate(inputVal, constraints);
+
+    $("[id*=_error]").text('');
+
+    if (validateInput) {
+        if (validateInput.login != null) {
+            a.find('#withdrawal_login_error').text(validateInput.login[0]);
+        }
+
+        if (validateInput.email != null) {
+            a.find('#withdrawal_email_error').text(validateInput.email[0]);
+        }
+
+        if (validateInput.bankAccount != null) {
+            a.find('#withdrawal_akun_error').text(validateInput.bankAccount[0]);
+        }
+
+        if (validateInput.amount != null) {
+            a.find('#withdrawal_amount_error').text(validateInput.amount[0]);
+        }
+    } else {
+        $.ajax({
+            type: "POST", url: "{{ path('popem_api_client_withdrawal_account') }}", data: e, beforeSend: function () {
+                i.find("input").prop("disabled", !0), i.find("button").prop("disabled", !0), i.find(".caption").text("Memproses"), i.find(".spinner").removeClass("hide")
+            }, success: function (n) {
+                if (1 == n.data.status) {
+                    var e = i.find(".success-notification");
+                    e.find(".ticket").text(n.data.ticket_number), a.hide(), i.find(".error-notification-withdrawal").hide(), e.removeClass("hide")
+                } else i.find(".error-notification-withdrawal").removeClass("hide"), i.find(".error-notification-withdrawal").find(".error-notif-withdrawal").text(n.data.message), a.hide()
+            }, complete: function () {
+                a.find("input, button").prop("disabled", !1), a.find(".spinner").addClass("hide")
+            }, error: function (n) {
+                console.log(n)
+            }
+        })
+    }
+
+}function reportAccount(a) {
+    a.preventDefault();
+    var n = jQuery(".content-main"), e = n.find("form"),
+        loginVal = e.find('#report_login'),
+        loginError = e.find('#report_login_error'),
+        sitePointFinance = "{{ path('popem_api_client_report_finance') }}",
+        sitePointRebate = "{{ path('popem_api_client_report_rebate') }}",
+        endPoint = null,
+        radioVal = parseInt(e.find("input[name='opt1']:checked").val()),
+        inputVal = {
+            login: loginVal.val()
+        },
+        constraints = {
+            login: {
+                length: {
+                    minimum: 6,
+                    maximum: 8,
+                    tooShort: "harus lebih dari 6 karakter",
+                    tooLong: "harus kurang dari 8 karakter"
+                },
+                numericality: true
+            }
+        },
+        valid = validate(inputVal, constraints);
+
+    $("[id*=_error]").text('');
+
+    if (valid) {
+        if (valid.login != null) {
+            loginError.text(valid.login[0]);
+        }
+    } else {
+        if (radioVal == 1) {
+            endPoint = sitePointFinance;
+            var mainTable = n.find('#finance-table tbody');
+        } else {
+            endPoint = sitePointRebate;
+            var mainTable = n.find('#rebate-table tbody');
+        }
+
+        var formData = {
+            login: loginVal.val(),
+            phone_password: e.find('#report_phone_password').val(),
+            broker_id: e.find('#report_broker_id').find(':selected').val()
+        }
+
+        $.ajax({
+            type: "POST",
+            data: formData,
+            url: endPoint,
+            beforeSend: function () {
+                console.log('sending...');
+            },
+            success: function (result) {
+                if (result.status == !0) {
+                    console.log(result);
+                    var tableContent = '';
+                    jQuery.each(result.data.data, function (key, value) {
+                        var givenDate = new Date(value.created_at);
+                        tableContent += '<tr>' +
+                            '<td>'+ value.ticket +'</td>' +
+                            '<td>'+ givenDate.toLocaleDateString("en-US") +'</td>'   +
+                            '</tr>';
+                    });
+                    mainTable.html(tableContent);
+                }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
+}

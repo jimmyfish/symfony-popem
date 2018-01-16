@@ -11,38 +11,40 @@
                         {{ msg }}
                     </div>
                 {% endfor %}
-                <form method="post" action="{{ path('popem_client_validate_client') }}" enctype="multipart/form-data">
+                <form method="post" action="{{ path('popem_client_validate_client') }}" enctype="multipart/form-data"
+                      autocomplete="on">
 
                     <div class="form-group">
                         <label for="v_client_name">Nama</label>
                         <input type="text" name="v_client_name" id="v_client_name"
-                               class="form-control" required>
+                               class="form-control" value="{{ app.request.request.get('v_client_name') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="v_client_phone">Nomor telepon</label>
-                        <input type="number" name="v_client_phone" id="v_client_phone"
-                               class="form-control" required>
+                        <input type="text" name="v_client_phone" id="v_client_phone"
+                               class="form-control" value="{{ app.request.request.get('v_client_phone') }}" required>
                         <span class="text-danger" id="phone_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="v_client_address">Alamat</label>
-                        <textarea name="v_client_address" id="v_client_address" class="form-control"></textarea>
+                        <textarea name="v_client_address" id="v_client_address"
+                                  class="form-control">{{ app.request.request.get('v_client_address') }}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="v_client_city">Kota</label>
                         <input type="text" name="v_client_city" id="v_client_city"
-                               class="form-control" required>
+                               class="form-control" value="{{ app.request.request.get('v_client_city') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="v_client_postal">Kode pos</label>
-                        <input type="number" name="v_client_postal" id="v_client_postal"
-                               class="form-control" required>
+                        <input type="text" name="v_client_postal" id="v_client_postal"
+                               class="form-control" value="{{ app.request.request.get('v_client_postal') }}" required>
                         <span class="text-danger" id="postal_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="v_client_state">Provinsi</label>
                         <input type="text" name="v_client_state" id="v_client_state"
-                               class="form-control" required>
+                               class="form-control" value="{{ app.request.request.get('v_client_state') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="v_client_country">Negara</label>
@@ -56,20 +58,20 @@
                     <div class="form-group">
                         <label for="v_client_bank_name">Nama bank</label>
                         <input type="text" name="v_client_bank_name"
-                               id="v_client_bank_name"
+                               id="v_client_bank_name" value="{{ app.request.request.get('v_client_bank_name') }}"
                                class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="v_client_bank_account">Nomor rekening bank</label>
-                        <input type="number" name="v_client_bank_account"
-                               id="v_client_bank_account"
+                        <input type="text" name="v_client_bank_account"
+                               id="v_client_bank_account" value="{{ app.request.request.get('v_client_bank_account') }}"
                                class="form-control" required>
                         <span class="text-danger" id="akun_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="v_client_beneficiary">Nama pemilik rekening</label>
                         <input type="text" name="v_client_beneficiary"
-                               id="v_client_beneficiary"
+                               id="v_client_beneficiary" value="{{ app.request.request.get('v_client_beneficiary') }}"
                                class="form-control" required>
                     </div>
                     <div class="form-group">
@@ -89,6 +91,6 @@
 
 {% block innerJS %}
     <script>
-        $(function(){$("form").submit(function(a){var n=$(this),t=n.find("#v_client_phone"),e=n.find("#v_client_postal"),r=n.find("#v_client_bank_account"),o=n.find("#phone_error"),i=n.find("#postal_error"),l=n.find("#akun_error"),u={phone:t.val(),postal:e.val(),akun:r.val()},p=validate(u,{phone:{numeraticaly:!0,length:{minimum:5,maximum:20,tooShort:"harus lebih dari 5 karakter",tooLong:"harus kurang dari 20 karakter"}},postal:{numeraticaly:!0},akun:{numeraticaly:!0}});$("[id*=_error]").text(""),p&&(a.preventDefault(),p.phone&&o.text(p.phone[0]),p.postal&&i.text(p.postal[0]),p.akun&&l.text(p.akun[0]))})});
+        $(function(){$("form").submit(function(n){var t=$(this),a=t.find("#v_client_phone"),r=t.find("#v_client_postal"),e=t.find("#v_client_bank_account"),i=t.find("#phone_error"),o=t.find("#postal_error"),l=t.find("#akun_error"),u={phone:a.val(),postal:r.val(),akun:e.val()},h=validate(u,{phone:{numericality:!0,length:{minimum:5,maximum:20,tooShort:"harus lebih dari 5 karakter",tooLong:"harus kurang dari 20 karakter"}},postal:{numericality:!0,length:{is:5,wrongLength:"harus 5 karakter"}},akun:{numericality:!0}});$("[id*=_error]").text(""),h&&(n.preventDefault(),h.phone&&i.text(h.phone[0]),h.postal&&o.text(h.postal[0]),h.akun&&l.text(h.akun[0]))})});
     </script>
 {% endblock %}

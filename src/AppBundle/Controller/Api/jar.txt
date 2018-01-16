@@ -1,1 +1,0 @@
-[{"Name":"ci_session","Value":"5vk8rdmfidv3d1urssundcvq0v9cdp1r","Domain":"localhost","Path":"\/","Max-Age":"300","Expires":1512562670,"Secure":false,"Discard":false,"HttpOnly":true}]

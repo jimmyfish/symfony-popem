@@ -25,6 +25,7 @@
     <script charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
+<div class="se-pre-con"></div>
 <section class="sticky-top shadowed">
     <section id="topper-nav">
         <div class="container">
@@ -210,12 +211,27 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.8.0/parsley.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
 
 {% block vendorJS %}{% endblock %}
 <script charset="utf-8" src="{{ asset('assets_client/js/app.min.js') }}"></script>
 
 <script>
-    $(function(){$(".notification").find(".process-text").addClass("hide"),$(document).on("submit",".popover #login-form",function(t){t.preventDefault();var e={username:$("#_username").val(),password:$("#_password").val()},s=$(this).find("input");s.prop("disabled",!0),$(".notification").find(".process-text").removeClass("hide"),$(this).find(".process-text").text("Processing ...").removeClass("text-danger"),$.ajax({type:"POST",url:"{{ path('popem_api_client_login') }}",data:e,success:function(t){!0===t.data.status?location.href="{{ path('popem_client_dashboard') }}":(s.prop("disabled",!1),$(".notification").find(".process-text").removeClass("hide"),$(".notification").find(".process-text").text(t.data.message).addClass("text-danger"))}})})});
+    $(function () {
+        $(".se-pre-con").fadeOut("slow");
+        $(".notification").find(".process-text").addClass("hide"), $(document).on("submit", ".popover #login-form", function (t) {
+            t.preventDefault();
+            var e = {username: $("#_username").val(), password: $("#_password").val()}, s = $(this).find("input");
+            s.prop("disabled", !0), $(".notification").find(".process-text").removeClass("hide"), $(this).find(".process-text").text("Processing ...").removeClass("text-danger"), $.ajax({
+                type: "POST",
+                url: "{{ path('popem_api_client_login') }}",
+                data: e,
+                success: function (t) {
+                    !0 === t.data.status ? location.href = "{{ path('popem_client_dashboard') }}" : (s.prop("disabled", !1), $(".notification").find(".process-text").removeClass("hide"), $(".notification").find(".process-text").text(t.data.message).addClass("text-danger"))
+                }
+            })
+        })
+    });
 </script>
 
 {% block customJS %}{% endblock %}

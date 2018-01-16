@@ -58,6 +58,18 @@ popem_api_client_list_account:
     _controller: AppBundle:Api/User:listAccount
   methods: GET
 
+popem_api_client_report_finance:
+  path: /report-finance
+  defaults:
+    _controller: AppBundle:Api/ReportFinance:index
+  methods: POST
+
+popem_api_client_report_rebate:
+  path: /report-rebate
+  defaults:
+    _controller: AppBundle:Api/ReportRebate:index
+  methods: POST
+
 popem_api_client_dummy:
   path: /dummy
   defaults:

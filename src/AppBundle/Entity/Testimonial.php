@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 /**
- * Testimonial
+ * Testimonial.
  */
 class Testimonial
 {
@@ -23,13 +23,12 @@ class Testimonial
     private $nameTestimonial;
 
     /**
-    * @var int
-    */
+     * @var int
+     */
     private $status;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -39,7 +38,7 @@ class Testimonial
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -53,7 +52,7 @@ class Testimonial
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -63,7 +62,7 @@ class Testimonial
     }
 
     /**
-     * Set nameTestimonial
+     * Set nameTestimonial.
      *
      * @param string $nameTestimonial
      *
@@ -77,7 +76,7 @@ class Testimonial
     }
 
     /**
-     * Get nameTestimonial
+     * Get nameTestimonial.
      *
      * @return string
      */
@@ -98,4 +97,3 @@ class Testimonial
         return $this->status;
     }
 }
-
