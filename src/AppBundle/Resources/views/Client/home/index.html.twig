@@ -840,6 +840,7 @@
                             </span>
                             <div class="carousel slide" data-ride="carousel" id="testimonial">
                                 <div class="carousel-inner">
+                                    {% if data is empty %}
                                     <div class="item active">
                                         <div class="carousel-content">
                                             <div>
@@ -888,6 +889,36 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {% else %}
+                                        {% for dat in data %}
+                                        <div class="item active">
+                                            <div class="carousel-content">
+                                                <div>
+                                                    <p>
+                                                        {{ dat.nameTestimonial }}            
+                                                    </p>
+                                                    <div class="identity hide">
+                                                        <div class="name">{{ dat.name }}</div>
+                                                        <img src="{{ asset('assets_client/vendor/240x240') }}" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="carousel-content">
+                                                <div>
+                                                    <p>
+                                                        {{ dat.nameTestimonial }}
+                                                    </p>
+                                                    <div class="identity hide">
+                                                        <div class="name">{{ dat.name }}</div>
+                                                        <img src="{{ asset('assets_client/vendor/240x240') }}" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}    
+                                    {% endif %}    
                                 </div>
                             </div>
                         </div>

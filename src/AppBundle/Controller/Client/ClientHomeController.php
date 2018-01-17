@@ -11,11 +11,16 @@ namespace AppBundle\Controller\Client;
 use AppBundle\Controller\Api\ApiController;
 use Goutte\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\Testimonial;
 
 class ClientHomeController extends Controller
 {
     public function indexAction()
     {
+        $manager = $this->getDoctrine()->getManager();
+
+        $data = $manager->getRepository(Testimonial::class)->findAll();
+
         $api = new ApiController();
 
         $targetUrl = $this->container->getParameter('api_target');
@@ -25,6 +30,7 @@ class ClientHomeController extends Controller
 
         return $this->render('AppBundle:Client:home/index.html.twig', [
             'information' => $information,
+            'data' => $data
         ]);
     }
 }
