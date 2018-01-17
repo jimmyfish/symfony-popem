@@ -1,96 +1,172 @@
 {% extends 'Client/dashboard.layout.html.twig' %}
 
+{% macro formContent(collection) %}
+    <div class="row">
+        <div class="col-md-8">
+            {% for msg in app.session.getFlashBag().get('message_error') %}
+                <div class="alert alert-danger">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+            {% if collection.history.data.data|length > 0 %}
+                <p>
+                    Status pengajuan terakhir :
+                    {% if collection.history.data.data.0.status == 1 %}
+                        <span class="label label-success">Diterima</span>
+                    {% elseif collection.history.data.data.0.status == 3 %}
+                        <span class="label label-warning">Ditolak</span>
+                    {% endif %}
+                </p>
+            {% endif %}
+
+            <form method="post" action="{{ path('popem_client_validate_client') }}"
+                  enctype="multipart/form-data"
+                  autocomplete="on">
+
+                <div class="form-group">
+                    <label for="v_client_name">Nama</label>
+                    <input type="text" name="v_client_name" id="v_client_name"
+                           class="form-control" value="{{ app.request.request.get('v_client_name') }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="v_client_phone">Nomor telepon</label>
+                    <input type="text" name="v_client_phone" id="v_client_phone"
+                           class="form-control" value="{{ app.request.request.get('v_client_phone') }}"
+                           required>
+                    <span class="text-danger" id="phone_error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="v_client_address">Alamat</label>
+                    <textarea name="v_client_address" id="v_client_address"
+                              class="form-control">{{ app.request.request.get('v_client_address') }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="v_client_city">Kota</label>
+                    <input type="text" name="v_client_city" id="v_client_city"
+                           class="form-control" value="{{ app.request.request.get('v_client_city') }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="v_client_postal">Kode pos</label>
+                    <input type="text" name="v_client_postal" id="v_client_postal"
+                           class="form-control" value="{{ app.request.request.get('v_client_postal') }}"
+                           required>
+                    <span class="text-danger" id="postal_error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="v_client_state">Provinsi</label>
+                    <input type="text" name="v_client_state" id="v_client_state"
+                           class="form-control" value="{{ app.request.request.get('v_client_state') }}"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label for="v_client_country">Negara</label>
+                    <select name="v_client_country" id="v_client_country"
+                            class="form-control">
+                        <option value="ID">Indonesia</option>
+                        <option value="MY">Malaysia</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="v_client_bank_name">Nama bank</label>
+                    <input type="text" name="v_client_bank_name"
+                           id="v_client_bank_name" value="{{ app.request.request.get('v_client_bank_name') }}"
+                           class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="v_client_bank_account">Nomor rekening bank</label>
+                    <input type="text" name="v_client_bank_account"
+                           id="v_client_bank_account"
+                           value="{{ app.request.request.get('v_client_bank_account') }}"
+                           class="form-control" required>
+                    <span class="text-danger" id="akun_error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="v_client_beneficiary">Nama pemilik rekening</label>
+                    <input type="text" name="v_client_beneficiary"
+                           id="v_client_beneficiary"
+                           value="{{ app.request.request.get('v_client_beneficiary') }}"
+                           class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="v_client_file">File</label>
+                    <input type="file" name="v_client_file" id="v_client_file"
+                           class="form-control" required>
+                </div>
+                <div class="form-group text-right">
+                    <input type="submit" value="Validate" class="btn red-button">
+                </div>
+
+            </form>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro tableHistory(collection) %}
+    <div class="row mt-20">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Tiket</th>
+                    <th>Nama</th>
+                    <th>Nama Bank</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data in collection.history.data.data %}
+                    <tr>
+                        <th>{{ data.created_at|date('d M Y') }}</th>
+                        <th>{{ data.ticket }}</th>
+                        <th>{{ data.name }}</th>
+                        <th>{{ data.bank_name }}</th>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endmacro %}
+
 {% block mainContent %}
     <div class="container">
         <h2 class="mb-20">Validate Client</h2>
 
-        <div class="row">
-            <div class="col-md-8">
-                {% for msg in app.session.getFlashBag().get('message_error') %}
-                    <div class="alert alert-danger">
-                        {{ msg }}
-                    </div>
-                {% endfor %}
-                <form method="post" action="{{ path('popem_client_validate_client') }}" enctype="multipart/form-data"
-                      autocomplete="on">
-
-                    <div class="form-group">
-                        <label for="v_client_name">Nama</label>
-                        <input type="text" name="v_client_name" id="v_client_name"
-                               class="form-control" value="{{ app.request.request.get('v_client_name') }}" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="v_client_phone">Nomor telepon</label>
-                        <input type="text" name="v_client_phone" id="v_client_phone"
-                               class="form-control" value="{{ app.request.request.get('v_client_phone') }}" required>
-                        <span class="text-danger" id="phone_error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="v_client_address">Alamat</label>
-                        <textarea name="v_client_address" id="v_client_address"
-                                  class="form-control">{{ app.request.request.get('v_client_address') }}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="v_client_city">Kota</label>
-                        <input type="text" name="v_client_city" id="v_client_city"
-                               class="form-control" value="{{ app.request.request.get('v_client_city') }}" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="v_client_postal">Kode pos</label>
-                        <input type="text" name="v_client_postal" id="v_client_postal"
-                               class="form-control" value="{{ app.request.request.get('v_client_postal') }}" required>
-                        <span class="text-danger" id="postal_error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="v_client_state">Provinsi</label>
-                        <input type="text" name="v_client_state" id="v_client_state"
-                               class="form-control" value="{{ app.request.request.get('v_client_state') }}" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="v_client_country">Negara</label>
-                        <select name="v_client_country" id="v_client_country"
-                                class="form-control">
-                            <option value="ID">Indonesia</option>
-                            <option value="MY">Malaysia</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="v_client_bank_name">Nama bank</label>
-                        <input type="text" name="v_client_bank_name"
-                               id="v_client_bank_name" value="{{ app.request.request.get('v_client_bank_name') }}"
-                               class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="v_client_bank_account">Nomor rekening bank</label>
-                        <input type="text" name="v_client_bank_account"
-                               id="v_client_bank_account" value="{{ app.request.request.get('v_client_bank_account') }}"
-                               class="form-control" required>
-                        <span class="text-danger" id="akun_error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="v_client_beneficiary">Nama pemilik rekening</label>
-                        <input type="text" name="v_client_beneficiary"
-                               id="v_client_beneficiary" value="{{ app.request.request.get('v_client_beneficiary') }}"
-                               class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="v_client_file">File</label>
-                        <input type="file" name="v_client_file" id="v_client_file"
-                               class="form-control" required>
-                    </div>
-                    <div class="form-group text-right">
-                        <input type="submit" value="Validate" class="btn red-button">
-                    </div>
-
-                </form>
-            </div>
-        </div>
+        {% if info.history.data.data|length > 0 %}
+            {% if info.history.data.data.0.status == 0 %}
+                {{ _self.tableHistory(info) }}
+            {% else %}
+                {{ _self.formContent(info) }}
+            {% endif %}
+        {% else %}
+            {{ _self.formContent(info) }}
+        {% endif %}
     </div>
 {% endblock %}
 
 {% block innerJS %}
     <script>
-        $(function(){$("form").submit(function(n){var t=$(this),a=t.find("#v_client_phone"),r=t.find("#v_client_postal"),e=t.find("#v_client_bank_account"),i=t.find("#phone_error"),o=t.find("#postal_error"),l=t.find("#akun_error"),u={phone:a.val(),postal:r.val(),akun:e.val()},h=validate(u,{phone:{numericality:!0,length:{minimum:5,maximum:20,tooShort:"harus lebih dari 5 karakter",tooLong:"harus kurang dari 20 karakter"}},postal:{numericality:!0,length:{is:5,wrongLength:"harus 5 karakter"}},akun:{numericality:!0}});$("[id*=_error]").text(""),h&&(n.preventDefault(),h.phone&&i.text(h.phone[0]),h.postal&&o.text(h.postal[0]),h.akun&&l.text(h.akun[0]))})});
+        $(function () {
+            $('table').dataTable();
+            $("form").submit(function ( n ) {
+                var t = $(this), a = t.find("#v_client_phone"), r = t.find("#v_client_postal"),
+                    e = t.find("#v_client_bank_account"), i = t.find("#phone_error"), o = t.find("#postal_error"),
+                    l = t.find("#akun_error"), u = {phone: a.val(), postal: r.val(), akun: e.val()}, h = validate(u, {
+                        phone: {
+                            numericality: !0,
+                            length: {
+                                minimum: 5,
+                                maximum: 20,
+                                tooShort: "harus lebih dari 5 karakter",
+                                tooLong: "harus kurang dari 20 karakter"
+                            }
+                        },
+                        postal: {numericality: !0, length: {is: 5, wrongLength: "harus 5 karakter"}},
+                        akun: {numericality: !0}
+                    });
+                $("[id*=_error]").text(""), h && (n.preventDefault(), h.phone && i.text(h.phone[0]), h.postal && o.text(h.postal[0]), h.akun && l.text(h.akun[0]))
+            })
+        });
     </script>
 {% endblock %}

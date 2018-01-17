@@ -23,6 +23,11 @@ class ClientLogoutController extends Controller
 
         $cookie->clear();
 
-        return $this->redirect($request->headers->get('referer'));
+        $this->addFlash(
+            'message_success',
+            'Anda berhasil logout.'
+        );
+
+        return $this->redirectToRoute('popem_client_login_warp');
     }
 }

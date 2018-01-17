@@ -10,7 +10,6 @@ namespace AppBundle\Controller\Client;
 
 use AppBundle\Controller\Api\ApiController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class ClientValidateController extends Controller
@@ -112,8 +111,6 @@ class ClientValidateController extends Controller
             $this->container->getParameter('api_target').'/validation-history?order='.
             urlencode(serialize($options['history']['order']))
         );
-
-        return new JsonResponse(var_dump($information['history']));
 
         return $this->render('AppBundle:Client:member/validate.client.html.twig', [
             'info' => $information,
