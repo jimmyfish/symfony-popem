@@ -300,12 +300,13 @@
                                     Rebate
                                 </label>
                             </div>
+                            <span class="text-danger" id="report_error"></span>
                             <div class="form-group">
                                 <label for=""></label>
                                 <button class="btn btn-submit btn-block submitting" type="submit" onclick="reportAccount(event)">Proses</button>
                             </div>
                         </form>
-                        <div id="report_finance_wrapper" class="">
+                        <div id="report_table_wrapper" class="hide">
                             <h3>Laporan Keuangan</h3>
                             <p id="report_owner"></p>
                             <table class="table table-bordered" id="finance-table">
@@ -313,7 +314,8 @@
                                     <tr>
                                     <th>Ticket</th>
                                     <th>Tanggal</th>
-                                    <th>Balance</th>
+                                    <th>OPN</th>
+                                    <th>CLS</th>
                                     </tr>
                                 </thead>
                                 <tbody>

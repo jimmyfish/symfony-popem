@@ -44,6 +44,8 @@ class AuthEventListener implements EventSubscriberInterface
             'popem_client_withdrawal_client_post',
             'popem_client_deposit_client',
             'popem_client_testimonial',
+            'popem_client_history_withdrawal',
+            'popem_client_history_deposit',
         ];
 
         $url = $this->container->get('router')->generate($route);

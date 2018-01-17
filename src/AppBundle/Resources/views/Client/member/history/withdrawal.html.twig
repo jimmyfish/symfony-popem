@@ -1,0 +1,43 @@
+{% extends 'Client/dashboard.layout.html.twig' %}
+
+{% block mainContent %}
+    <div class="container">
+        <h2>Riwayat Penarikan</h2>
+        <p><i>(Withdrawal History)</i></p>
+        <p>&nbsp;</p>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-responsive">
+                    <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Nomor Tiket</th>
+                        <th>Jumlah</th>
+                        <th>OPN</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if info.data.count != 0 %}
+                        {% for data in info.data.data %}
+                            <tr>
+                                <td>{{ data.created_at|date("d M Y") }}</td>
+                                <td>{{ data.ticket }}</td>
+                                <td>{{ data.amount }}</td>
+                                <td>{{ data.open_balance }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block innerJS %}
+    <script>
+        $(function () {
+            $('table').dataTable();
+        });
+    </script>
+{% endblock %}

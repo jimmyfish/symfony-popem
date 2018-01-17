@@ -40,34 +40,6 @@ popem_client_dashboard:
   defaults:
     _controller: AppBundle:Client/ClientDashboard:index
 
-popem_client_login_warp:
-  path: /login
-  defaults:
-    _controller: AppBundle:Client/ClientLogin:index
-
-popem_client_forgot_password:
-  path: /forgot-password
-  defaults:
-    _controller: AppBundle:Client/PasswordForgot:passwordForgot
-  methods: [GET|POST]
-
-popem_client_reset_password:
-  path: /reset
-  defaults:
-    _controller: AppBundle:Client/PasswordReset:passwordReset
-  methods: [GET|POST]
-
-popem_client_setting_password:
-  path: /setting-password
-  defaults:
-    _controller: AppBundle:Client/ClientSettingPassword:index
-  methods: [GET|POST]
-
-popem_client_logout:
-  path: /logout
-  defaults:
-    _controller: AppBundle:Client/ClientLogout:index
-
 popem_client_activate:
   path: /activate
   defaults:
@@ -148,3 +120,11 @@ popem_client_dummy_form:
   path: /dummy
   defaults:
     _controller: AppBundle:Client:dummy
+
+popem_auth:
+  resource: "auth/routing.yml"
+  prefix: /auth
+
+popem_client_history:
+  resource: "history/routing.yml"
+  prefix: /client/history

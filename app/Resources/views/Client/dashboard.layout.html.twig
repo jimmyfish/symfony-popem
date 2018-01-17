@@ -46,6 +46,23 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="riwayatHeading">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionMenu" href="#riwayatCollapse" aria-expanded="false" aria-controls="collapseTwo">
+                                            Riwayat
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="riwayatCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="riwayatHeading">
+                                    <div class="panel-body">
+                                        <ul class="nav">
+                                            <li><a href="{{ path('popem_client_history_withdrawal') }}">Withdrawal</a></li>
+                                            <li><a href="{{ path('popem_client_history_deposit') }}">Deposit</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                             <a href="{{ path('popem_client_setting_password') }}">Pengaturan</a>
                         </div>
                     </div>

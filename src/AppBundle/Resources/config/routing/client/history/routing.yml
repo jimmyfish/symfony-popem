@@ -1,0 +1,9 @@
+popem_client_history_withdrawal:
+  path: /withdrawal
+  defaults:
+    _controller: AppBundle:Client/ClientWithdrawalHistory:index
+
+popem_client_history_deposit:
+  path: /deposit
+  defaults:
+    _controller: AppBundle:Client/ClientDepositHistory:index

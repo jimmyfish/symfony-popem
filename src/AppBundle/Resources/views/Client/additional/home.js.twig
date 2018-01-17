@@ -246,6 +246,9 @@ function registerAction(n) {
     var n = jQuery(".content-main"), e = n.find("form"),
         loginVal = e.find('#report_login'),
         loginError = e.find('#report_login_error'),
+        reportError = e.find('#report_error'),
+        tableContainer = n.find('#report_table_wrapper'),
+        mainTable = null,
         sitePointFinance = "{{ path('popem_api_client_report_finance') }}",
         sitePointRebate = "{{ path('popem_api_client_report_rebate') }}",
         endPoint = null,
@@ -275,10 +278,10 @@ function registerAction(n) {
     } else {
         if (radioVal == 1) {
             endPoint = sitePointFinance;
-            var mainTable = n.find('#finance-table tbody');
+            mainTable = n.find('#finance-table tbody');
         } else {
             endPoint = sitePointRebate;
-            var mainTable = n.find('#rebate-table tbody');
+            mainTable = n.find('#rebate-table tbody');
         }
 
         var formData = {
@@ -296,16 +299,24 @@ function registerAction(n) {
             },
             success: function (result) {
                 if (result.status == !0) {
-                    console.log(result);
+                    tableContainer.removeClass('hide');
                     var tableContent = '';
                     jQuery.each(result.data.data, function (key, value) {
-                        var givenDate = new Date(value.created_at);
+                        var givenDate = new Date(value.created_at),
+                            openBalance = '-';
+
+                        if (value.open_balance != null) openBalance = value.open_balance;
+
                         tableContent += '<tr>' +
                             '<td>'+ value.ticket +'</td>' +
-                            '<td>'+ givenDate.toLocaleDateString("en-US") +'</td>'   +
+                            '<td>'+ givenDate.toLocaleDateString("en-US") +'</td>' +
+                            '<td>'+ openBalance +'</td>'+
                             '</tr>';
                     });
                     mainTable.html(tableContent);
+                } else {
+                    tableContainer.addClass('hide');
+                    reportError.text(result.data.data.message);
                 }
             },
             error: function (e) {
