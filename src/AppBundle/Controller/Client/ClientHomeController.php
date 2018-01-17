@@ -30,7 +30,7 @@ class ClientHomeController extends Controller
 
         return $this->render('AppBundle:Client:home/index.html.twig', [
             'information' => $information,
-            'data' => $data
+            'data' => $data,
         ]);
     }
 }
