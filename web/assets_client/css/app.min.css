@@ -791,6 +791,10 @@ body {
     object-fit: cover;
 }
 
+.latest-news {
+    min-height: 200px;
+}
+
 .latest-news a:hover {
     text-decoration: none;
 }

@@ -258,13 +258,16 @@ function registerAction(n) {
         },
         constraints = {
             login: {
+                numericality: {
+                    onlyInteger: true,
+                    notValid: "harus berupa angka"
+                },
                 length: {
                     minimum: 6,
                     maximum: 8,
                     tooShort: "harus lebih dari 6 karakter",
                     tooLong: "harus kurang dari 8 karakter"
-                },
-                numericality: true
+                }
             }
         },
         valid = validate(inputVal, constraints);
@@ -316,7 +319,7 @@ function registerAction(n) {
                     mainTable.html(tableContent);
                 } else {
                     tableContainer.addClass('hide');
-                    reportError.text(result.data.data.message);
+                    reportError.text("Login atau Phone Password salah.");
                 }
             },
             error: function (e) {

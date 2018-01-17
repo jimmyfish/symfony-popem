@@ -122,9 +122,9 @@ popem_client_dummy_form:
     _controller: AppBundle:Client:dummy
 
 popem_auth:
-  resource: "auth/routing.yml"
+  resource: "@AppBundle/Resources/config/routing/client/auth/routing.yml"
   prefix: /auth
 
 popem_client_history:
-  resource: "history/routing.yml"
+  resource: "@AppBundle/Resources/config/routing/client/history/routing.yml"
   prefix: /client/history
