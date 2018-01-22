@@ -19,12 +19,11 @@ class ClientTestimonialController extends Controller
 
         $response = $api->doRequest('GET', $targetUrl.'/user-info');
 
-        // return var_dump($response['data']['data']['username']);
-
         if ('POST' == $request->getMethod()) {
             $testimonial = new Testimonial();
             $testimonial->setName($response['data']['data']['username']);
             $testimonial->setNameTestimonial($request->get('testimonial'));
+            $testimonial->setFile($response['data']['data']['file']);
 
             $manager->persist($testimonial);
             $manager->flush();

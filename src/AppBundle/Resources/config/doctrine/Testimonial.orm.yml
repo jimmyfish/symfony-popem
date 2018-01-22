@@ -16,6 +16,9 @@ AppBundle\Entity\Testimonial:
             type: string
             length: 255
             column: name_testimonial
+        file:
+            type: string
+            length: 255    
         status:
             type: integer    
     lifecycleCallbacks: {  }

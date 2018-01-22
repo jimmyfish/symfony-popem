@@ -23,6 +23,11 @@ class Testimonial
     private $nameTestimonial;
 
     /**
+    * @var string
+    */
+    private $file;
+
+    /**
      * @var int
      */
     private $status;
@@ -83,6 +88,18 @@ class Testimonial
     public function getNameTestimonial()
     {
         return $this->nameTestimonial;
+    }
+
+    public function setFile($file)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    public function getFile()
+    {
+        return $this->file;
     }
 
     public function setStatus($status)
